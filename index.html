@@ -3,104 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mk FinServ Group</title>
+<title>MK FinServ - Tax & Compliance</title>
 
 <style>
 body {
     margin:0;
-    font-family:Arial, sans-serif;
-    background:#f4f6f9;
-    text-align:center;
-}
-header {
-    background:#0a3d62;
-    padding:20px;
+    font-family: 'Segoe UI', sans-serif;
     color:white;
+    overflow-x:hidden;
+    background:#001f3f;
 }
-.logo {
-    width:150px;
+
+/* Animated Background */
+canvas {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
 }
-section {
+
+/* HERO */
+.hero {
+    text-align:center;
+    padding:80px 20px;
+}
+.hero img {
+    width:120px;
+}
+.hero h1 {
+    font-size:50px;
+    margin:10px 0;
+    color:#f5c542;
+}
+.hero h2 {
+    font-weight:300;
+}
+
+/* SECTION */
+.section {
     padding:40px 20px;
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
 }
-.contact-box {
-    background:white;
-    padding:20px;
-    border-radius:8px;
-    width:300px;
-    margin:20px auto;
-    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+.card {
+    background:rgba(255,255,255,0.95);
+    color:#001f3f;
+    padding:25px;
+    border-radius:15px;
+    width:48%;
+    margin-bottom:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    backdrop-filter:blur(10px);
 }
-.chat-btn {
+
+.card h3 {
+    color:#0a3d62;
+}
+
+.promise {
+    background:#f5c542;
+    color:#001f3f;
+    text-align:center;
+    padding:30px;
+    font-weight:bold;
+}
+
+/* CHAT BUTTON */
+.chat-button {
     position:fixed;
     bottom:20px;
     right:20px;
-    background:#0a3d62;
-    color:white;
-    padding:15px;
+    background:#f5c542;
+    width:60px;
+    height:60px;
     border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
     cursor:pointer;
+    box-shadow:0 5px 20px rgba(0,0,0,0.4);
 }
-.chat-popup {
-    display:none;
+
+/* WHATSAPP BUTTON */
+.whatsapp-button {
     position:fixed;
-    bottom:80px;
+    bottom:90px;
     right:20px;
-    width:300px;
-    background:white;
-    padding:20px;
-    border-radius:8px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    background:#25D366;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(0,0,0,0.4);
+    color:white;
+    text-decoration:none;
 }
+
+/* CHAT POPUP */
+.chat-popup {
+    position:fixed;
+    bottom:160px;
+    right:20px;
+    width:320px;
+    background:white;
+    color:#001f3f;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+    display:none;
+    animation:fadeIn 0.3s ease-in-out;
+}
+
 .chat-popup input {
     width:100%;
-    padding:8px;
-    margin:5px 0;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
 }
+
 .chat-popup button {
+    width:100%;
+    padding:12px;
     background:#0a3d62;
     color:white;
     border:none;
-    padding:10px;
-    width:100%;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(10px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@media(max-width:768px){
+    .card { width:100%; }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-    <img src="logo.jpg" class="logo">
-    <h1>Mk FinServ Group</h1>
-    <p>Tax | Investment | Compliance | Advisory</p>
-</header>
+<canvas id="chartCanvas"></canvas>
 
-<section>
-    <h2>Contact Us</h2>
-    <div class="contact-box">
+<div class="hero">
+    <img src="logo.jpg">
+    <h1>MK FinServ</h1>
+    <h2>Tax & Compliance</h2>
+</div>
+
+<div class="section">
+    <div class="card">
+        <h3>Our Services</h3>
+        <ul>
+            <li>Income Tax Returns (ITR)</li>
+            <li>GST Services</li>
+            <li>Tax Notices & Advisory</li>
+            <li><strong>Value Pack (Annual Tax Care Plan)</strong></li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Contact Us</h3>
         <p>Email: support@mkfinservgroup.com</p>
         <p>Phone: +91 7981182281</p>
     </div>
-</section>
+</div>
 
-<div class="chat-btn" onclick="openChat()">💬</div>
+<div class="promise">
+    ✔ Transparent Pricing | ✔ Timely & Accurate Filings | ✔ Reviewed by Qualified CA Professionals
+</div>
+
+<!-- WhatsApp Direct -->
+<a class="whatsapp-button" href="https://wa.me/917981182281" target="_blank">🟢</a>
+
+<!-- Chat Button -->
+<div class="chat-button" onclick="toggleChat()">💬</div>
 
 <div class="chat-popup" id="chatBox">
-    <h3>Let's Connect</h3>
+    <h4>Let's Connect</h4>
     <form action="https://formsubmit.co/support@mkfinservgroup.com" method="POST">
         <input type="text" name="Name" placeholder="Your Name" required>
         <input type="email" name="Email" placeholder="Your Email" required>
-        <input type="tel" name="Phone" placeholder="Your Phone" required>
+        <input type="tel" name="Phone" placeholder="Your Phone Number" required>
         <input type="hidden" name="_captcha" value="false">
         <button type="submit">Submit</button>
     </form>
 </div>
 
 <script>
-function openChat(){
-    var box = document.getElementById("chatBox");
-    box.style.display = box.style.display === "block" ? "none" : "block";
+function toggleChat(){
+    var chat = document.getElementById("chatBox");
+    chat.style.display = chat.style.display === "block" ? "none" : "block";
 }
+
+/* Financial Chart Animation */
+const canvas = document.getElementById("chartCanvas");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let points = [];
+for(let i=0;i<50;i++){
+    points.push(Math.random()*canvas.height);
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.beginPath();
+    ctx.moveTo(0, points[0]);
+    for(let i=1;i<points.length;i++){
+        ctx.lineTo(i*(canvas.width/50), points[i]);
+    }
+    ctx.strokeStyle="#f5c542";
+    ctx.lineWidth=2;
+    ctx.stroke();
+
+    for(let i=0;i<points.length;i++){
+        points[i] += (Math.random()-0.5)*5;
+    }
+    requestAnimationFrame(draw);
+}
+draw();
 </script>
 
 </body>
