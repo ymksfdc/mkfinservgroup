@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MK FinServ - Tax & Compliance</title>
-    <!-- Tailwind CSS for modern utility styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -22,6 +22,7 @@
 
         .bg-navy { background-color: var(--navy); }
         .text-gold { color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
         
         .hero-gradient {
             background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
@@ -71,14 +72,13 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
-        /* Ensuring the uploaded logo looks crisp */
+        /* Ensuring the logo.jpg file looks consistent */
         .logo-img {
-            object-fit: contain;
+            object-fit: cover;
             background: white;
             border-radius: 50%;
         }
 
-        /* Modal Styles */
         #formModal {
             display: none;
             position: fixed;
@@ -94,23 +94,37 @@
 
         .modal-content {
             width: 100%;
-            max-width: 700px;
+            max-width: 600px;
             background: white;
             border-radius: 24px;
             overflow: hidden;
             position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .form-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.2);
+        }
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 text-slate-800">
 
     <!-- Navbar -->
     <nav class="bg-navy text-white sticky top-0 z-50 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center gap-3">
-                    <img src="logo.jpg" alt="MK FinServ Logo" class="w-12 h-12 logo-img border-2 border-white shadow-sm">
+                    <!-- Updated to use logo.jpg -->
+                        <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
                     <div>
                         <span class="text-2xl font-bold tracking-tight block leading-none text-gold">MK FinServ</span>
                         <span class="text-[10px] uppercase tracking-[0.2em] opacity-80">Tax & Compliance</span>
@@ -120,32 +134,29 @@
                     <a href="#home" class="hover:text-gold transition-colors">Home</a>
                     <a href="#services" class="hover:text-gold transition-colors">Services</a>
                     <a href="#about" class="hover:text-gold transition-colors">About</a>
-                    <!-- Navigates to contact section -->
-                    <a href="#contact" class="bg-gold text-navy px-5 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all text-center">Contact Now</a>
+                    <a href="#contact" class="bg-gold text-navy px-6 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all">Contact Now</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-gradient text-white py-20 px-4 relative">
+    <section id="home" class="hero-gradient text-white py-24 px-4 relative">
         <div class="max-w-5xl mx-auto text-center relative z-10">
-            <img src="logo.jpg" alt="Logo" class="w-24 h-24 mx-auto mb-8 logo-img border-4 border-white/20 shadow-2xl">
+            <!-- Updated to use logo.jpg -->
+                <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
             
             <h1 class="text-4xl md:text-7xl font-extrabold mb-6">
                 Professional <span class="text-gold">Tax & Compliance</span> <br class="hidden md:block"> Solutions
             </h1>
-            <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto font-light">
+            <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
                 Secure your financial future with expert-reviewed Income Tax, GST, and Advisory services.
             </p>
-            <!-- <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <div class="flex justify-center">
                 <button onclick="openForm()" class="gold-button text-navy font-bold py-4 px-10 rounded-xl shadow-xl text-lg">
                     Request a Callback
                 </button>
-                <a href="#services" class="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 py-4 px-10 rounded-xl font-bold text-lg transition-all">
-                    View Our Services
-                </a>
-            </div> -->
+            </div>
         </div>
     </section>
 
@@ -186,7 +197,7 @@
     <section id="services" class="py-24 px-4 max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-navy mb-4">Our Services</h2>
-            <div class="w-20 h-1 bg-gold mx-auto"></div>
+            <div class="w-20 h-1 bg-gold mx-auto rounded-full"></div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -231,8 +242,8 @@
     <section id="about" class="py-20 bg-navy text-white px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl font-bold text-gold mb-8">About MK FinServ</h2>
-            <p class="text-lg opacity-80 leading-relaxed mb-8">
-                MK FinServ is a professional tax and compliance advisory firm dedicated to simplifying financial regulations for businesses and individuals. We combine deep domain expertise with a commitment to technology and transparency, ensuring that our clients can focus on their growth while we handle the complexities of tax law.
+            <p class="text-lg opacity-80 leading-relaxed mb-8 font-light">
+                MK FinServ is a professional tax and compliance advisory firm dedicated to simplifying financial regulations for businesses and individuals. We combine deep domain expertise with a commitment to technology and transparency.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="p-4 border border-white/10 rounded-xl">
@@ -260,7 +271,7 @@
         <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
                 <h2 class="text-4xl font-bold text-navy mb-6 leading-tight">Secure Your <br><span class="text-gold">Tax Compliance</span> Today</h2>
-                <p class="text-gray-600 mb-10">Our experts are just a click away. Reach out to us for any Income Tax, GST, or Business Advisory requirements.</p>
+                <p class="text-gray-600 mb-10 text-lg">Our experts are just a click away. Reach out to us for any Income Tax, GST, or Business Advisory requirements.</p>
                 
                 <div class="space-y-8">
                     <div class="flex items-center gap-5">
@@ -269,7 +280,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email Support</p>
-                            <p class="font-bold text-navy">support@mkfinservgroup.com</p>
+                            <a href="mailto:support@mkfinservgroup.com" class="font-bold text-navy hover:text-gold transition-colors">support@mkfinservgroup.com</a>
                         </div>
                     </div>
                     <div class="flex items-center gap-5">
@@ -285,8 +296,11 @@
             </div>
 
             <div class="bg-gray-50 p-8 md:p-10 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-center items-center text-center">
+                <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center text-gold text-3xl mb-6">
+                    <i class="ph-fill ph-headset"></i>
+                </div>
                 <h3 class="text-2xl font-bold text-navy mb-4">Expert Assistance</h3>
-                <p class="text-gray-500 mb-8">Click the button below to fill out our official callback request form.</p>
+                <p class="text-gray-500 mb-8">Fill out our callback form and an expert will guide you through the process.</p>
                 <button onclick="openForm()" class="gold-button text-navy font-bold py-4 px-10 rounded-xl shadow-xl text-lg w-full">
                     Request a Callback
                 </button>
@@ -298,7 +312,8 @@
     <footer class="bg-navy text-white pt-16 pb-8 px-4 border-t border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
             <div class="flex items-center gap-3">
-                <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
+                <!-- Updated to use logo.jpg -->
+                    <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
                 <span class="text-2xl font-bold text-gold">MK FinServ</span>
             </div>
             <div class="flex flex-wrap justify-center gap-8 text-sm text-gray-400">
@@ -308,84 +323,140 @@
                 <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
             </div>
         </div>
-        <div class="text-center text-[10px] text-gray-500 uppercase tracking-[0.2em]">
-            © 2026 MK FinServ Group | All Rights Reserved
+        <div class="text-center">
+             <div class="text-[10px] text-gray-500 uppercase tracking-[0.2em] mb-4">
+                © 2026 MK FinServ Group | All Rights Reserved
+            </div>
         </div>
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://whatsapp.com/channel/0029Vb7JDYyGZNCjB3bosO2T" target="_blank" class="whatsapp-float" title="Follow our WhatsApp Channel">
+    <a href="https://whatsapp.com/channel/0029Vb7JDYyGZNCjB3bosO2T" target="_blank" class="whatsapp-float flex items-center justify-center" title="Follow our WhatsApp Channel">
         <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
     </a>
 
-    <!-- Zoho Form Modal -->
+    <!-- Callback Form Modal -->
     <div id="formModal" onclick="closeModalOnOutsideClick(event)">
         <div class="modal-content">
-            <div class="bg-navy p-4 flex justify-between items-center">
-                <span class="text-gold font-bold">Request a Callback</span>
+            <div class="bg-navy p-6 flex justify-between items-center text-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
+                        <i class="ph-bold ph-phone-call text-gold"></i>
+                    </div>
+                    <span class="text-gold font-bold text-lg">Request a Callback</span>
+                </div>
                 <button onclick="closeForm()" class="text-white hover:text-gold transition-colors">
                     <i class="ph-bold ph-x text-2xl"></i>
                 </button>
             </div>
-            <div class="relative" style="height: 600px;">
-                <!-- Loading State -->
-                <div id="formLoading" class="absolute inset-0 flex items-center justify-center bg-white z-10">
-                    <div class="animate-spin rounded-full h-12 w-12 border-4 border-gold border-t-transparent"></div>
-                </div>
-                <!-- Zoho Form Iframe -->
-                <iframe 
-                    id="zohoIframe"
-                    aria-label='MK FinServ Contact Form' 
-                    frameborder="0" 
-                    style="height:100%; width:100%; border:none;" 
-                    src='https://forms.zohopublic.in/mkfinservmkfinse1/form/MkFinServForm/formperma/XEpgV1xV_wARlgJiZFjKc95FGW4Evz9bRVl5d-9XFSo'
-                    onload="document.getElementById('formLoading').style.display='none';"
-                ></iframe>
+            
+            <div class="p-8">
+                <form id="callbackForm" action="https://formspree.io/f/support@mkfinservgroup.com" method="POST" class="space-y-5">
+                    <input type="hidden" name="_subject" value="New Website Callback Request">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Full Name</label>
+                            <input type="text" name="name" required placeholder="John Doe" class="form-input">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Phone Number</label>
+                            <input type="tel" name="phone" required placeholder="1234567890" pattern="[0-9]{10}" class="form-input">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Email Address</label>
+                        <input type="email" name="email" required placeholder="john@example.com" class="form-input">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Service Type</label>
+                        <select name="service" required class="form-input bg-white">
+                            <option value="">Choose a service...</option>
+                            <option value="ITR Filing">ITR Filing</option>
+                            <option value="GST Services">GST Services</option>
+                            <option value="Tax Planning">Tax Planning</option>
+                            <option value="Annual Value Pack">Annual Value Pack</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Your Message</label>
+                        <textarea name="message" rows="3" placeholder="How can we help?" class="form-input resize-none"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="gold-button w-full text-navy font-extrabold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                        <span>Send Request</span>
+                        <i class="ph-bold ph-paper-plane-tilt"></i>
+                    </button>
+                </form>
+                <div id="formStatus" class="hidden mt-6 p-4 rounded-xl text-center font-medium"></div>
             </div>
         </div>
     </div>
 
-    <!-- Success Message Toast (Hidden by default) -->
+    <!-- Success Message Toast -->
     <div id="successToast" class="fixed top-10 left-1/2 -translate-x-1/2 z-[10000] bg-green-600 text-white px-8 py-4 rounded-2xl shadow-2xl transition-all duration-500 opacity-0 translate-y-[-100%] flex items-center gap-3">
         <i class="ph-bold ph-check-circle text-2xl"></i>
         <div>
-            <p class="font-bold">Form Submitted Successfully!</p>
-            <p class="text-sm opacity-90">Our team will reach out to you shortly.</p>
+            <p class="font-bold">Request Sent!</p>
+            <p class="text-sm opacity-90">We'll contact you shortly.</p>
         </div>
     </div>
 
     <script>
         function openForm() {
-            const modal = document.getElementById('formModal');
-            modal.classList.add('active');
+            document.getElementById('formModal').classList.add('active');
             document.body.style.overflow = 'hidden';
-            // Reset loader in case of re-open
-            document.getElementById('formLoading').style.display = 'flex';
-            document.getElementById('zohoIframe').src = document.getElementById('zohoIframe').src;
+            document.getElementById('formStatus').classList.add('hidden');
         }
 
         function closeForm() {
-            const modal = document.getElementById('formModal');
-            modal.classList.remove('active');
+            document.getElementById('formModal').classList.remove('active');
             document.body.style.overflow = 'auto';
-            
-            // Show success message simulation (since we can't detect iframe cross-origin submit)
-            // In a real scenario, Zoho would redirect or use a webhook, 
-            // but we provide the UI hook here.
-            //showSuccess();
         }
 
         function closeModalOnOutsideClick(e) {
-            if (e.target.id === 'formModal') {
-                closeForm();
-            }
+            if (e.target.id === 'formModal') closeForm();
         }
+
+        document.getElementById('callbackForm').addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const statusDiv = document.getElementById('formStatus');
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-navy border-t-transparent mr-2"></div> Sending...';
+
+            try {
+                const response = await fetch(event.target.action, {
+                    method: 'POST',
+                    body: new FormData(event.target),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    closeForm();
+                    showSuccess();
+                    event.target.reset();
+                } else {
+                    throw new Error("Submission failed");
+                }
+            } catch (error) {
+                statusDiv.innerText = "Error: " + error.message;
+                statusDiv.className = "mt-6 p-4 rounded-xl text-center font-medium bg-red-100 text-red-700";
+                statusDiv.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Send Request</span><i class="ph-bold ph-paper-plane-tilt"></i>';
+            }
+        });
 
         function showSuccess() {
             const toast = document.getElementById('successToast');
             toast.style.opacity = '1';
             toast.style.transform = 'translate(-50%, 0)';
-            
             setTimeout(() => {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translate(-50%, -100%)';
