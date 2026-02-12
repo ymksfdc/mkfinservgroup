@@ -72,7 +72,6 @@
         }
         .whatsapp-float:hover { transform: scale(1.1); }
 
-        /* Ensuring the logo.jpg file looks consistent */
         .logo-img {
             object-fit: cover;
             background: white;
@@ -94,7 +93,7 @@
 
         .modal-content {
             width: 100%;
-            max-width: 600px;
+            max-width: 550px;
             background: white;
             border-radius: 24px;
             overflow: hidden;
@@ -114,6 +113,17 @@
             border-color: var(--gold);
             box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.2);
         }
+        .form-input.error-border {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: none;
+            font-weight: 500;
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800">
@@ -123,8 +133,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center gap-3">
-                    <!-- Updated to use logo.jpg -->
-                        <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
+                    <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
                     <div>
                         <span class="text-2xl font-bold tracking-tight block leading-none text-gold">MK FinServ</span>
                         <span class="text-[10px] uppercase tracking-[0.2em] opacity-80">Tax & Compliance</span>
@@ -143,20 +152,18 @@
     <!-- Hero Section -->
     <section id="home" class="hero-gradient text-white py-24 px-4 relative">
         <div class="max-w-5xl mx-auto text-center relative z-10">
-            <!-- Updated to use logo.jpg -->
-                <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
-            
+            <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img mx-auto mb-6">
             <h1 class="text-4xl md:text-7xl font-extrabold mb-6">
                 Professional <span class="text-gold">Tax & Compliance</span> <br class="hidden md:block"> Solutions
             </h1>
             <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
                 Secure your financial future with expert-reviewed Income Tax, GST, and Advisory services.
             </p>
-            <div class="flex justify-center">
+            <!-- <div class="flex justify-center">
                 <button onclick="openForm()" class="gold-button text-navy font-bold py-4 px-10 rounded-xl shadow-xl text-lg">
                     Request a Callback
                 </button>
-            </div>
+            </div> -->
         </div>
     </section>
 
@@ -312,8 +319,7 @@
     <footer class="bg-navy text-white pt-16 pb-8 px-4 border-t border-white/5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
             <div class="flex items-center gap-3">
-                <!-- Updated to use logo.jpg -->
-                    <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
+                <img src="logo.jpg" alt="Logo" class="w-10 h-10 logo-img">
                 <span class="text-2xl font-bold text-gold">MK FinServ</span>
             </div>
             <div class="flex flex-wrap justify-center gap-8 text-sm text-gray-400">
@@ -343,7 +349,7 @@
                     <div class="w-8 h-8 rounded-full bg-gold/20 flex items-center justify-center">
                         <i class="ph-bold ph-phone-call text-gold"></i>
                     </div>
-                    <span class="text-gold font-bold text-lg">Request a Callback</span>
+                    <span class="text-gold font-bold text-lg tracking-tight uppercase">Request a Callback</span>
                 </div>
                 <button onclick="closeForm()" class="text-white hover:text-gold transition-colors">
                     <i class="ph-bold ph-x text-2xl"></i>
@@ -351,43 +357,46 @@
             </div>
             
             <div class="p-8">
-                <form id="callbackForm" action="https://formspree.io/f/support@mkfinservgroup.com" method="POST" class="space-y-5">
-                    <input type="hidden" name="_subject" value="New Website Callback Request">
+                <!-- IMPORTANT: Formspree requires a FORM ID. 
+                     The current ID is 'xlgwjdqd'. Check Formspree dashboard if emails fail. -->
+                <form id="callbackForm" action="https://formspree.io/f/xlgwjdqd" method="POST" class="space-y-4" novalidate>
+                    <input type="hidden" name="_subject" value="New Callback Request: MK FinServ">
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Full Name</label>
-                            <input type="text" name="name" required placeholder="John Doe" class="form-input">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="field-container">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">First Name</label>
+                            <input type="text" name="First Name" id="firstName" required placeholder="John" class="form-input">
+                            <div id="firstNameError" class="error-message">At least 3 alphabets required.</div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Phone Number</label>
-                            <input type="tel" name="phone" required placeholder="1234567890" pattern="[0-9]{10}" class="form-input">
+                        <div class="field-container">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Last Name</label>
+                            <input type="text" name="Last Name" id="lastName" required placeholder="Doe" class="form-input">
+                            <div id="lastNameError" class="error-message">At least 3 alphabets required.</div>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Email Address</label>
-                        <input type="email" name="email" required placeholder="john@example.com" class="form-input">
+                    <div class="field-container">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Phone Number</label>
+                        <input type="tel" name="Phone" id="phone" required maxlength="10" placeholder="10-digit number" class="form-input">
+                        <div id="phoneError" class="error-message">Enter valid 10-digit number (no patterns).</div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Service Type</label>
-                        <select name="service" required class="form-input bg-white">
-                            <option value="">Choose a service...</option>
-                            <option value="ITR Filing">ITR Filing</option>
-                            <option value="GST Services">GST Services</option>
-                            <option value="Tax Planning">Tax Planning</option>
-                            <option value="Annual Value Pack">Annual Value Pack</option>
-                        </select>
+                    <div class="field-container">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Email Address</label>
+                        <input type="email" name="Email" id="email" required placeholder="john@example.com" class="form-input">
+                        <div id="emailError" class="error-message">Please enter a valid email address.</div>
                     </div>
 
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2 tracking-wide">Your Message</label>
-                        <textarea name="message" rows="3" placeholder="How can we help?" class="form-input resize-none"></textarea>
+                    <div class="pt-2">
+                        <label class="flex items-start gap-3 cursor-pointer group">
+                            <input type="checkbox" id="consent" name="Consent To Contact" class="mt-1 w-4 h-4 rounded border-gray-300 text-navy focus:ring-gold cursor-pointer" required>
+                            <span class="text-xs text-gray-500 leading-tight">I hereby authorize MK FinServ to contact me regarding my query. I agree to receive communications via Phone/WhatsApp.</span>
+                        </label>
+                        <div id="consentError" class="error-message">You must provide consent to proceed.</div>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="gold-button w-full text-navy font-extrabold py-4 rounded-xl shadow-lg flex items-center justify-center gap-2">
-                        <span>Send Request</span>
+                    <button type="submit" id="submitBtn" class="gold-button w-full text-navy font-extrabold py-4 mt-2 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                        <span>Submit Request</span>
                         <i class="ph-bold ph-paper-plane-tilt"></i>
                     </button>
                 </form>
@@ -400,8 +409,8 @@
     <div id="successToast" class="fixed top-10 left-1/2 -translate-x-1/2 z-[10000] bg-green-600 text-white px-8 py-4 rounded-2xl shadow-2xl transition-all duration-500 opacity-0 translate-y-[-100%] flex items-center gap-3">
         <i class="ph-bold ph-check-circle text-2xl"></i>
         <div>
-            <p class="font-bold">Request Sent!</p>
-            <p class="text-sm opacity-90">We'll contact you shortly.</p>
+            <p class="font-bold">Thanks for Reaching Out to MK FinServ</p>
+            <p class="text-sm opacity-90">We’ll contact you soon to assist with your requirements.</p>
         </div>
     </div>
 
@@ -415,19 +424,79 @@
         function closeForm() {
             document.getElementById('formModal').classList.remove('active');
             document.body.style.overflow = 'auto';
+            resetForm();
         }
 
         function closeModalOnOutsideClick(e) {
             if (e.target.id === 'formModal') closeForm();
         }
 
+        function resetForm() {
+            const form = document.getElementById('callbackForm');
+            form.reset();
+            const errors = document.querySelectorAll('.error-message');
+            errors.forEach(err => err.style.display = 'none');
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => input.classList.remove('error-border'));
+        }
+
+        // Restrict phone to numbers only and max length 10
+        document.getElementById('phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+
+        function validateField(id, regex, errorId) {
+            const field = document.getElementById(id);
+            const error = document.getElementById(errorId);
+            const val = field.value.trim();
+            
+            // Check for repetitive sequences in phone
+            let isRepetitive = false;
+            if (id === 'phone' && val.length === 10) {
+                isRepetitive = /^(\d)\1{9}$/.test(val); // Matches 0000000000, 1111111111, etc.
+            }
+
+            const isValid = regex.test(val) && !isRepetitive;
+
+            if (!isValid) {
+                field.classList.add('error-border');
+                error.style.display = 'block';
+            } else {
+                field.classList.remove('error-border');
+                error.style.display = 'none';
+            }
+            return isValid;
+        }
+
         document.getElementById('callbackForm').addEventListener("submit", async function(event) {
             event.preventDefault();
+            
+            // Validate: Name (Alpha only, 3+ chars), Phone (10 digits, non-repetitive), Email
+            const isFNameValid = validateField('firstName', /^[a-zA-Z\s]{3,}$/, 'firstNameError');
+            const isLNameValid = validateField('lastName', /^[a-zA-Z\s]{3,}$/, 'lastNameError');
+            const isPhoneValid = validateField('phone', /^[0-9]{10}$/, 'phoneError');
+            const isEmailValid = validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'emailError');
+            
+            const consent = document.getElementById('consent');
+            const consentError = document.getElementById('consentError');
+            const isConsentValid = consent.checked;
+            
+            if (!isConsentValid) {
+                consentError.style.display = 'block';
+            } else {
+                consentError.style.display = 'none';
+            }
+
+            if (!isFNameValid || !isLNameValid || !isPhoneValid || !isEmailValid || !isConsentValid) {
+                return;
+            }
+
             const submitBtn = document.getElementById('submitBtn');
             const statusDiv = document.getElementById('formStatus');
             
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-navy border-t-transparent mr-2"></div> Sending...';
+            statusDiv.classList.add('hidden');
 
             try {
                 const response = await fetch(event.target.action, {
@@ -441,15 +510,23 @@
                     showSuccess();
                     event.target.reset();
                 } else {
-                    throw new Error("Submission failed");
+                    const data = await response.json();
+                    if (data.errors) {
+                        statusDiv.innerText = data.errors.map(error => error.message).join(", ");
+                    } else {
+                        statusDiv.innerText = "Error submitting form. Please check your connection.";
+                    }
+                    statusDiv.className = "mt-6 p-4 rounded-xl text-center font-medium bg-red-100 text-red-700";
+                    statusDiv.classList.remove('hidden');
                 }
             } catch (error) {
-                statusDiv.innerText = "Error: " + error.message;
+                console.error("Submission error:", error);
+                statusDiv.innerText = "Submission failed. Please email support@mkfinservgroup.com directly.";
                 statusDiv.className = "mt-6 p-4 rounded-xl text-center font-medium bg-red-100 text-red-700";
                 statusDiv.classList.remove('hidden');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Send Request</span><i class="ph-bold ph-paper-plane-tilt"></i>';
+                submitBtn.innerHTML = '<span>Submit Request</span><i class="ph-bold ph-paper-plane-tilt"></i>';
             }
         });
 
