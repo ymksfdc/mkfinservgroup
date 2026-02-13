@@ -124,6 +124,16 @@
             display: none;
             font-weight: 500;
         }
+
+        /* Catalog specific styles */
+        .catalog-card {
+            background: #fff;
+            border: 1px solid #edf2f7;
+            transition: border-color 0.3s;
+        }
+        .catalog-card:hover {
+            border-color: var(--gold);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-slate-800">
@@ -142,6 +152,7 @@
                 <div class="hidden md:flex items-center space-x-8 font-medium">
                     <a href="#home" class="hover:text-gold transition-colors">Home</a>
                     <a href="#services" class="hover:text-gold transition-colors">Services</a>
+                    <a href="#catalog" class="hover:text-gold transition-colors">Pricing</a>
                     <a href="#about" class="hover:text-gold transition-colors">About</a>
                     <a href="#contact" class="bg-gold text-navy px-6 py-2 rounded-full font-bold text-sm hover:brightness-110 transition-all">Contact Now</a>
                 </div>
@@ -159,11 +170,6 @@
             <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
                 Secure your financial future with expert-reviewed Income Tax, GST, and Advisory services.
             </p>
-            <!-- <div class="flex justify-center">
-                <button onclick="openForm()" class="gold-button text-navy font-bold py-4 px-10 rounded-xl shadow-xl text-lg">
-                    Request a Callback
-                </button>
-            </div> -->
         </div>
     </section>
 
@@ -241,6 +247,104 @@
                     <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Priority Filing Service</li>
                     <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Full Year Compliance Tracking</li>
                 </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: WhatsApp Business Catalog -->
+    <section id="catalog" class="py-24 bg-gray-100 px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span style="color: #d4a017; --gold: #f5c542; --gold-dark: #d4a017;" class="font-bold tracking-widest uppercase text-xs">
+                    Service Catalog
+                </span>
+                <h2 class="text-4xl font-bold text-navy mb-4">Pricing & Packages</h2>
+                <p class="text-gray-500 max-w-xl mx-auto">Explore our most popular entry-level services below. For a full list of all services and pricing, please view our full catalog on WhatsApp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Catalog Item 1 -->
+                <div class="catalog-card rounded-2xl overflow-hidden card-hover flex flex-col">
+                    <div class="h-48 bg-navy flex items-center justify-center text-gold/20">
+                        <i class="ph ph-user-circle text-8xl"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h4 class="font-bold text-navy text-lg mb-1">ITR - Salaried</h4>
+                        <p class="text-gray-500 text-xs mb-4">Professional income tax return filing services for individuals and salaried professionals.</p>
+                        <div class="mt-auto">
+                            <div class="flex items-baseline gap-2 mb-8">
+                            <span class="text-3xl font-extrabold text-[#001f3f]">₹899</span>
+                            <span class="text-gray-400 line-through text-sm">₹1,499</span>
+                        </div>
+                        <a href="https://wa.me/c/917981182281" target="_blank" class="block w-full text-center py-3 border-2 border-gray-100 rounded-xl font-bold text-[#001f3f] hover:bg-[#001f3f] hover:text-white hover:border-[#001f3f] transition-all duration-300">
+                            Enquire Now
+                        </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Catalog Item 2 -->
+                <div class="catalog-card rounded-2xl overflow-hidden card-hover flex flex-col">
+                    <div class="h-48 bg-navy flex items-center justify-center text-gold/20">
+                        <i class="ph ph-briefcase text-8xl"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h4 class="font-bold text-navy text-lg mb-1">GST Nil Return</h4>
+                        <p class="text-gray-500 text-xs mb-4">Nil GST return filing for inactive or zero-transaction businesses to maintain compliance.</p>
+                        <div class="flex items-baseline gap-2 mb-8">
+                            <span class="text-3xl font-extrabold text-[#001f3f]">₹199</span>
+                            <span class="text-gray-400 line-through text-sm">₹399</span>
+                        </div>
+
+                        <a href="https://wa.me/c/917981182281" target="_blank" class="block w-full text-center py-3 border-2 border-gray-100 rounded-xl font-bold text-[#001f3f] hover:bg-[#001f3f] hover:text-white hover:border-[#001f3f] transition-all duration-300">
+                            Enquire Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalog Item 3 -->
+                <div class="catalog-card rounded-2xl overflow-hidden card-hover flex flex-col border-t-4 border-t-gold">
+                    <div class="h-48 bg-navy flex items-center justify-center text-gold/20">
+                        <i class="ph ph-storefront text-8xl"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h4 class="font-bold text-navy text-lg mb-1">Tax Planning Consultation</h4>
+                        <p class="text-gray-500 text-xs mb-4">Expert one-on-one consultation to optimize your tax liabilities legally and efficiently.</p>
+                        <div class="flex items-baseline gap-2 mb-8">
+                            <span class="text-3xl font-extrabold text-[#001f3f]">₹499</span>
+                            <span class="text-gray-400 line-through text-sm">₹999</span>
+                        </div>
+
+                        <a href="https://wa.me/c/917981182281" target="_blank" class="block w-full text-center py-3 border-2 border-gray-100 rounded-xl font-bold text-[#001f3f] hover:bg-[#001f3f] hover:text-white hover:border-[#001f3f] transition-all duration-300">
+                            Enquire Now
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Catalog Item 4 -->
+                <div class="catalog-card rounded-2xl overflow-hidden card-hover flex flex-col">
+                    <div class="h-48 bg-navy flex items-center justify-center text-gold/20">
+                        <i class="ph ph-receipt text-8xl"></i>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <h4 class="font-bold text-navy text-lg mb-1">Multiple Income / HNI ITR</h4>
+                        <p class="text-gray-500 text-xs mb-4">ITR filing for individuals with multiple income sources or high-value transactions.</p>
+                        <div class="flex items-baseline gap-2 mb-8">
+                            <span class="text-3xl font-extrabold text-[#001f3f]">₹3999</span>
+                            <span class="text-gray-400 line-through text-sm">₹7,999</span>
+                        </div>
+
+                        <a href="https://wa.me/c/917981182281" target="_blank" class="block w-full text-center py-3 border-2 border-gray-100 rounded-xl font-bold text-[#001f3f] hover:bg-[#001f3f] hover:text-white hover:border-[#001f3f] transition-all duration-300">
+                            Enquire Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="https://wa.me/917981182281" target="_blank" class="inline-flex items-center gap-2 text-navy font-bold border-b-2 border-gold pb-1 hover:text-gold transition-all">
+                    View Full Catalog on WhatsApp <i class="ph-bold ph-arrow-right"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -325,6 +429,7 @@
             <div class="flex flex-wrap justify-center gap-8 text-sm text-gray-400">
                 <a href="#home" class="hover:text-gold transition-colors">Home</a>
                 <a href="#services" class="hover:text-gold transition-colors">Services</a>
+                <a href="#catalog" class="hover:text-gold transition-colors">Pricing</a>
                 <a href="#about" class="hover:text-gold transition-colors">About</a>
                 <a href="#contact" class="hover:text-gold transition-colors">Contact</a>
             </div>
@@ -357,20 +462,18 @@
             </div>
             
             <div class="p-8">
-                <!-- IMPORTANT: Formspree requires a FORM ID. 
-                     The current ID is 'xlgwjdqd'. Check Formspree dashboard if emails fail. -->
                 <form id="callbackForm" action="https://formspree.io/f/xlgwjdqd" method="POST" class="space-y-4" novalidate>
                     <input type="hidden" name="_subject" value="New Callback Request: Mk FinServ">
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="field-container">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">First Name</label>
-                            <input type="text" name="First Name" id="firstName" required placeholder="John" class="form-input">
+                            <input type="text" name="First Name" id="firstName" required placeholder="Name" class="form-input">
                             <div id="firstNameError" class="error-message">At least 3 alphabets required.</div>
                         </div>
                         <div class="field-container">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Last Name</label>
-                            <input type="text" name="Last Name" id="lastName" required placeholder="Doe" class="form-input">
+                            <input type="text" name="Last Name" id="lastName" required placeholder="Surname" class="form-input">
                             <div id="lastNameError" class="error-message">At least 3 alphabets required.</div>
                         </div>
                     </div>
@@ -404,15 +507,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Success Message Toast 
-    <div id="successToast" class="fixed top-10 left-1/2 -translate-x-1/2 z-[10000] bg-green-600 text-white px-8 py-4 rounded-2xl shadow-2xl transition-all duration-500 opacity-0 translate-y-[-100%] flex items-center gap-3">
-        <i class="ph-bold ph-check-circle text-2xl"></i>
-        <div>
-            <p class="font-bold">Thanks for Reaching Out to Mk FinServ</p>
-            <p class="text-sm opacity-90">We’ll contact you soon to assist with your requirements.</p>
-        </div>
-    </div> -->
 
     <!-- Success Message Toast -->
     <div id="successToast" class="fixed top-10 left-1/2 -translate-x-1/2 z-[10000]
@@ -462,7 +556,6 @@
             inputs.forEach(input => input.classList.remove('error-border'));
         }
 
-        // Restrict phone to numbers only and max length 10
         document.getElementById('phone').addEventListener('input', function(e) {
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
         });
@@ -472,10 +565,9 @@
             const error = document.getElementById(errorId);
             const val = field.value.trim();
             
-            // Check for repetitive sequences in phone
             let isRepetitive = false;
             if (id === 'phone' && val.length === 10) {
-                isRepetitive = /^(\d)\1{9}$/.test(val); // Matches 0000000000, 1111111111, etc.
+                isRepetitive = /^(\d)\1{9}$/.test(val);
             }
 
             const isValid = regex.test(val) && !isRepetitive;
@@ -493,9 +585,8 @@
         document.getElementById('callbackForm').addEventListener("submit", async function(event) {
             event.preventDefault();
             
-            // Validate: Name (Alpha only, 3+ chars), Phone (10 digits, non-repetitive), Email
             const isFNameValid = validateField('firstName', /^[a-zA-Z\s]{3,}$/, 'firstNameError');
-            const isLNameValid = validateField('lastName', /^[a-zA-Z\s]{3,}$/, 'lastNameError');
+            const isLNameValid = validateField('lastName', /^[a-zA-Z\s]{1,}$/, 'lastNameError');
             const isPhoneValid = validateField('phone', /^[0-9]{10}$/, 'phoneError');
             const isEmailValid = validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'emailError');
             
