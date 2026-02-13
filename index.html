@@ -78,6 +78,7 @@
             border-radius: 50%;
         }
 
+        /* MODAL & DROPDOWN */
         #formModal {
             display: none;
             position: fixed;
@@ -94,11 +95,19 @@
         .modal-content {
             width: 100%;
             max-width: 550px;
+            max-height: 90vh;
             background: white;
             border-radius: 24px;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            overflow: inherit;
             position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            padding: 2rem;
         }
 
         .form-input {
@@ -123,6 +132,50 @@
             margin-top: 0.25rem;
             display: none;
             font-weight: 500;
+        }
+
+        /* DROPDOWN STYLES - SEARCH REMOVED */
+        .dropdown-container {
+            position: relative;
+        }
+        .dropdown-trigger {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 105%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border: 1px solid #e2e8f0;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        .options-list {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .option-item {
+            padding: 12px 16px;
+            color: #475569;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-item:hover {
+            background: #fff9eb;
+            color: var(--gold-dark);
+            padding-left: 20px;
         }
 
         /* Catalog specific styles */
@@ -463,7 +516,7 @@
             
             <div class="p-8">
                 <form id="callbackForm" action="https://formspree.io/f/xlgwjdqd" method="POST" class="space-y-4" novalidate>
-                    <input type="hidden" name="_subject" value="New Callback Request: Mk FinServ">
+                    <input type="hidden" name="_subject" value="New Callback Request: Mk FinServ">                    
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="field-container">
@@ -474,7 +527,7 @@
                         <div class="field-container">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Last Name</label>
                             <input type="text" name="Last Name" id="lastName" required placeholder="Surname" class="form-input">
-                            <div id="lastNameError" class="error-message">At least 3 alphabets required.</div>
+                            <div id="lastNameError" class="error-message">At least 1 alphabets required.</div>
                         </div>
                     </div>
 
@@ -488,6 +541,32 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Email Address</label>
                         <input type="email" name="Email" id="email" required placeholder="john@example.com" class="form-input">
                         <div id="emailError" class="error-message">Please enter a valid email address.</div>
+                    </div>
+
+                    <input type="hidden" name="Service Requested" id="serviceHiddenInput">
+
+                    <!-- DROPDOWN COMPONENT - SEARCH REMOVED -->
+                    <div class="field-container">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-wider">Service Required *</label>
+                        <div class="dropdown-container">
+                            <div class="form-input dropdown-trigger" id="dropdownTrigger">
+                                <span id="selectedText" class="text-slate-400">Select a service</span>
+                                <i class="ph-bold ph-caret-down text-slate-400"></i>
+                            </div>
+                            
+                            <div class="dropdown-menu" id="dropdownMenu">
+                                <div class="options-list" id="optionsList">
+                                    <div class="option-item" data-value="Income Tax Return (ITR)">Income Tax Return (ITR)</div>
+                                    <div class="option-item" data-value="GST Services">GST Services</div>
+                                    <div class="option-item" data-value="TDS Services">TDS Services</div>
+                                    <!-- <div class="option-item" data-value="Accounting & Bookkeeping">Accounting & Bookkeeping</div>
+                                    <div class="option-item" data-value="Company Registration">Company Registration</div> -->
+                                    <div class="option-item" data-value="Notice / Compliance Support">Notice / Compliance Support</div>
+                                    <div class="option-item" data-value="Other Advisory">Other Advisory</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="serviceError" class="error-message">Please select a service from the list.</div>
                     </div>
 
                     <div class="pt-2">
@@ -547,9 +626,47 @@
             if (e.target.id === 'formModal') closeForm();
         }
 
+        // Custom Dropdown Logic - Simplified (No Search)
+        const trigger = document.getElementById('dropdownTrigger');
+        const menu = document.getElementById('dropdownMenu');
+        const selectedText = document.getElementById('selectedText');
+        const hiddenInput = document.getElementById('serviceHiddenInput');
+        const options = document.querySelectorAll('.option-item');
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('active');
+        });
+
+        options.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation(); // Stop propagation to prevent accidental triggers
+                const val = option.dataset.value;
+                selectedText.innerText = val;
+                selectedText.classList.remove('text-slate-400');
+                selectedText.classList.add('text-slate-800');
+                hiddenInput.value = val;
+                
+                // Immediately close menu after selection
+                menu.classList.remove('active');
+                
+                // Hide error if it was shown
+                document.getElementById('serviceError').style.display = 'none';
+                trigger.classList.remove('error-border');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
         function resetForm() {
             const form = document.getElementById('callbackForm');
             form.reset();
+            selectedText.innerText = 'Select a service';
+            selectedText.classList.add('text-slate-400');
             const errors = document.querySelectorAll('.error-message');
             errors.forEach(err => err.style.display = 'none');
             const inputs = document.querySelectorAll('.form-input');
@@ -589,7 +706,16 @@
             const isLNameValid = validateField('lastName', /^[a-zA-Z\s]{1,}$/, 'lastNameError');
             const isPhoneValid = validateField('phone', /^[0-9]{10}$/, 'phoneError');
             const isEmailValid = validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'emailError');
-            
+            // Check if hidden input (Service Requested) is filled
+            const isServiceValid = !!hiddenInput.value;
+            const serviceError = document.getElementById('serviceError');
+            if (!isServiceValid) {
+                serviceError.style.display = 'block';
+                trigger.classList.add('error-border');
+            } else {
+                serviceError.style.display = 'none';
+                trigger.classList.remove('error-border');
+            }
             const consent = document.getElementById('consent');
             const consentError = document.getElementById('consentError');
             const isConsentValid = consent.checked;
