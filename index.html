@@ -756,7 +756,7 @@
                     <div class="field-container">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Phone Number</label>
                         <input type="tel" name="Phone" id="phone" required maxlength="10" placeholder="10-digit number" class="form-input">
-                        <div id="phoneError" class="error-message">Enter valid 10-digit number (no patterns).</div>
+                        <div id="phoneError" class="error-message">Enter valid 10-digit number starting with 6, 7, 8, or 9.</div>
                     </div>
 
                     <div class="field-container">
@@ -955,7 +955,7 @@
             
             const isFNameValid = validateField('firstName', /^[a-zA-Z\s]{3,}$/, 'firstNameError');
             const isLNameValid = validateField('lastName', /^[a-zA-Z\s]{1,}$/, 'lastNameError');
-            const isPhoneValid = validateField('phone', /^[0-9]{10}$/, 'phoneError');
+            const isPhoneValid = validateField('phone', /^[6-9][0-9]{9}$/, 'phoneError');
             const isEmailValid = validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'emailError');
             // Check if hidden input (Service Requested) is filled
             const isServiceValid = !!hiddenInput.value;
