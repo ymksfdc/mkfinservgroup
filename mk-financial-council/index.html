@@ -115,25 +115,51 @@
 
         .whatsapp-float {
             position: fixed;
-            right: 25px;
-            bottom: 25px;
-            width: 60px;
-            height: 60px;
+            right: 20px;
+            bottom: 20px;
+            width: 55px;
+            height: 55px;
             background-color: #25d366;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-            z-index: 1000;
-            animation: pulse-green 2s infinite;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            z-index: 999;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        /* Hover Effect */
+        .whatsapp-float:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+        }
+
+        .whatsapp-float::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid #25d366;
+            opacity: 0;
+            animation: wa-pulse 2.2s ease-out infinite;
+        }
+
+        @keyframes wa-pulse {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            70% { transform: scale(1.35); opacity: 0; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                right: 15px;
+                bottom: 15px;
+                width: 50px;
+                height: 50px;
+            }
         }
 
         .membership-tier {
@@ -166,11 +192,14 @@
 
 <body class="bg-white">
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/919999999999?text=Hi%20Mk%20FinServ!%20I'm%20interested%20in%20the%20Financial%20Council." target="_blank" rel="noopener noreferrer"
-        class="whatsapp-float">
-        <i class="ph-fill ph-whatsapp-logo" style="font-size: 2rem;"></i>
-    </a>
+<!-- WhatsApp Float Button -->
+<a href="https://whatsapp.com/channel/0029Vb7JDYyGZNCjB3bosO2T" 
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="whatsapp-float"
+    aria-label="Join Mk FinServ WhatsApp Channel">
+    <i class="ph-fill ph-whatsapp-logo" style="font-size: 2rem;"></i>
+</a>
 
     <!-- Navigation -->
     <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
@@ -188,7 +217,7 @@
                     <a href="#about" class="text-gray-600 hover:text-navy font-500 transition">About</a>
                     <a href="#tiers" class="text-gray-600 hover:text-navy font-500 transition">Tiers</a>
                     <a href="#legal" class="text-gray-600 hover:text-navy font-500 transition">Terms</a>
-                    <a href="https://wa.me/919999999999" class="gold-button px-6 py-2.5 rounded-full text-navy font-700 text-sm">Join Council</a>
+                    <a href="https://wa.me/c/917981182281" class="gold-button px-6 py-2.5 rounded-full text-navy font-700 text-sm">Join Council</a>
                 </div>
                 <button class="md:hidden text-navy"><i class="ph ph-list" style="font-size: 2rem;"></i></button>
             </div>
@@ -267,7 +296,7 @@
                             <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Annual Compliance Audit</div>
                             <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-minus"></i> Priority Advisory</div>
                         </div>
-                        <a href="https://wa.me/919999999999" class="block text-center py-3 rounded-xl border-2 border-gray-100 text-navy font-800 hover:bg-gray-50 transition">Select Tier</a>
+                        <a href="https://wa.me/c/917981182281" class="block text-center py-3 rounded-xl border-2 border-gray-100 text-navy font-800 hover:bg-gray-50 transition">Select Tier</a>
                     </div>
                 </div>
 
@@ -284,7 +313,7 @@
                             <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Quarterly Wealth Review</div>
                             <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Council Community Access</div>
                         </div>
-                        <a href="https://wa.me/919999999999" class="gold-button block text-center py-4 rounded-xl text-navy font-800 shadow-lg">Become a Member</a>
+                        <a href="https://wa.me/c/917981182281" class="gold-button block text-center py-4 rounded-xl text-navy font-800 shadow-lg">Become a Member</a>
                     </div>
                 </div>
 
@@ -300,7 +329,7 @@
                             <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-check text-sky-400"></i> VIP Networking Events</div>
                             <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-check text-sky-400"></i> ID Verification Portal Listing</div>
                         </div>
-                        <a href="https://wa.me/919999999999" class="block text-center py-3 rounded-xl border-2 border-white/20 text-white font-800 hover:bg-white/10 transition">Inquire for VIP</a>
+                        <a href="https://wa.me/c/917981182281" class="block text-center py-3 rounded-xl border-2 border-white/20 text-white font-800 hover:bg-white/10 transition">Inquire for VIP</a>
                     </div>
                 </div>
             </div>
@@ -396,8 +425,27 @@
                 </div>
                 <div>
                     <h5 class="font-800 text-navy mb-6">Contact</h5>
-                    <p class="text-sm text-gray-500 mb-4">Questions about Council?</p>
-                    <a href="https://wa.me/919999999999" class="text-navy font-800 text-lg hover:text-gold transition">+91 99999 99999</a>
+
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-navy">
+                            <i class="ph-fill ph-envelope" style="font-size:1.05rem;"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email Support</p>
+                            <a href="mailto:support@mkfinservgroup.com" class="font-bold text-navy hover:text-gold transition-colors">support@mkfinservgroup.com</a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="flex-shrink-0 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-navy">
+                            <i class="ph-fill ph-phone" style="font-size:1.05rem;"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Call Helpline</p>
+                            <a href="tel:+917981182281" class="font-bold text-navy hover:text-gold transition-colors">+91 79811 82281</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="pt-8 border-t border-gray-50 text-center">
