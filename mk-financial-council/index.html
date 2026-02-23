@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-180.png">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SL05T0XCTL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-SL05T0XCTL');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mk Financial Council | Elite Recognition for Financial Discipline</title>
+    <meta name="description" content="Join Mk Financial Council - An exclusive recognition initiative for financially disciplined individuals and businesses. Celebrate tax compliance and strategic wealth building.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mkfinservgroup.com/mk-financial-council/">
+    <meta property="og:title" content="Mk Financial Council - Elite Recognition">
+    <meta property="og:description" content="Exclusive recognition for financially disciplined individuals and businesses through Mk FinServ.">
+    <meta property="og:image" content="https://mkfinservgroup.com/images/logo1.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://mkfinservgroup.com/mk-financial-council/">
+
+    <!-- Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
+
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+
+    <style>
+        :root {
+            --navy: #001f3f;
+            --gold: #f5c542;
+            --gold-dark: #d4a017;
+            --light-navy: #003366;
+            --diamond-blue: #00d9ff;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+            color: #334155;
+        }
+
+        .bg-navy { background-color: var(--navy); }
+        .text-gold { color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-gradient::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, white, transparent);
+            pointer-events: none;
+        }
+
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .gold-button {
+            background: linear-gradient(to right, var(--gold), var(--gold-dark));
+            transition: all 0.3s ease;
+        }
+
+        .gold-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(245, 197, 66, 0.3);
+            filter: brightness(1.05);
+        }
+
+        /* Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: #25d366;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .membership-tier {
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .tier-highlight {
+            height: 6px;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .legal-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/919999999999?text=Hi%20Mk%20FinServ!%20I'm%20interested%20in%20the%20Financial%20Council." target="_blank" rel="noopener noreferrer"
+        class="whatsapp-float">
+        <i class="ph-fill ph-whatsapp-logo" style="font-size: 2rem;"></i>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="/" class="flex items-center gap-3">
+                    <img src="images/logo1.png" alt="Logo" class="w-12 h-12 rounded-full shadow-inner" loading="lazy">
+                    <div class="flex flex-col">
+                        <span class="text-xl font-800 text-navy leading-none">Mk FinServ™</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gold font-700">Financial Council</span>
+                    </div>
+                </a>
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="/" class="text-gray-600 hover:text-navy font-500 transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-navy font-500 transition">About</a>
+                    <a href="#tiers" class="text-gray-600 hover:text-navy font-500 transition">Tiers</a>
+                    <a href="#legal" class="text-gray-600 hover:text-navy font-500 transition">Terms</a>
+                    <a href="https://wa.me/919999999999" class="gold-button px-6 py-2.5 rounded-full text-navy font-700 text-sm">Join Council</a>
+                </div>
+                <button class="md:hidden text-navy"><i class="ph ph-list" style="font-size: 2rem;"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-24 pb-40 text-center">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="reveal active inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-gold text-xs font-bold uppercase tracking-widest mb-8">
+                <i class="ph-fill ph-shield-check"></i> Standardized Financial Recognition
+            </div>
+            <h1 class="reveal active text-4xl md:text-7xl font-800 text-white mb-6 leading-[1.1]">
+                Excellence in <span class="text-gold">Financial Discipline</span>
+            </h1>
+            <p class="reveal active text-lg md:text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed opacity-90">
+                The Mk Financial Council is an invitation-only community recognizing individuals and SMEs who maintain superior tax compliance and fiscal transparency.
+            </p>
+            <p class="reveal active text-sm md:text-base text-blue-100 mb-6 max-w-2xl mx-auto leading-relaxed opacity-90">
+                The Council operates within the legal and regulatory framework applicable in India, including but not limited to the Income Tax Act, 1961 and the Central Goods and Services Tax Act, 2017. This is a private recognition initiative and is not affiliated with or endorsed by any government department or regulatory authority of the Government of India.
+            </p>
+            <div class="reveal active flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#tiers" class="gold-button px-10 py-4 rounded-xl text-navy font-800 text-lg">Apply for Membership</a>
+                <a href="#about" class="bg-white/10 hover:bg-white/20 border border-white/30 px-10 py-4 rounded-xl text-white font-700 text-lg transition">Explore Benefits</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Council Values -->
+    <section id="about" class="py-24 bg-white -mt-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="reveal card-hover bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50">
+                    <div class="w-14 h-14 bg-blue-50 text-navy rounded-2xl flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-scales" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="text-xl font-800 text-navy mb-4">Integrity Driven</h3>
+                    <p class="text-gray-500 leading-relaxed">Recognition based on actual verified ITR and GST compliance history through our professional auditing.</p>
+                </div>
+                <div class="reveal card-hover bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50">
+                    <div class="w-14 h-14 bg-amber-50 text-gold-dark rounded-2xl flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-users-three" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="text-xl font-800 text-navy mb-4">Elite Network</h3>
+                    <p class="text-gray-500 leading-relaxed">Join a peer group of disciplined entrepreneurs and professionals committed to clean balance sheets.</p>
+                </div>
+                <div class="reveal card-hover bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/50">
+                    <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                        <i class="ph-fill ph-certificate" style="font-size: 2rem;"></i>
+                    </div>
+                    <h3 class="text-xl font-800 text-navy mb-4">Professional Badge</h3>
+                    <p class="text-gray-500 leading-relaxed">Use our official Council Insignia on your LinkedIn profile and business collateral to signal reliability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Tiers -->
+    <section id="tiers" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-800 text-navy mb-4">Membership Tiers</h2>
+                <p class="text-gray-500">Based on your level of engagement with Mk FinServ's professional advisory.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                <!-- Silver -->
+                <div class="reveal membership-tier bg-white rounded-3xl card-hover">
+                    <div class="tier-highlight bg-gray-300"></div>
+                    <div class="p-8">
+                        <span class="text-xs font-800 tracking-widest text-gray-400 uppercase">Standard</span>
+                        <h3 class="text-2xl font-800 text-navy mt-2 mb-6">Silver Council</h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Verified ITR Compliance</div>
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Digital Silver Badge</div>
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Annual Compliance Audit</div>
+                            <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-minus"></i> Priority Advisory</div>
+                        </div>
+                        <a href="https://wa.me/919999999999" class="block text-center py-3 rounded-xl border-2 border-gray-100 text-navy font-800 hover:bg-gray-50 transition">Select Tier</a>
+                    </div>
+                </div>
+
+                <!-- Gold -->
+                <div class="reveal membership-tier bg-white rounded-3xl card-hover border-gold shadow-2xl shadow-gold/10 relative transform md:-translate-y-4">
+                    <div class="absolute top-4 right-4 bg-gold text-[10px] font-900 px-2 py-1 rounded text-navy">RECOMMENDED</div>
+                    <div class="tier-highlight bg-gold"></div>
+                    <div class="p-8">
+                        <span class="text-xs font-800 tracking-widest text-gold uppercase">Professional</span>
+                        <h3 class="text-2xl font-800 text-navy mt-2 mb-6">Gold Council</h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> ITR & GST Verification</div>
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Physical Membership kit</div>
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Quarterly Wealth Review</div>
+                            <div class="flex items-center gap-3 text-sm font-500"><i class="ph-bold ph-check text-green-500"></i> Council Community Access</div>
+                        </div>
+                        <a href="https://wa.me/919999999999" class="gold-button block text-center py-4 rounded-xl text-navy font-800 shadow-lg">Become a Member</a>
+                    </div>
+                </div>
+
+                <!-- Diamond -->
+                <div class="reveal membership-tier bg-navy rounded-3xl card-hover">
+                    <div class="tier-highlight bg-sky-400"></div>
+                    <div class="p-8">
+                        <span class="text-xs font-800 tracking-widest text-sky-400 uppercase">Strategic</span>
+                        <h3 class="text-2xl font-800 text-white mt-2 mb-6">Diamond Council</h3>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-check text-sky-400"></i> End-to-End Tax Suite</div>
+                            <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-check text-sky-400"></i> Dedicated Strategy Manager</div>
+                            <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-check text-sky-400"></i> VIP Networking Events</div>
+                            <div class="flex items-center gap-3 text-sm font-500 text-gray-300"><i class="ph-bold ph-check text-sky-400"></i> ID Verification Portal Listing</div>
+                        </div>
+                        <a href="https://wa.me/919999999999" class="block text-center py-3 rounded-xl border-2 border-white/20 text-white font-800 hover:bg-white/10 transition">Inquire for VIP</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Terms & Conditions (Indian Context) -->
+    <section id="legal" class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="section-title text-3xl font-800 text-navy mb-4">Terms & Legal Framework</h2>
+                <p class="text-gray-500">Under the Digital Services and Consumer Protection Guidelines (India)</p>
+            </div>
+            
+            <div class="reveal grid md:grid-cols-2 gap-8 mb-12">
+                <div class="legal-box p-6 rounded-2xl">
+                    <h4 class="font-800 text-navy mb-3">1. Recognition Nature</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Mk Financial Council is a voluntary recognition program by Mk FinServ Group™. It does <strong>not</strong> confer any legal or statutory status and does not replace or replicate any government certification or regulatory approval. This initiative operates within the framework of applicable Indian laws, including the Income Tax Act, 1961 and the Central Goods and Services Tax Act, 2017, and is independent of any government department. In accordance with the <em>Emblems and Names (Prevention of Improper Use) Act, 1950</em>, we explicitly state we are not a government agency.
+                    </p>
+                </div>
+                <div class="legal-box p-6 rounded-2xl">
+                    <h4 class="font-800 text-navy mb-3">2. Data Privacy (DPDP Act)</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Member data provided for verification (PAN, Aadhaar, ITR details) is processed under the <em>Digital Personal Data Protection Act, 2023</em>. Data is stored locally in Indian servers and used only for internal verification purposes.
+                    </p>
+                </div>
+                <div class="legal-box p-6 rounded-2xl">
+                    <h4 class="font-800 text-navy mb-3">3. Usage of Insignia</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        The Council Badge remains the intellectual property of Mk FinServ. Members are granted a non-exclusive license to display the badge for marketing as long as their compliance status is active. Misuse leads to immediate revocation.
+                    </p>
+                </div>
+                <div class="legal-box p-6 rounded-2xl">
+                    <h4 class="font-800 text-navy mb-3">4. Disclaimer of Liability</h4>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Membership does not guarantee success in loan approvals, visa applications, or tenders. It is a record of past compliance. Mk FinServ is not liable for any third-party financial decisions based on a member's council status.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reveal p-8 bg-red-50 border-2 border-red-100 rounded-3xl">
+                <h4 class="text-red-800 font-800 mb-2">Mandatory Statutory Declaration:</h4>
+                <p class="text-red-700 text-sm italic">
+                    "The Mk Financial Council is a private professional recognition initiative. It is not an 'Institutional Body' under the Companies Act nor a 'Regulatory Authority' under SEBI/RBI/IRDAI. Membership signifies that the individual/entity has engaged our professional services for tax/financial discipline and has passed our internal benchmarks for consistency."
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Verification Section -->
+    <section class="py-24 bg-navy text-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-800 mb-6">Transparent Verification</h2>
+            <p class="text-lg text-blue-200 mb-10">Starting Q3 2026, every member ID will be searchable on our public blockchain-backed registry for instant B2B trust validation.</p>
+            <div class="flex items-center justify-center gap-6 flex-wrap">
+                <div class="flex items-center gap-2"><i class="ph-bold ph-qr-code text-gold"></i><span>QR Scan Auth</span></div>
+                <div class="flex items-center gap-2"><i class="ph-bold ph-database text-gold"></i><span>Live Registry</span></div>
+                <div class="flex items-center gap-2"><i class="ph-bold ph-fingerprint text-gold"></i><span>Encrypted Profiles</span></div>
+            </div>
+        </div>
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white pt-20 pb-10 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <img src="images/logo1.png" alt="Logo" class="w-10 h-10">
+                        <span class="text-xl font-900 text-navy">Mk FinServ™</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">Elevating the standard of financial responsibility through recognition and elite community building.</p>
+                </div>
+                <div>
+                    <h5 class="font-800 text-navy mb-6">Membership</h5>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-gold transition">Tier Comparison</a></li>
+                        <li><a href="#" class="hover:text-gold transition">Application Process</a></li>
+                        <li><a href="#" class="hover:text-gold transition">Member Login</a></li>
+                        <li><a href="#" class="hover:text-gold transition">Badge Downloads</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-800 text-navy mb-6">Legal</h5>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-gold transition">Privacy Policy (India)</a></li>
+                        <li><a href="#" class="hover:text-gold transition">Membership Terms</a></li>
+                        <li><a href="#" class="hover:text-gold transition">Refund Policy</a></li>
+                        <li><a href="#" class="hover:text-gold transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-800 text-navy mb-6">Contact</h5>
+                    <p class="text-sm text-gray-500 mb-4">Questions about Council?</p>
+                    <a href="https://wa.me/919999999999" class="text-navy font-800 text-lg hover:text-gold transition">+91 99999 99999</a>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-50 text-center">
+                <p class="text-[10px] text-gray-300 uppercase tracking-widest font-700">© 2026 Mk FinServ Group™. All Rights Reserved. Registered and operating in India. Not a government organization.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Reveal on Scroll Logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Initial check
+        window.addEventListener("load", reveal);
+
+        // Mobile Nav Toggle (simple implementation)
+        const menuBtn = document.querySelector('nav button');
+        const navLinks = document.querySelector('nav div.hidden');
+        if(menuBtn) {
+            menuBtn.onclick = () => {
+                navLinks.classList.toggle('hidden');
+                navLinks.classList.toggle('flex');
+                navLinks.classList.toggle('flex-col');
+                navLinks.classList.toggle('absolute');
+                navLinks.classList.toggle('top-20');
+                navLinks.classList.toggle('left-0');
+                navLinks.classList.toggle('w-full');
+                navLinks.classList.toggle('bg-white');
+                navLinks.classList.toggle('p-6');
+                navLinks.classList.toggle('shadow-xl');
+            };
+        }
+    </script>
+</body>
+
+</html>
