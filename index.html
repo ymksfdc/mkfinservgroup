@@ -249,6 +249,60 @@
             position: relative;
         }
 
+        /* ── Scroll-Reveal ─────────────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Pricing Card Image Zoom on Hover ──────────────────────── */
+        .catalog-card .h-56 img {
+            transition: transform 0.5s ease, opacity 0.5s;
+        }
+
+        .catalog-card:hover .h-56 img {
+            transform: scale(1.07);
+        }
+
+        /* ── WhatsApp Float Pulse Ring ─────────────────────────────── */
+        .whatsapp-float::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 2px solid #25d366;
+            opacity: 0;
+            animation: wa-pulse 2.2s ease-out infinite;
+        }
+
+        @keyframes wa-pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+
+            70% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
+        }
+
+        /* ── Active Nav Link ───────────────────────────────────────── */
+        nav a.nav-active {
+            color: var(--gold) !important;
+        }
+
         .dropdown-trigger {
             cursor: pointer;
             display: flex;
@@ -292,6 +346,118 @@
             background: #fff9eb;
             color: var(--gold-dark);
             padding-left: 20px;
+        }
+
+        /* ── "View All" Link Hover Animation ─────────────────────────── */
+        .view-all-link {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            /* Remove Tailwind border, handle underline ourselves */
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        /* Animated underline: sweeps from left */
+        .view-all-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.4s ease;
+        }
+
+        .view-all-link:hover::after {
+            width: 100%;
+        }
+
+        /* Shift whole link right on hover */
+        .view-all-link:hover {
+            transform: translateX(5px);
+            color: var(--gold-dark);
+        }
+
+        /* Arrow bounce */
+        .view-all-link .va-arrow {
+            display: inline-block;
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .view-all-link:hover .va-arrow {
+            transform: translateX(7px);
+        }
+
+        /* WhatsApp icon fades in from left */
+        .view-all-link .va-wa {
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+            color: #25d366;
+        }
+
+        .view-all-link:hover .va-wa {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ── WhatsApp Button Hover Animation ───────────────────────────── */
+        .wa-btn {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Shimmer sweep */
+        .wa-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.22) 50%, transparent 100%);
+            transform: skewX(-20deg);
+            transition: left 0.5s ease;
+            pointer-events: none;
+        }
+
+        .wa-btn:hover::before {
+            left: 130%;
+        }
+
+        /* WhatsApp icon reveal */
+        .wa-btn .wa-icon {
+            font-size: 1.1rem;
+            opacity: 0;
+            transform: translateX(6px) scale(0.8);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .wa-btn:hover .wa-icon {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+
+        /* Lift + green glow */
+        .wa-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+        }
+
+        .wa-btn:active {
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
     </style>
 </head>
@@ -353,7 +519,10 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero-gradient text-white py-24 px-4 relative">
-        <div class="max-w-5xl mx-auto text-center relative z-10">
+        <!-- Live particle canvas -->
+        <canvas id="heroCanvas"
+            style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;"></canvas>
+        <div class="max-w-5xl mx-auto text-center relative z-10" style="position:relative;z-index:2;">
             <img src="images/logo.jpg" alt="Logo" class="w-10 h-10 logo-img mx-auto mb-6" loading="lazy">
             <h1 class="text-4xl md:text-7xl font-extrabold mb-6">
                 Professional <span class="text-gold">Tax & Compliance</span> <br class="hidden md:block"> Solutions
@@ -406,7 +575,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover reveal">
                 <div class="text-navy mb-6"><i class="ph ph-files text-4xl"></i></div>
                 <h3 class="text-2xl font-bold mb-4 text-navy">ITR Filings</h3>
                 <ul class="space-y-3 text-gray-600">
@@ -421,7 +590,8 @@
                 </ul>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover border-t-4 border-t-gold">
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover border-t-4 border-t-gold reveal"
+                style="transition-delay:0.15s">
                 <div class="text-navy mb-6"><i class="ph ph-scales text-4xl"></i></div>
                 <h3 class="text-2xl font-bold mb-4 text-navy">GST Services</h3>
                 <ul class="space-y-3 text-gray-600">
@@ -436,7 +606,8 @@
                 </ul>
             </div>
 
-            <div class="bg-navy p-8 rounded-2xl shadow-xl text-white relative overflow-hidden card-hover">
+            <div class="bg-navy p-8 rounded-2xl shadow-xl text-white relative overflow-hidden card-hover reveal"
+                style="transition-delay:0.3s">
                 <div
                     class="absolute top-4 right-4 bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase">
                     Most Popular</div>
@@ -497,8 +668,8 @@
                             </div>
                             <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20proceed%20with%20the%20ITR%20%E2%80%93%20Salaried%20filing%20service.%20Please%20guide%20me%20on%20the%20next%20steps."
                                 target="_blank" rel="noopener noreferrer"
-                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
-                                on WhatsApp</a>
+                                class="wa-btn block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp<i class="ph-fill ph-whatsapp-logo wa-icon"></i></a>
                         </div>
                     </div>
 
@@ -527,8 +698,8 @@
                             </div>
                             <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20file%20GST%20Nil%20Return%20for%20my%20business.%20Please%20share%20the%20process%20and%20required%20documents."
                                 target="_blank" rel="noopener noreferrer"
-                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
-                                on WhatsApp</a>
+                                class="wa-btn block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp<i class="ph-fill ph-whatsapp-logo wa-icon"></i></a>
                         </div>
                     </div>
                 </div>
@@ -557,8 +728,8 @@
                             </div>
                             <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20book%20a%20Tax%20Planning%20Consultation.%20Please%20let%20me%20know%20the%20available%20slots."
                                 target="_blank" rel="noopener noreferrer"
-                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
-                                on WhatsApp</a>
+                                class="wa-btn block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp<i class="ph-fill ph-whatsapp-logo wa-icon"></i></a>
                         </div>
                     </div>
                 </div>
@@ -586,8 +757,8 @@
                             </div>
                             <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20assistance%20with%20ITR%20filing%20for%20multiple%20income%20sources.%20Please%20guide%20me%20further."
                                 target="_blank" rel="noopener noreferrer"
-                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
-                                on WhatsApp</a>
+                                class="wa-btn block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp<i class="ph-fill ph-whatsapp-logo wa-icon"></i></a>
                         </div>
                     </div>
                 </div>
@@ -595,8 +766,10 @@
         </div>
         <div class="mt-12 text-center">
             <a href="https://wa.me/c/917981182281" target="_blank" rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-navy font-bold border-b-2 border-gold pb-1 hover:text-gold transition-all">
-                View All Services &amp; Pricing on WhatsApp <i class="ph-bold ph-arrow-right"></i>
+                class="view-all-link text-navy font-bold">
+                <i class="ph-fill ph-whatsapp-logo va-wa"></i>
+                View All Services &amp; Pricing on WhatsApp
+                <i class="ph-bold ph-arrow-right va-arrow"></i>
             </a>
         </div>
     </section>
@@ -610,21 +783,21 @@
                 regulations for businesses and individuals. We combine deep domain expertise with a commitment to
                 technology and transparency.
             </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="p-4 border border-white/10 rounded-xl">
-                    <p class="text-3xl font-bold text-gold">10+</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="statsGrid">
+                <div class="p-4 border border-white/10 rounded-xl reveal">
+                    <p class="text-3xl font-bold text-gold" data-count="10" data-suffix="+">10+</p>
                     <p class="text-xs uppercase opacity-60">Clients</p>
                 </div>
-                <div class="p-4 border border-white/10 rounded-xl">
-                    <p class="text-3xl font-bold text-gold">99%</p>
+                <div class="p-4 border border-white/10 rounded-xl reveal" style="transition-delay:0.1s">
+                    <p class="text-3xl font-bold text-gold" data-count="99" data-suffix="%">99%</p>
                     <p class="text-xs uppercase opacity-60">Accuracy</p>
                 </div>
-                <div class="p-4 border border-white/10 rounded-xl">
+                <div class="p-4 border border-white/10 rounded-xl reveal" style="transition-delay:0.2s">
                     <p class="text-3xl font-bold text-gold">24/7</p>
                     <p class="text-xs uppercase opacity-60">Support</p>
                 </div>
-                <div class="p-4 border border-white/10 rounded-xl">
-                    <p class="text-3xl font-bold text-gold">100%</p>
+                <div class="p-4 border border-white/10 rounded-xl reveal" style="transition-delay:0.3s">
+                    <p class="text-3xl font-bold text-gold" data-count="100" data-suffix="%">100%</p>
                     <p class="text-xs uppercase opacity-60">Compliance</p>
                 </div>
             </div>
@@ -1111,6 +1284,156 @@
                 toast.style.transform = 'translate(-50%, -100%)';
             }, 5000);
         }
+
+        // ── Hero Particle Network Animation ──────────────────────────────
+        (function () {
+            const canvas = document.getElementById('heroCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const PARTICLE_COUNT = 55;
+            const CONNECTION_DIST = 140;
+            const SPEED = 0.35;
+
+            let W, H, particles = [];
+
+            function resize() {
+                W = canvas.width = canvas.offsetWidth;
+                H = canvas.height = canvas.offsetHeight;
+            }
+
+            function rand(min, max) { return Math.random() * (max - min) + min; }
+
+            function createParticle() {
+                return {
+                    x: rand(0, W),
+                    y: rand(0, H),
+                    vx: rand(-SPEED, SPEED),
+                    vy: rand(-SPEED, SPEED),
+                    r: rand(1.5, 3),
+                    // alternate between soft gold and white
+                    color: Math.random() > 0.5
+                        ? 'rgba(245,197,66,0.75)'
+                        : 'rgba(255,255,255,0.55)'
+                };
+            }
+
+            function init() {
+                resize();
+                particles = Array.from({ length: PARTICLE_COUNT }, createParticle);
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, W, H);
+
+                // move & wrap
+                for (const p of particles) {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = W;
+                    if (p.x > W) p.x = 0;
+                    if (p.y < 0) p.y = H;
+                    if (p.y > H) p.y = 0;
+                }
+
+                // draw connections
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < CONNECTION_DIST) {
+                            const alpha = (1 - dist / CONNECTION_DIST) * 0.25;
+                            ctx.strokeStyle = `rgba(245,197,66,${alpha})`;
+                            ctx.lineWidth = 0.8;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // draw dots
+                for (const p of particles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                // redistribute on resize
+                particles.forEach(p => {
+                    if (p.x > W) p.x = rand(0, W);
+                    if (p.y > H) p.y = rand(0, H);
+                });
+            });
+
+            init();
+            draw();
+        })();
+        // ─────────────────────────────────────────────────────────────────
+        // ── Scroll-Reveal (Intersection Observer) ────────────────────────
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ── Animated Stats Counter ──────────────────────────────────
+        function animateCounter(el, target, suffix, duration) {
+            let startTime = null;
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                el.textContent = Math.round(eased * target) + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelectorAll('[data-count]').forEach(el => {
+                        animateCounter(el, +el.dataset.count, el.dataset.suffix || '', 1600);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+        const statsGrid = document.getElementById('statsGrid');
+        if (statsGrid) statsObserver.observe(statsGrid);
+
+        // ── Active Nav Highlight on Scroll ───────────────────────────
+        const navSections = document.querySelectorAll('section[id]');
+        const desktopNavLinks = document.querySelectorAll('.hidden.md\\:flex a[href^="#"]');
+
+        function updateActiveNav() {
+            let current = '';
+            navSections.forEach(sec => {
+                if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
+            });
+            desktopNavLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('nav-active');
+                }
+            });
+        }
+        window.addEventListener('scroll', updateActiveNav, { passive: true });
+        updateActiveNav();
+        // ─────────────────────────────────────────────────────────────────
     </script>
 
 </body>
