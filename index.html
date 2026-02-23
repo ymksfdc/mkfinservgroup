@@ -1,27 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <!--favicon-->
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-180.png">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-SL05T0XCTL"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-    gtag('config', 'G-SL05T0XCTL');
+        gtag('config', 'G-SL05T0XCTL');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mk FinServ™ - Tax & Compliance</title>
+    <title>ITR Filing &amp; GST Services | Mk FinServ™ Tax &amp; Compliance</title>
+    <meta name="description"
+        content="Mk FinServ offers professional ITR filing for salaried individuals and GST filing for small businesses in India. Transparent pricing, CA-verified accuracy, and expert support.">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mkfinservgroup.com/">
+    <meta property="og:title" content="ITR Filing &amp; GST Services | Mk FinServ™">
+    <meta property="og:description"
+        content="Professional Income Tax Filing &amp; GST Services with transparent pricing and expert CA support. Start on WhatsApp today.">
+    <meta property="og:image" content="https://mkfinservgroup.com/images/logo.jpg">
+    <!-- Canonical -->
+    <link rel="canonical" href="https://mkfinservgroup.com/">
+    <!-- Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
     <style>
         :root {
             --navy: #001f3f;
@@ -34,10 +52,18 @@
             scroll-behavior: smooth;
         }
 
-        .bg-navy { background-color: var(--navy); }
-        .text-gold { color: var(--gold); }
-        .border-gold { border-color: var(--gold); }
-        
+        .bg-navy {
+            background-color: var(--navy);
+        }
+
+        .text-gold {
+            color: var(--gold);
+        }
+
+        .border-gold {
+            border-color: var(--gold);
+        }
+
         .hero-gradient {
             background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
             position: relative;
@@ -58,6 +84,7 @@
         .card-hover {
             transition: all 0.3s ease;
         }
+
         .card-hover:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -67,6 +94,7 @@
             background: linear-gradient(to right, var(--gold), var(--gold-dark));
             transition: transform 0.2s ease;
         }
+
         .gold-button:hover {
             transform: scale(1.02);
             filter: brightness(1.1);
@@ -111,11 +139,9 @@
             background: white;
             border-radius: 50%;
         }
-        /* Adjust padding for modal content */
-        .p-6 {
-            padding: 0.5rem;
-        }
-        .p-8 {
+
+        /* Adjust padding for modal header only */
+        #formModal .modal-header-inner {
             padding: 0.5rem;
         }
 
@@ -124,6 +150,36 @@
             font-size: 6rem;
             line-height: 1;
             color: gainsboro;
+        }
+
+        /* Skeleton shimmer loader */
+        .skeleton {
+            background: linear-gradient(90deg, #e2e8f0 25%, #f8fafc 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.5s infinite;
+        }
+
+        @keyframes skeleton-shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        /* Screen-reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
         }
 
         /* MODAL & DROPDOWN */
@@ -138,7 +194,10 @@
             justify-content: center;
             padding: 20px;
         }
-        #formModal.active { display: flex; }
+
+        #formModal.active {
+            display: flex;
+        }
 
         .modal-content {
             width: 100%;
@@ -166,14 +225,17 @@
             outline: none;
             transition: all 0.2s;
         }
+
         .form-input:focus {
             border-color: var(--gold);
             box-shadow: 0 0 0 2px rgba(245, 197, 66, 0.2);
         }
+
         .form-input.error-border {
             border-color: #ef4444;
             background-color: #fef2f2;
         }
+
         .error-message {
             color: #ef4444;
             font-size: 0.75rem;
@@ -186,6 +248,7 @@
         .dropdown-container {
             position: relative;
         }
+
         .dropdown-trigger {
             cursor: pointer;
             display: flex;
@@ -193,6 +256,7 @@
             align-items: center;
             background: white;
         }
+
         .dropdown-menu {
             position: absolute;
             top: 105%;
@@ -203,16 +267,19 @@
             z-index: 100;
             display: none;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             border: 1px solid #e2e8f0;
         }
+
         .dropdown-menu.active {
             display: block;
         }
+
         .options-list {
             max-height: 250px;
             overflow-y: auto;
         }
+
         .option-item {
             padding: 12px 16px;
             color: #475569;
@@ -220,6 +287,7 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         .option-item:hover {
             background: #fff9eb;
             color: var(--gold-dark);
@@ -227,6 +295,7 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-50 text-slate-800">
 
     <!-- Navbar -->
@@ -249,12 +318,15 @@
                     <a href="#services" class="hover:text-gold transition-colors">Services</a>
                     <a href="#catalog" class="hover:text-gold transition-colors">Pricing</a>
                     <a href="#about" class="hover:text-gold transition-colors">About</a>
-                    <a href="#contact" class="bg-[#FFC107] text-[#002147] px-5 py-2.5 rounded-full font-semibold hover:bg-white hover:text-[#002147] hover:border hover:border-[#002147] transition duration-300">Book Consultation</a>
+                    <a href="#contact"
+                        class="bg-[#FFC107] text-[#002147] px-5 py-2.5 rounded-full font-semibold hover:bg-white hover:text-[#002147] hover:border hover:border-[#002147] transition duration-300">Book
+                        Consultation</a>
                 </div>
 
                 <!-- Mobile Button -->
                 <div class="md:hidden">
-                    <button id="menuBtn" class="text-3xl transition-transform duration-300">
+                    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"
+                        class="text-3xl transition-transform duration-300">
                         ☰
                     </button>
                 </div>
@@ -270,7 +342,9 @@
                 <a href="#services" class="hover:text-gold transition-colors">Services</a>
                 <a href="#catalog" class="hover:text-gold transition-colors">Pricing</a>
                 <a href="#about" class="hover:text-gold transition-colors">About</a>
-                <a href="#contact" class="bg-[#FFC107] text-[#002147] px-5 py-2.5 rounded-full font-semibold hover:bg-white hover:text-[#002147] hover:border hover:border-[#002147] transition duration-300">Book Consultation</a>
+                <a href="#contact"
+                    class="bg-[#FFC107] text-[#002147] px-5 py-2.5 rounded-full font-semibold hover:bg-white hover:text-[#002147] hover:border hover:border-[#002147] transition duration-300">Book
+                    Consultation</a>
             </div>
         </div>
     </nav>
@@ -302,7 +376,8 @@
                     <p class="text-xs text-gray-500">Upfront quotes, zero hidden fees.</p>
                 </div>
             </div>
-            <div class="flex items-center gap-4 border-y md:border-y-0 md:border-x border-gray-100 py-6 md:py-0 px-0 md:px-8">
+            <div
+                class="flex items-center gap-4 border-y md:border-y-0 md:border-x border-gray-100 py-6 md:py-0 px-0 md:px-8">
                 <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
                     <i class="ph-bold ph-timer"></i>
                 </div>
@@ -335,10 +410,14 @@
                 <div class="text-navy mb-6"><i class="ph ph-files text-4xl"></i></div>
                 <h3 class="text-2xl font-bold mb-4 text-navy">ITR Filings</h3>
                 <ul class="space-y-3 text-gray-600">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for Business/Professionals</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for Salaried Individuals</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Tax Planning & Consultation</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Capital Gains & HNI Returns</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for
+                        Business/Professionals</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for
+                        Salaried Individuals</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Tax
+                        Planning & Consultation</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Capital
+                        Gains & HNI Returns</li>
                 </ul>
             </div>
 
@@ -346,23 +425,33 @@
                 <div class="text-navy mb-6"><i class="ph ph-scales text-4xl"></i></div>
                 <h3 class="text-2xl font-bold mb-4 text-navy">GST Services</h3>
                 <ul class="space-y-3 text-gray-600">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST Registration & Updates</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Monthly/Quarterly GSTR Returns</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Annual Return (GSTR-9)</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST Notice Advisory</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST
+                        Registration & Updates</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i>
+                        Monthly/Quarterly GSTR Returns</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Annual
+                        Return (GSTR-9)</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST Notice
+                        Advisory</li>
                 </ul>
             </div>
 
             <div class="bg-navy p-8 rounded-2xl shadow-xl text-white relative overflow-hidden card-hover">
-                <div class="absolute top-4 right-4 bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase">Most Popular</div>
+                <div
+                    class="absolute top-4 right-4 bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase">
+                    Most Popular</div>
                 <div class="text-gold mb-6"><i class="ph ph-crown text-4xl"></i></div>
                 <h3 class="text-2xl font-bold mb-4">Value Pack</h3>
                 <p class="text-sm opacity-80 mb-6 font-light">Annual Tax Care Plan</p>
                 <ul class="space-y-3 opacity-90">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Unlimited Query Support</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Quarterly Tax Compliance Review</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Priority Filing Service</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Full Year Compliance Tracking</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Unlimited
+                        Query Support</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Quarterly
+                        Tax Compliance Review</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Priority
+                        Filing Service</li>
+                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Full Year
+                        Compliance Tracking</li>
                 </ul>
             </div>
         </div>
@@ -372,20 +461,27 @@
     <section id="catalog" class="py-24 bg-gray-100 px-4">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <span style="color: #d4a017; --gold: #f5c542; --gold-dark: #d4a017;" class="font-bold tracking-widest uppercase text-xs">
+                <span style="color: #d4a017; --gold: #f5c542; --gold-dark: #d4a017;"
+                    class="font-bold tracking-widest uppercase text-xs">
                     Service Catalog
                 </span>
                 <h2 class="text-4xl font-bold text-navy mb-4">Pricing & Packages</h2>
-                <p class="text-gray-500 max-w-xl mx-auto">Explore our most popular entry-level services below. For a full list of all services and pricing, please view our full catalog on WhatsApp.</p>
+                <p class="text-gray-500 max-w-xl mx-auto">Explore our most popular entry-level services below. For a
+                    full list of all services and pricing, please view our full catalog on WhatsApp.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Catalog Item 1 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal">
+                <div
+                    class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal">
                     <div class="h-56 overflow-hidden relative group">
                         <div class="skeleton absolute inset-0 z-0"></div>
-                        <img src="images/itr-filing.webp" alt="ITR" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-500" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
-                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">Save 40%</div>
+                        <img src="images/itr-filing.webp" alt="ITR"
+                            class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-500"
+                            onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
+                        <div
+                            class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
+                            Save 40%</div>
                     </div>
 
                     <!-- Content Section -->
@@ -399,79 +495,110 @@
                                 <span class="text-3xl font-extrabold text-navy">₹899</span>
                                 <span class="text-gray-400 line-through text-sm">₹1,499</span>
                             </div>
-                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20proceed%20with%20the%20ITR%20%E2%80%93%20Salaried%20filing%20service.%20Please%20guide%20me%20on%20the%20next%20steps." target="_blank" class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start on WhatsApp</a>
+                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20proceed%20with%20the%20ITR%20%E2%80%93%20Salaried%20filing%20service.%20Please%20guide%20me%20on%20the%20next%20steps."
+                                target="_blank" rel="noopener noreferrer"
+                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp</a>
                         </div>
                     </div>
 
                 </div>
 
                 <!-- Catalog Item 2 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal" style="transition-delay: 0.1s">
+                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
+                    style="transition-delay: 0.1s">
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
-                        <img src="images/gst-compliance.webp" alt="GST" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
-                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">Save 50%</div>
+                        <img src="images/gst-compliance.webp" alt="GST"
+                            class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity"
+                            onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
+                        <div
+                            class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
+                            Save 50%</div>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h4 class="font-bold text-navy text-lg mb-1">GST Nil Return</h4>
-                        <p class="text-gray-500 text-sm mb-4">Nil GST return filing for inactive or zero-transaction businesses to maintain compliance.</p>
+                        <p class="text-gray-500 text-sm mb-4">Nil GST return filing for inactive or zero-transaction
+                            businesses to maintain compliance.</p>
                         <div class="mt-auto">
                             <div class="flex items-baseline gap-2 mb-6">
                                 <span class="text-3xl font-extrabold text-navy">₹199</span>
                                 <span class="text-gray-400 line-through text-sm">₹399</span>
                             </div>
-                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20file%20GST%20Nil%20Return%20for%20my%20business.%20Please%20share%20the%20process%20and%20required%20documents." target="_blank" class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start on WhatsApp</a>
+                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20file%20GST%20Nil%20Return%20for%20my%20business.%20Please%20share%20the%20process%20and%20required%20documents."
+                                target="_blank" rel="noopener noreferrer"
+                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp</a>
                         </div>
                     </div>
                 </div>
-                
+
 
                 <!-- Catalog Item 3 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal" style="transition-delay: 0.2s">
+                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
+                    style="transition-delay: 0.2s">
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
-                        <img src="images/tax-planning.webp" alt="Tax Planning Consultation" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
-                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">Save 50%</div>
+                        <img src="images/tax-planning.webp" alt="Tax Planning Consultation"
+                            class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity"
+                            onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
+                        <div
+                            class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
+                            Save 50%</div>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h4 class="font-bold text-navy text-lg mb-1">Tax Planning Consultation</h4>
-                        <p class="text-gray-500 text-sm mb-4">Expert one-on-one consultation to optimize your tax liabilities legally and efficiently.</p>
+                        <p class="text-gray-500 text-sm mb-4">Expert one-on-one consultation to optimize your tax
+                            liabilities legally and efficiently.</p>
                         <div class="mt-auto">
                             <div class="flex items-baseline gap-2 mb-6">
                                 <span class="text-3xl font-extrabold text-navy">₹499</span>
                                 <span class="text-gray-400 line-through text-sm">₹999</span>
                             </div>
-                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20book%20a%20Tax%20Planning%20Consultation.%20Please%20let%20me%20know%20the%20available%20slots." target="_blank" class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start on WhatsApp</a>
+                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20would%20like%20to%20book%20a%20Tax%20Planning%20Consultation.%20Please%20let%20me%20know%20the%20available%20slots."
+                                target="_blank" rel="noopener noreferrer"
+                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp</a>
                         </div>
                     </div>
-                </div>               
+                </div>
 
                 <!-- Catalog Item 4 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal" style="transition-delay: 0.3s">
+                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
+                    style="transition-delay: 0.3s">
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
-                        <img src="images/multiple-income-hni.webp" alt="Multiple Income / HNI ITR Service" class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity" onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
-                        <div class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">Premium</div>
+                        <img src="images/multiple-income-hni.webp" alt="Multiple Income / HNI ITR Service"
+                            class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity"
+                            onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
+                        <div
+                            class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
+                            Premium</div>
                     </div>
                     <div class="p-6 flex-grow flex flex-col">
                         <h4 class="font-bold text-navy text-lg mb-1">Multiple Income / HNI ITR</h4>
-                        <p class="text-gray-500 text-sm mb-4">ITR filing for individuals with multiple income sources or high-value transactions.</p>
+                        <p class="text-gray-500 text-sm mb-4">ITR filing for individuals with multiple income sources or
+                            high-value transactions.</p>
                         <div class="mt-auto">
                             <div class="flex items-baseline gap-2 mb-6">
                                 <span class="text-3xl font-extrabold text-navy">₹3999</span>
                                 <span class="text-gray-400 line-through text-sm">₹7,999</span>
                             </div>
-                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20assistance%20with%20ITR%20filing%20for%20multiple%20income%20sources.%20Please%20guide%20me%20further." target="_blank" class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start on WhatsApp</a>
+                            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20assistance%20with%20ITR%20filing%20for%20multiple%20income%20sources.%20Please%20guide%20me%20further."
+                                target="_blank" rel="noopener noreferrer"
+                                class="block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">Start
+                                on WhatsApp</a>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="mt-12 text-center">
-                <a href="https://wa.me/c/917981182281" target="_blank" class="inline-flex items-center gap-2 text-navy font-bold border-b-2 border-gold pb-1 hover:text-gold transition-all">
-                    View All Services & Pricing on WhatsApp <i class="ph-bold ph-arrow-right"></i>
-                </a>
-            </div>
+            <a href="https://wa.me/c/917981182281" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-navy font-bold border-b-2 border-gold pb-1 hover:text-gold transition-all">
+                View All Services &amp; Pricing on WhatsApp <i class="ph-bold ph-arrow-right"></i>
+            </a>
+        </div>
     </section>
 
     <!-- About Section -->
@@ -479,7 +606,9 @@
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl font-bold text-gold mb-8">About Mk FinServ</h2>
             <p class="text-lg opacity-80 leading-relaxed mb-8 font-light">
-                Mk FinServ is a professional tax and compliance advisory firm dedicated to simplifying financial regulations for businesses and individuals. We combine deep domain expertise with a commitment to technology and transparency.
+                Mk FinServ is a professional tax and compliance advisory firm dedicated to simplifying financial
+                regulations for businesses and individuals. We combine deep domain expertise with a commitment to
+                technology and transparency.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="p-4 border border-white/10 rounded-xl">
@@ -506,21 +635,26 @@
     <section id="contact" class="bg-white py-24 px-4">
         <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
             <div>
-                <h2 class="text-4xl font-bold text-navy mb-6 leading-tight">Secure Your <br><span class="text-gold">Tax Compliance</span> Today</h2>
-                <p class="text-gray-600 mb-10 text-lg">Our experts are just a click away. Reach out to us for any Income Tax, GST, or Business Advisory requirements.</p>
-                
+                <h2 class="text-4xl font-bold text-navy mb-6 leading-tight">Secure Your <br><span class="text-gold">Tax
+                        Compliance</span> Today</h2>
+                <p class="text-gray-600 mb-10 text-lg">Our experts are just a click away. Reach out to us for any Income
+                    Tax, GST, or Business Advisory requirements.</p>
+
                 <div class="space-y-8">
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-navy text-2xl shadow-inner">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-navy text-2xl shadow-inner">
                             <i class="ph ph-envelope-simple"></i>
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email Support</p>
-                            <a href="mailto:support@mkfinservgroup.com" class="font-bold text-navy hover:text-gold transition-colors">support@mkfinservgroup.com</a>
+                            <a href="mailto:support@mkfinservgroup.com"
+                                class="font-bold text-navy hover:text-gold transition-colors">support@mkfinservgroup.com</a>
                         </div>
                     </div>
                     <div class="flex items-center gap-5">
-                        <div class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-navy text-2xl shadow-inner">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center text-navy text-2xl shadow-inner">
                             <i class="ph ph-phone"></i>
                         </div>
                         <div>
@@ -531,13 +665,16 @@
                 </div>
             </div>
 
-            <div class="bg-gray-50 p-8 md:p-10 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-center items-center text-center">
+            <div
+                class="bg-gray-50 p-8 md:p-10 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-center items-center text-center">
                 <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center text-gold text-3xl mb-6">
                     <i class="ph-fill ph-headset"></i>
                 </div>
                 <h3 class="text-2xl font-bold text-navy mb-4">Expert Assistance</h3>
-                <p class="text-gray-500 mb-8">Fill out our callback form and an expert will guide you through the process.</p>
-                <button onclick="openForm()" class="gold-button text-navy font-bold py-4 px-10 rounded-xl shadow-xl text-lg w-full">
+                <p class="text-gray-500 mb-8">Fill out our callback form and an expert will guide you through the
+                    process.</p>
+                <button onclick="openForm()"
+                    class="gold-button text-navy font-bold py-4 px-10 rounded-xl shadow-xl text-lg w-full">
                     Request a Callback
                 </button>
             </div>
@@ -566,20 +703,12 @@
             <!-- Social Icons -->
             <div class="flex items-center gap-5">
                 <!-- LinkedIn -->
-                <a href="https://www.linkedin.com/company/mkfinservgroup"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-white hover:text-gold transition-colors"
-                    title="LinkedIn">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
+                <a href="https://www.linkedin.com/company/mkfinservgroup" target="_blank" rel="noopener noreferrer"
+                    class="text-white hover:text-gold transition-colors" title="LinkedIn">
+                    <span class="sr-only">Visit our LinkedIn page</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                         <rect x="2" y="9" width="4" height="12"></rect>
                         <circle cx="4" cy="4" r="2"></circle>
@@ -587,20 +716,12 @@
                 </a>
 
                 <!-- Instagram -->
-                <a href="https://www.instagram.com/mkfinservgroup/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-white hover:text-gold transition-colors"
-                    title="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
+                <a href="https://www.instagram.com/mkfinservgroup/" target="_blank" rel="noopener noreferrer"
+                    class="text-white hover:text-gold transition-colors" title="Instagram">
+                    <span class="sr-only">Visit our Instagram page</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -608,21 +729,15 @@
                 </a>
 
                 <!-- YouTube -->
-                <a href="https://www.youtube.com/@MkFinServGroup"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-white hover:text-gold transition-colors"
-                    title="YouTube">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <a href="https://www.youtube.com/@MkFinServGroup" target="_blank" rel="noopener noreferrer"
+                    class="text-white hover:text-gold transition-colors" title="YouTube">
+                    <span class="sr-only">Visit our YouTube channel</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true">
+                        <path
+                            d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z">
+                        </path>
                         <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
                     </svg>
                 </a>
@@ -632,20 +747,24 @@
         <!-- Divider -->
         <div class="border-t border-white/10 pt-10">
             <!-- Brand & Disclaimer -->
-            <div class="max-w-3xl mx-auto text-center text-[11px] md:text-xs text-gray-400 leading-relaxed space-y-4 px-4">
+            <div
+                class="max-w-3xl mx-auto text-center text-[11px] md:text-xs text-gray-400 leading-relaxed space-y-4 px-4">
                 <p>
                     <span class="text-white font-semibold">Mk FinServ™</span> is a brand operated by
                     <span class="text-white font-semibold">Mk FinServ Group™</span>,
-                    a Sole Proprietorship firm providing income tax filing, financial compliance, and advisory support services.
+                    a Sole Proprietorship firm providing income tax filing, financial compliance, and advisory support
+                    services.
                 </p>
                 <p>
                     <span class="text-white font-medium">Disclaimer:</span>
-                    We are an independent consultancy firm and are not affiliated with, endorsed by, or authorized by any government authority, statutory body, or regulatory agency.
+                    We are an independent consultancy firm and are not affiliated with, endorsed by, or authorized by
+                    any government authority, statutory body, or regulatory agency.
                 </p>
             </div>
 
             <!-- Bottom Bar -->
-            <div class="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-5 text-[10px] text-gray-500 uppercase tracking-[0.18em] px-4">
+            <div
+                class="mt-10 pt-6 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-5 text-[10px] text-gray-500 uppercase tracking-[0.18em] px-4">
                 <div class="text-center md:text-left">
                     © 2026 Mk FinServ Group™. All Rights Reserved.
                 </div>
@@ -658,7 +777,8 @@
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://whatsapp.com/channel/0029Vb7JDYyGZNCjB3bosO2T" target="_blank" class="whatsapp-float flex items-center justify-center" title="Follow our WhatsApp Channel">
+    <a href="https://whatsapp.com/channel/0029Vb7JDYyGZNCjB3bosO2T" target="_blank"
+        class="whatsapp-float flex items-center justify-center" title="Follow our WhatsApp Channel">
         <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
     </a>
 
@@ -676,33 +796,43 @@
                     <i class="ph-bold ph-x text-2xl"></i>
                 </button>
             </div>
-            
+
             <div class="p-8">
-                <form id="callbackForm" action="https://formspree.io/f/xlgwjdqd" method="POST" class="space-y-4" novalidate>
+                <form id="callbackForm" action="https://formspree.io/f/xlgwjdqd" method="POST" class="space-y-4"
+                    novalidate>
                     <input type="hidden" name="_subject" value="New Callback Request: Mk FinServ">
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="field-container">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">First Name</label>
-                            <input type="text" name="First Name" id="firstName" required placeholder="Name" class="form-input">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">First
+                                Name</label>
+                            <input type="text" name="First Name" id="firstName" required placeholder="Name"
+                                class="form-input">
                             <div id="firstNameError" class="error-message">At least 3 alphabets required.</div>
                         </div>
                         <div class="field-container">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Last Name</label>
-                            <input type="text" name="Last Name" id="lastName" required placeholder="Surname" class="form-input">
+                            <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Last
+                                Name</label>
+                            <input type="text" name="Last Name" id="lastName" required placeholder="Surname"
+                                class="form-input">
                             <div id="lastNameError" class="error-message">At least 1 alphabets required.</div>
                         </div>
                     </div>
 
                     <div class="field-container">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Phone Number</label>
-                        <input type="tel" name="Phone" id="phone" required maxlength="10" placeholder="10-digit number" class="form-input">
-                        <div id="phoneError" class="error-message">Enter valid 10-digit number starting with 6, 7, 8, or 9.</div>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Phone
+                            Number</label>
+                        <input type="tel" name="Phone" id="phone" required maxlength="10" placeholder="10-digit number"
+                            class="form-input">
+                        <div id="phoneError" class="error-message">Enter valid 10-digit number starting with 6, 7, 8, or
+                            9.</div>
                     </div>
 
                     <div class="field-container">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Email Address</label>
-                        <input type="email" name="Email" id="email" required placeholder="john@example.com" class="form-input">
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Email
+                            Address</label>
+                        <input type="email" name="Email" id="email" required placeholder="john@example.com"
+                            class="form-input">
                         <div id="emailError" class="error-message">Please enter a valid email address.</div>
                     </div>
 
@@ -710,19 +840,22 @@
 
                     <!-- DROPDOWN COMPONENT - SEARCH REMOVED -->
                     <div class="field-container">
-                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-wider">Service Required *</label>
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase mb-2 tracking-wider">Service
+                            Required *</label>
                         <div class="dropdown-container">
                             <div class="form-input dropdown-trigger" id="dropdownTrigger">
                                 <span id="selectedText" class="text-slate-400">Select a service</span>
                                 <i class="ph-bold ph-caret-down text-slate-400"></i>
                             </div>
-                            
+
                             <div class="dropdown-menu" id="dropdownMenu">
                                 <div class="options-list" id="optionsList">
-                                    <div class="option-item" data-value="Income Tax Return (ITR)">Income Tax Return (ITR)</div>
+                                    <div class="option-item" data-value="Income Tax Return (ITR)">Income Tax Return
+                                        (ITR)</div>
                                     <div class="option-item" data-value="GST Services">GST Services</div>
                                     <div class="option-item" data-value="TDS Services">TDS Services</div>
-                                    <div class="option-item" data-value="Notice / Compliance Support">Notice / Compliance Support</div>
+                                    <div class="option-item" data-value="Notice / Compliance Support">Notice /
+                                        Compliance Support</div>
                                     <div class="option-item" data-value="Other Advisory">Other Advisory</div>
                                 </div>
                             </div>
@@ -732,13 +865,17 @@
 
                     <div class="pt-2">
                         <label class="flex items-start gap-3 cursor-pointer group">
-                            <input type="checkbox" id="consent" name="Consent To Contact" class="mt-1 w-4 h-4 rounded border-gray-300 text-navy focus:ring-gold cursor-pointer" required>
-                            <span class="text-xs text-gray-500 leading-tight">I hereby authorize Mk FinServ to contact me regarding my query. I agree to receive communications via Phone/WhatsApp.</span>
+                            <input type="checkbox" id="consent" name="Consent To Contact"
+                                class="mt-1 w-4 h-4 rounded border-gray-300 text-navy focus:ring-gold cursor-pointer"
+                                required>
+                            <span class="text-xs text-gray-500 leading-tight">I hereby authorize Mk FinServ to contact
+                                me regarding my query. I agree to receive communications via Phone/WhatsApp.</span>
                         </label>
                         <div id="consentError" class="error-message">You must provide consent to proceed.</div>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="gold-button w-full text-navy font-extrabold py-4 mt-2 rounded-xl shadow-lg flex items-center justify-center gap-2">
+                    <button type="submit" id="submitBtn"
+                        class="gold-button w-full text-navy font-extrabold py-4 mt-2 rounded-xl shadow-lg flex items-center justify-center gap-2">
                         <span>Submit Request</span>
                         <i class="ph-bold ph-paper-plane-tilt"></i>
                     </button>
@@ -780,6 +917,8 @@
             mobileMenu.classList.remove("max-h-0");
             mobileMenu.classList.add("max-h-96");
             menuBtn.textContent = "✖";
+            menuBtn.setAttribute('aria-label', 'Close menu');
+            menuBtn.setAttribute('aria-expanded', 'true');
             isOpen = true;
         }
 
@@ -787,6 +926,8 @@
             mobileMenu.classList.remove("max-h-96");
             mobileMenu.classList.add("max-h-0");
             menuBtn.textContent = "☰";
+            menuBtn.setAttribute('aria-label', 'Open menu');
+            menuBtn.setAttribute('aria-expanded', 'false');
             isOpen = false;
         }
 
@@ -838,10 +979,10 @@
                 selectedText.classList.remove('text-slate-400');
                 selectedText.classList.add('text-slate-800');
                 hiddenInput.value = val;
-                
+
                 // Immediately close menu after selection
                 menu.classList.remove('active');
-                
+
                 // Hide error if it was shown
                 document.getElementById('serviceError').style.display = 'none';
                 trigger.classList.remove('error-border');
@@ -865,7 +1006,7 @@
             inputs.forEach(input => input.classList.remove('error-border'));
         }
 
-        document.getElementById('phone').addEventListener('input', function(e) {
+        document.getElementById('phone').addEventListener('input', function (e) {
             this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
         });
 
@@ -873,7 +1014,7 @@
             const field = document.getElementById(id);
             const error = document.getElementById(errorId);
             const val = field.value.trim();
-            
+
             let isRepetitive = false;
             if (id === 'phone' && val.length === 10) {
                 isRepetitive = /^(\d)\1{9}$/.test(val);
@@ -891,9 +1032,9 @@
             return isValid;
         }
 
-        document.getElementById('callbackForm').addEventListener("submit", async function(event) {
+        document.getElementById('callbackForm').addEventListener("submit", async function (event) {
             event.preventDefault();
-            
+
             const isFNameValid = validateField('firstName', /^[a-zA-Z\s]{3,}$/, 'firstNameError');
             const isLNameValid = validateField('lastName', /^[a-zA-Z\s]{1,}$/, 'lastNameError');
             const isPhoneValid = validateField('phone', /^[6-9][0-9]{9}$/, 'phoneError');
@@ -911,20 +1052,20 @@
             const consent = document.getElementById('consent');
             const consentError = document.getElementById('consentError');
             const isConsentValid = consent.checked;
-            
+
             if (!isConsentValid) {
                 consentError.style.display = 'block';
             } else {
                 consentError.style.display = 'none';
             }
 
-            if (!isFNameValid || !isLNameValid || !isPhoneValid || !isEmailValid || !isConsentValid) {
+            if (!isFNameValid || !isLNameValid || !isPhoneValid || !isEmailValid || !isServiceValid || !isConsentValid) {
                 return;
             }
 
             const submitBtn = document.getElementById('submitBtn');
             const statusDiv = document.getElementById('formStatus');
-            
+
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<div class="animate-spin rounded-full h-5 w-5 border-2 border-navy border-t-transparent mr-2"></div> Sending...';
             statusDiv.classList.add('hidden');
@@ -973,4 +1114,5 @@
     </script>
 
 </body>
+
 </html>
