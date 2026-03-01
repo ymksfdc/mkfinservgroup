@@ -821,8 +821,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email Support</p>
-                            <a href="mailto:support@mkfinservgroup.com"
-                                class="font-bold text-navy hover:text-gold transition-colors">support@mkfinservgroup.com</a>
+                            <a class="font-bold text-navy hover:text-gold transition-colors"><span class="__cf_email__" data-cfemail="bbc8cecbcbd4c9cffbd6d0ddd2d5c8dec9cddcc9d4cecb95d8d4d6">support@mkfinservgroup.com</span></a>
                         </div>
                     </div>
                     <div class="flex items-center gap-5">
@@ -1078,7 +1077,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Mobile Menu Logic
         const menuBtn = document.getElementById("menuBtn");
         const mobileMenu = document.getElementById("mobileMenu");
@@ -1433,9 +1432,168 @@
         }
         window.addEventListener('scroll', updateActiveNav, { passive: true });
         updateActiveNav();
+        // ──�
+        // ── Mouse Color Animations (Background-Aware) ────────────────────
+        (function () {
+
+            // ── Utility: sample background brightness under the cursor ──
+            const sampleCanvas = document.createElement('canvas');
+            sampleCanvas.width = sampleCanvas.height = 1;
+            const sampleCtx = sampleCanvas.getContext('2d');
+
+            function getBgBrightness(x, y) {
+                // Walk up element stack at (x,y) to find a meaningful bg color
+                const els = document.elementsFromPoint(x, y);
+                for (const el of els) {
+                    if (el === document.documentElement || el === document.body) continue;
+                    const bg = window.getComputedStyle(el).backgroundColor;
+                    const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+                    if (m) {
+                        const r = +m[1], g = +m[2], b = +m[3];
+                        // Skip fully transparent
+                        if (bg.includes('rgba') && bg.match(/,\s*([\d.]+)\)/)?.[1] === '0') continue;
+                        // Relative luminance (perceived brightness 0–255)
+                        return 0.299 * r + 0.587 * g + 0.114 * b;
+                    }
+                }
+                // Fallback: check body/html bg
+                const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+                const bm = bodyBg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+                if (bm) return 0.299 * +bm[1] + 0.587 * +bm[2] + 0.114 * +bm[3];
+                return 255; // assume white if unknown
+            }
+
+            // ── Color palette chooser ──
+            // isLight = background under cursor is LIGHT/WHITE → use DARK animation colors
+            // isDark  = background under cursor is DARK       → use LIGHT animation colors
+            function getAnimColors(brightness, hue, index) {
+                const isLightBg = brightness > 128;
+                if (isLightBg) {
+                    // Dark, saturated, rich tones for light/white backgrounds
+                    return {
+                        trail: `hsla(${(hue + index * 18) % 360}, 95%, 28%, ${0.75 - index * 0.05})`,
+                        spark: `hsl(${(hue + index * 22) % 360}, 90%, 30%)`,
+                        burst: `hsla(${hue}, 100%, 25%, 0.85)`
+                    };
+                } else {
+                    // Bright, pastel, luminous tones for dark/navy backgrounds
+                    return {
+                        trail: `hsla(${(hue + index * 18) % 360}, 100%, 75%, ${0.80 - index * 0.05})`,
+                        spark: `hsl(${(hue + index * 22) % 360}, 100%, 78%)`,
+                        burst: `hsla(${hue}, 100%, 80%, 0.85)`
+                    };
+                }
+            }
+
+            // ── Build trail dots ──
+            const trail = [];
+            const TRAIL_COUNT = 12;
+            for (let i = 0; i < TRAIL_COUNT; i++) {
+                const dot = document.createElement('div');
+                dot.style.cssText = `
+                    position: fixed;
+                    pointer-events: none;
+                    border-radius: 50%;
+                    z-index: 99999;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                `;
+                document.body.appendChild(dot);
+                trail.push({ el: dot, x: 0, y: 0 });
+            }
+
+            let mouseX = 0, mouseY = 0;
+            let hue = 45;
+            let bgBrightness = 10; // default: assume dark (navy hero)
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                hue = (hue + 1.8) % 360;
+                bgBrightness = getBgBrightness(e.clientX, e.clientY);
+            });
+
+            function animateTrail() {
+                let x = mouseX, y = mouseY;
+                trail.forEach((dot, i) => {
+                    const size = (TRAIL_COUNT - i) * 2.4;
+                    const colors = getAnimColors(bgBrightness, hue, i);
+                    dot.el.style.width = size + 'px';
+                    dot.el.style.height = size + 'px';
+                    dot.el.style.left = (x - size / 2) + 'px';
+                    dot.el.style.top = (y - size / 2) + 'px';
+                    dot.el.style.background = colors.trail;
+                    dot.el.style.opacity = mouseX === 0 && mouseY === 0 ? '0' : '1';
+                    dot.x += (x - dot.x) * 0.45;
+                    dot.y += (y - dot.y) * 0.45;
+                    x = dot.x;
+                    y = dot.y;
+                });
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail();
+
+            // ── Click burst + sparkles ──
+            document.addEventListener('click', (e) => {
+                const brightness = getBgBrightness(e.clientX, e.clientY);
+                const colors = getAnimColors(brightness, hue, 0);
+
+                const burst = document.createElement('div');
+                burst.style.cssText = `
+                    position: fixed;
+                    left: ${e.clientX}px;
+                    top: ${e.clientY}px;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 99998;
+                    transform: translate(-50%, -50%);
+                    background: radial-gradient(circle, ${colors.burst} 0%, transparent 70%);
+                    animation: clickBurst 0.6s ease-out forwards;
+                `;
+                document.body.appendChild(burst);
+                setTimeout(() => burst.remove(), 700);
+
+                for (let i = 0; i < 8; i++) {
+                    const spark = document.createElement('div');
+                    const angle = (i / 8) * Math.PI * 2;
+                    const dist = 40 + Math.random() * 30;
+                    const tx = Math.cos(angle) * dist;
+                    const ty = Math.sin(angle) * dist;
+                    const sc = getAnimColors(brightness, hue, i);
+                    spark.style.cssText = `
+                        position: fixed;
+                        left: ${e.clientX}px;
+                        top: ${e.clientY}px;
+                        width: 7px;
+                        height: 7px;
+                        border-radius: 50%;
+                        pointer-events: none;
+                        z-index: 99998;
+                        background: ${sc.spark};
+                        transform: translate(-50%, -50%);
+                        animation: sparkFly 0.65s ease-out forwards;
+                        --tx: ${tx}px;
+                        --ty: ${ty}px;
+                    `;
+                    document.body.appendChild(spark);
+                    setTimeout(() => spark.remove(), 700);
+                }
+            });
+        })();
         // ─────────────────────────────────────────────────────────────────
     </script>
 
+    <style>
+        @keyframes clickBurst {
+            0%   { width: 0; height: 0; opacity: 1; }
+            100% { width: 120px; height: 120px; opacity: 0; }
+        }
+        @keyframes sparkFly {
+            0%   { transform: translate(-50%, -50%) translate(0, 0); opacity: 1; }
+            100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+    </style>
 </body>
-
 </html>
