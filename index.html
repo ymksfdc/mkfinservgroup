@@ -27,7 +27,7 @@
     <meta property="og:title" content="ITR Filing &amp; GST Services | Mk FinServ™">
     <meta property="og:description"
         content="Professional Income Tax Filing &amp; GST Services with transparent pricing and expert CA support. Start on WhatsApp today.">
-    <meta property="og:image" content="https://mkfinservgroup.com/images/logo.jpg">
+    <meta property="og:image" content="https://mkfinservgroup.com/images/logo.webp">
     <!-- Canonical -->
     <link rel="canonical" href="https://mkfinservgroup.com/">
     <!-- Preconnects -->
@@ -471,7 +471,10 @@
 
                 <!-- Logo -->
                 <div class="flex items-center gap-3">
-                    <img src="images/logo.jpg" alt="Logo" class="w-10 h-10 logo-img" loading="lazy">
+                    <picture>
+                        <source type="image/webp" srcset="images/logo.webp 1x, images/logo@2x.webp 2x">
+                        <img src="images/logo.webp" alt="Logo" class="w-10 h-10 logo-img" loading="lazy">
+                    </picture>
                     <div>
                         <span class="text-2xl font-bold tracking-tight block leading-none text-gold">Mk FinServ™</span>
                         <span class="text-[10px] uppercase tracking-[0.2em] opacity-80">Tax & Compliance</span>
@@ -523,7 +526,10 @@
         <canvas id="heroCanvas"
             style="position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;"></canvas>
         <div class="max-w-5xl mx-auto text-center relative z-10" style="position:relative;z-index:2;">
-            <img src="images/logo.jpg" alt="Logo" class="w-10 h-10 logo-img mx-auto mb-6" loading="lazy">
+            <picture>
+                <source type="image/webp" srcset="images/logo.webp 1x, images/logo@2x.webp 2x">
+                <img src="images/logo.webp" alt="Logo" class="w-10 h-10 logo-img mx-auto mb-6" loading="lazy">
+            </picture>
             <h1 class="text-4xl md:text-7xl font-extrabold mb-6">
                 Professional <span class="text-gold">Tax & Compliance</span> <br class="hidden md:block"> Solutions
             </h1>
@@ -647,8 +653,11 @@
                     class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal">
                     <div class="h-56 overflow-hidden relative group">
                         <div class="skeleton absolute inset-0 z-0"></div>
-                        <img src="images/itr-filing.webp" alt="ITR"
+                        <img src="images/itr-filing-800.webp" alt="ITR"
                             class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity duration-500"
+                            srcset="images/itr-filing-400.webp 400w, images/itr-filing-800.webp 800w, images/itr-filing-1600.webp 1600w"
+                            sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                            loading="lazy"
                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
                         <div
                             class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
@@ -680,8 +689,11 @@
                     style="transition-delay: 0.1s">
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
-                        <img src="images/gst-compliance.webp" alt="GST"
+                        <img src="images/gst-compliance-800.webp" alt="GST"
                             class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity"
+                            srcset="images/gst-compliance-400.webp 400w, images/gst-compliance-800.webp 800w, images/gst-compliance-1600.webp 1600w"
+                            sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                            loading="lazy"
                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
                         <div
                             class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
@@ -710,8 +722,11 @@
                     style="transition-delay: 0.2s">
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
-                        <img src="images/tax-planning.webp" alt="Tax Planning Consultation"
+                        <img src="images/tax-planning-800.webp" alt="Tax Planning Consultation"
                             class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity"
+                            srcset="images/tax-planning-400.webp 400w, images/tax-planning-800.webp 800w, images/tax-planning-1600.webp 1600w"
+                            sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                            loading="lazy"
                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
                         <div
                             class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
@@ -739,8 +754,11 @@
                     style="transition-delay: 0.3s">
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
-                        <img src="images/multiple-income-hni.webp" alt="Multiple Income / HNI ITR Service"
+                        <img src="images/multiple-income-hni-800.webp" alt="Multiple Income / HNI ITR Service"
                             class="w-full h-full object-cover relative z-10 opacity-0 transition-opacity"
+                            srcset="images/multiple-income-hni-400.webp 400w, images/multiple-income-hni-800.webp 800w, images/multiple-income-hni-1600.webp 1600w"
+                            sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
+                            loading="lazy"
                             onload="this.style.opacity='1'; this.previousElementSibling.style.display='none'">
                         <div
                             class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase z-20 shadow-lg">
@@ -860,7 +878,10 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
             <!-- Logo -->
             <div class="flex items-center gap-3">
-                <img src="images/logo.jpg" alt="Logo" class="w-10 h-10 logo-img" loading="lazy">
+                <picture>
+                    <source type="image/webp" srcset="images/logo.webp 1x, images/logo@2x.webp 2x">
+                    <img src="images/logo.webp" alt="Logo" class="w-10 h-10 logo-img" loading="lazy">
+                </picture>
                 <span class="text-2xl font-bold text-gold">Mk FinServ™</span>
             </div>
 

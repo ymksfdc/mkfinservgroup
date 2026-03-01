@@ -1,0 +1,11 @@
+{
+  "name": "mkfinserv-image-tools",
+  "version": "1.0.0",
+  "description": "Image helper scripts for Mk FinServ site (generate @2x WebP variants)",
+  "scripts": {
+    "generate-webp": "node tools/generate-webp.js"
+  },
+  "dependencies": {
+    "sharp": "^0.32.0"
+  }
+}
