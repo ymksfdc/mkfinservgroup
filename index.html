@@ -613,12 +613,13 @@
         /* ══ ANIMATION #7: Quick Query Bubble ════════════════════════════ */
         #quickQueryBubble {
             position: fixed;
-            bottom: 20px; left: 20px;
+            bottom: 85px; right: 20px;
             z-index: 9990;
             display: flex;
             flex-direction: column;
-            align-items: flex-start;
+            align-items: flex-end;
             gap: 10px;
+            cursor: pointer;
         }
         #qqToggleBtn {
             width: 55px; height: 55px;
@@ -629,7 +630,7 @@
             font-size: 1.5rem;
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 6px 20px rgba(0,31,63,0.4);
-            cursor: none;
+            cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         #qqToggleBtn::after {
@@ -649,7 +650,7 @@
         #qqToggleBtn:hover { transform: scale(1.08); box-shadow: 0 8px 24px rgba(0,31,63,0.5); }
         #qqOptions {
             display: flex; flex-direction: column; gap: 8px;
-            transform-origin: bottom left;
+            transform-origin: bottom right;
             transition: opacity 0.3s, transform 0.3s;
             opacity: 0; pointer-events: none;
             transform: scale(0.85) translateY(10px);
@@ -668,19 +669,19 @@
             font-size: 0.78rem;
             font-weight: 600;
             color: var(--navy);
-            cursor: none;
+            cursor: pointer;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             text-decoration: none;
             transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
             white-space: nowrap;
         }
         .qq-option:hover {
-            transform: translateX(4px);
+            transform: translateX(-4px);
             background: #fffbea;
             box-shadow: 0 6px 18px rgba(0,0,0,0.14);
         }
         @media (max-width: 768px) {
-            #quickQueryBubble { bottom: 15px; left: 15px; }
+            #quickQueryBubble { bottom: 85px; right: 15px; }
             #qqToggleBtn { width: 50px; height: 50px; font-size: 1.3rem; }
         }
 
@@ -698,7 +699,7 @@
             border-radius: 3px;
             background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct,50%), #e2e8f0 var(--pct,50%), #e2e8f0 100%);
             outline: none;
-            cursor: none;
+            cursor: pointer;
         }
         .calc-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
@@ -707,7 +708,7 @@
             background: var(--gold);
             border: 3px solid white;
             box-shadow: 0 2px 8px rgba(245,197,66,0.5);
-            cursor: none;
+            cursor: pointer;
             transition: transform 0.2s;
         }
         .calc-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
@@ -801,7 +802,7 @@
         <div class="bg-white rounded-2xl shadow-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8" id="promiseBar">
             <div class="flex items-center gap-4">
                 <div class="promise-icon-wrap w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
-                    <i class="ph-bold ph-currency-circle-dollar"></i>
+                    <span class="text-gold text-2xl font-bold">₹</span>
                 </div>
                 <div>
                     <h4 class="font-bold text-navy">Transparent Pricing</h4>
@@ -1293,7 +1294,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email Support</p>
-                            <a href="/cdn-cgi/l/email-protection#32414742425d4046725f59545b5c4157404455405d47421c515d5f" class="font-bold text-navy hover:text-gold transition-colors"><span class="__cf_email__" data-cfemail="bbc8cecbcbd4c9cffbd6d0ddd2d5c8dec9cddcc9d4cecb95d8d4d6">[email&#160;protected]</span></a>
+                            <a href="mailto:support@mkfinservgroup.com" class="font-bold text-navy hover:text-gold transition-colors"><span class="__cf_email__" data-cfemail="bbc8cecbcbd4c9cffbd6d0ddd2d5c8dec9cddcc9d4cecb95d8d4d6">support@mkfinservgroup.com</span></a>
                         </div>
                     </div>
                     <div class="flex items-center gap-5">
