@@ -821,8 +821,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email Support</p>
-                            <a href="mailto:support@mkfinservgroup.com"
-                                class="font-bold text-navy hover:text-gold transition-colors">support@mkfinservgroup.com</a>
+                            <a href="/cdn-cgi/l/email-protection#32414742425d4046725f59545b5c4157404455405d47421c515d5f" class="font-bold text-navy hover:text-gold transition-colors"><span class="__cf_email__" data-cfemail="bbc8cecbcbd4c9cffbd6d0ddd2d5c8dec9cddcc9d4cecb95d8d4d6">[email&#160;protected]</span></a>
                         </div>
                     </div>
                     <div class="flex items-center gap-5">
@@ -1078,7 +1077,7 @@
         </div>
     </div>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Mobile Menu Logic
         const menuBtn = document.getElementById("menuBtn");
         const mobileMenu = document.getElementById("mobileMenu");
@@ -1433,9 +1432,398 @@
         }
         window.addEventListener('scroll', updateActiveNav, { passive: true });
         updateActiveNav();
-        // ─────────────────────────────────────────────────────────────────
+        // ──�
+        // ═══════════════════════════════════════════════════════════════
+        // ██  AUTOMATEZAI-STYLE FULL ANIMATION SUITE
+        // ═══════════════════════════════════════════════════════════════
+
+        (function () {
+
+            // ── 1. GLOBAL CANVAS (meteors + aurora blobs) ───────────────
+            const globalCanvas = document.createElement('canvas');
+            globalCanvas.id = 'globalFxCanvas';
+            globalCanvas.style.cssText = `
+                position: fixed; inset: 0; width: 100%; height: 100%;
+                pointer-events: none; z-index: 0;
+            `;
+            document.body.prepend(globalCanvas);
+            const gc = globalCanvas.getContext('2d');
+            let GW, GH;
+            function resizeGlobal() {
+                GW = globalCanvas.width = window.innerWidth;
+                GH = globalCanvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeGlobal);
+            resizeGlobal();
+
+            // ── 2. AURORA BLOBS ─────────────────────────────────────────
+            const auroraBlobs = [
+                { x: 0.15, y: 0.25, r: 0.38, hue: 220, drift: 0.00018, phase: 0 },
+                { x: 0.75, y: 0.55, r: 0.32, hue: 260, drift: 0.00022, phase: 2 },
+                { x: 0.50, y: 0.80, r: 0.28, hue: 190, drift: 0.00015, phase: 4 },
+                { x: 0.85, y: 0.15, r: 0.22, hue: 300, drift: 0.00020, phase: 1 },
+            ];
+            function drawAurora(t) {
+                auroraBlobs.forEach(b => {
+                    const px = (b.x + Math.sin(t * b.drift + b.phase) * 0.12) * GW;
+                    const py = (b.y + Math.cos(t * b.drift * 0.7 + b.phase) * 0.10) * GH;
+                    const radius = b.r * Math.min(GW, GH);
+                    const grad = gc.createRadialGradient(px, py, 0, px, py, radius);
+                    // Only show aurora blobs over dark sections by checking scroll
+                    grad.addColorStop(0, `hsla(${b.hue}, 90%, 55%, 0.07)`);
+                    grad.addColorStop(0.5, `hsla(${b.hue + 30}, 80%, 60%, 0.04)`);
+                    grad.addColorStop(1, `hsla(${b.hue}, 70%, 50%, 0)`);
+                    gc.fillStyle = grad;
+                    gc.beginPath();
+                    gc.arc(px, py, radius, 0, Math.PI * 2);
+                    gc.fill();
+                });
+            }
+
+            // ── 3. METEOR STREAKS ────────────────────────────────────────
+            const meteors = [];
+            function spawnMeteor() {
+                const angle = (Math.random() * 20 + 15) * Math.PI / 180;
+                const startX = Math.random() * GW * 1.5 - GW * 0.25;
+                meteors.push({
+                    x: startX, y: -10,
+                    vx: Math.cos(angle) * (6 + Math.random() * 5),
+                    vy: Math.sin(angle) * (6 + Math.random() * 5),
+                    len: 90 + Math.random() * 120,
+                    alpha: 0,
+                    life: 0,
+                    maxLife: 55 + Math.random() * 40,
+                    hue: Math.random() > 0.5 ? 45 : 200 + Math.random() * 60,
+                });
+            }
+            let meteorTimer = 0;
+            function drawMeteors() {
+                meteorTimer++;
+                if (meteorTimer % 80 === 0) spawnMeteor();
+                for (let i = meteors.length - 1; i >= 0; i--) {
+                    const m = meteors[i];
+                    m.x += m.vx; m.y += m.vy; m.life++;
+                    m.alpha = m.life < 10 ? m.life / 10 : m.life > m.maxLife - 10
+                        ? (m.maxLife - m.life) / 10 : 1;
+                    if (m.life >= m.maxLife || m.x > GW + 200 || m.y > GH + 200) {
+                        meteors.splice(i, 1); continue;
+                    }
+                    const tail = { x: m.x - m.vx / m.vy * m.len, y: m.y - m.len };
+                    const grad = gc.createLinearGradient(tail.x, tail.y, m.x, m.y);
+                    grad.addColorStop(0, `hsla(${m.hue}, 100%, 90%, 0)`);
+                    grad.addColorStop(0.7, `hsla(${m.hue}, 100%, 85%, ${m.alpha * 0.5})`);
+                    grad.addColorStop(1, `hsla(${m.hue}, 100%, 100%, ${m.alpha * 0.9})`);
+                    gc.strokeStyle = grad;
+                    gc.lineWidth = 1.5;
+                    gc.beginPath();
+                    gc.moveTo(tail.x, tail.y);
+                    gc.lineTo(m.x, m.y);
+                    gc.stroke();
+                    // glowing head
+                    const headGrad = gc.createRadialGradient(m.x, m.y, 0, m.x, m.y, 4);
+                    headGrad.addColorStop(0, `hsla(${m.hue}, 100%, 100%, ${m.alpha * 0.95})`);
+                    headGrad.addColorStop(1, `hsla(${m.hue}, 100%, 80%, 0)`);
+                    gc.fillStyle = headGrad;
+                    gc.beginPath();
+                    gc.arc(m.x, m.y, 4, 0, Math.PI * 2);
+                    gc.fill();
+                }
+            }
+
+            // ── 4. MAIN CANVAS LOOP ──────────────────────────────────────
+            let rafT = 0;
+            function globalLoop(t) {
+                gc.clearRect(0, 0, GW, GH);
+                drawAurora(t);
+                drawMeteors();
+                rafT = t;
+                requestAnimationFrame(globalLoop);
+            }
+            requestAnimationFrame(globalLoop);
+
+            // ── 5. CUSTOM GLOW CURSOR ────────────────────────────────────
+            const cursorOuter = document.createElement('div');
+            const cursorInner = document.createElement('div');
+            cursorOuter.style.cssText = `
+                position: fixed; pointer-events: none; z-index: 999999;
+                width: 36px; height: 36px; border-radius: 50%;
+                border: 1.5px solid rgba(245,197,66,0.6);
+                transform: translate(-50%,-50%);
+                transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
+                backdrop-filter: blur(1px);
+            `;
+            cursorInner.style.cssText = `
+                position: fixed; pointer-events: none; z-index: 999999;
+                width: 7px; height: 7px; border-radius: 50%;
+                background: rgba(245,197,66,0.95);
+                transform: translate(-50%,-50%);
+                box-shadow: 0 0 10px 3px rgba(245,197,66,0.6);
+                transition: background 0.2s, box-shadow 0.2s;
+            `;
+            document.body.appendChild(cursorOuter);
+            document.body.appendChild(cursorInner);
+
+            let mouseX = 0, mouseY = 0;
+            let outerX = 0, outerY = 0;
+            let hue = 45;
+            let bgBrightness = 10;
+
+            function getBgBrightness(x, y) {
+                const els = document.elementsFromPoint(x, y);
+                for (const el of els) {
+                    if (el === document.documentElement || el === document.body) continue;
+                    const bg = window.getComputedStyle(el).backgroundColor;
+                    const m = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+                    if (m) {
+                        const r = +m[1], g = +m[2], b = +m[3];
+                        if (bg.includes('rgba') && parseFloat(bg.split(',')[3]) === 0) continue;
+                        return 0.299 * r + 0.587 * g + 0.114 * b;
+                    }
+                }
+                return 10;
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                hue = (hue + 1.8) % 360;
+                bgBrightness = getBgBrightness(e.clientX, e.clientY);
+                cursorInner.style.left = mouseX + 'px';
+                cursorInner.style.top  = mouseY + 'px';
+
+                const isLight = bgBrightness > 128;
+                const trailColor = isLight
+                    ? `hsla(${hue},90%,25%,0.9)`
+                    : `hsla(${hue},100%,75%,0.9)`;
+                const glowColor = isLight
+                    ? `hsla(${hue},90%,30%,0.5)`
+                    : `hsla(${hue},100%,70%,0.5)`;
+
+                cursorInner.style.background = isLight
+                    ? `hsl(${hue},90%,30%)`
+                    : `hsl(${hue},100%,72%)`;
+                cursorInner.style.boxShadow = `0 0 12px 4px ${glowColor}`;
+                cursorOuter.style.borderColor = isLight
+                    ? `hsla(${hue},80%,30%,0.5)`
+                    : `hsla(${hue},90%,75%,0.5)`;
+            });
+
+            // Cursor lag follow
+            function followCursor() {
+                outerX += (mouseX - outerX) * 0.12;
+                outerY += (mouseY - outerY) * 0.12;
+                cursorOuter.style.left = outerX + 'px';
+                cursorOuter.style.top  = outerY + 'px';
+                requestAnimationFrame(followCursor);
+            }
+            followCursor();
+
+            // Cursor hover expand on links/buttons
+            document.querySelectorAll('a, button, [role="button"], .gold-button').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursorOuter.style.width  = '58px';
+                    cursorOuter.style.height = '58px';
+                    cursorOuter.style.background = bgBrightness > 128
+                        ? `hsla(${hue},80%,25%,0.08)`
+                        : `hsla(${hue},90%,70%,0.10)`;
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursorOuter.style.width  = '36px';
+                    cursorOuter.style.height = '36px';
+                    cursorOuter.style.background = 'transparent';
+                });
+            });
+
+            // ── 6. COMET TRAIL ON MOUSEMOVE ──────────────────────────────
+            const trail = [];
+            const TRAIL_COUNT = 14;
+            for (let i = 0; i < TRAIL_COUNT; i++) {
+                const dot = document.createElement('div');
+                dot.style.cssText = `
+                    position: fixed; pointer-events: none; border-radius: 50%;
+                    z-index: 99998; opacity: 0; will-change: transform;
+                `;
+                document.body.appendChild(dot);
+                trail.push({ el: dot, x: mouseX, y: mouseY });
+            }
+
+            function animateTrail() {
+                let x = mouseX, y = mouseY;
+                const isLight = bgBrightness > 128;
+                trail.forEach((dot, i) => {
+                    const size = (TRAIL_COUNT - i) * 2.6;
+                    const lightness = isLight ? 28 + i * 1.5 : 65 + i * 1.5;
+                    const alpha = isLight ? 0.72 - i * 0.048 : 0.78 - i * 0.048;
+                    dot.el.style.cssText = `
+                        position: fixed; pointer-events: none; border-radius: 50%;
+                        z-index: 99998; will-change: transform;
+                        width: ${size}px; height: ${size}px;
+                        left: ${x - size / 2}px; top: ${y - size / 2}px;
+                        background: hsla(${(hue + i * 18) % 360}, 95%, ${lightness}%, ${alpha});
+                        opacity: ${mouseX === 0 ? 0 : 1};
+                        filter: blur(${i < 3 ? 0 : 1}px);
+                    `;
+                    dot.x += (x - dot.x) * 0.42;
+                    dot.y += (y - dot.y) * 0.42;
+                    x = dot.x;
+                    y = dot.y;
+                });
+                requestAnimationFrame(animateTrail);
+            }
+            animateTrail();
+
+            // ── 7. CLICK RIPPLE + STARBURST ──────────────────────────────
+            document.addEventListener('click', (e) => {
+                const brightness = getBgBrightness(e.clientX, e.clientY);
+                const isLight = brightness > 128;
+                const burstL = isLight ? '22%' : '80%';
+                const sparkL = isLight ? '30%' : '78%';
+
+                // Ripple rings
+                for (let r = 0; r < 3; r++) {
+                    const ring = document.createElement('div');
+                    ring.style.cssText = `
+                        position: fixed;
+                        left: ${e.clientX}px; top: ${e.clientY}px;
+                        width: 0; height: 0;
+                        border-radius: 50%;
+                        pointer-events: none; z-index: 99997;
+                        transform: translate(-50%, -50%);
+                        border: 2px solid hsla(${(hue + r * 40) % 360}, 100%, ${isLight ? '30%' : '75%'}, ${0.8 - r * 0.2});
+                        animation: ringExpand ${0.55 + r * 0.15}s ${r * 0.1}s ease-out forwards;
+                    `;
+                    document.body.appendChild(ring);
+                    setTimeout(() => ring.remove(), 900 + r * 150);
+                }
+
+                // Starburst particles
+                for (let i = 0; i < 12; i++) {
+                    const spark = document.createElement('div');
+                    const angle = (i / 12) * Math.PI * 2;
+                    const dist = 45 + Math.random() * 40;
+                    spark.style.cssText = `
+                        position: fixed;
+                        left: ${e.clientX}px; top: ${e.clientY}px;
+                        width: ${4 + Math.random() * 4}px;
+                        height: ${4 + Math.random() * 4}px;
+                        border-radius: 50%;
+                        pointer-events: none; z-index: 99997;
+                        background: hsl(${(hue + i * 22) % 360}, 100%, ${sparkL});
+                        box-shadow: 0 0 6px 2px hsl(${(hue + i * 22) % 360}, 100%, ${sparkL});
+                        transform: translate(-50%, -50%);
+                        animation: sparkFly 0.7s ease-out forwards;
+                        --tx: ${Math.cos(angle) * dist}px;
+                        --ty: ${Math.sin(angle) * dist}px;
+                    `;
+                    document.body.appendChild(spark);
+                    setTimeout(() => spark.remove(), 750);
+                }
+
+                // Central flash
+                const flash = document.createElement('div');
+                flash.style.cssText = `
+                    position: fixed;
+                    left: ${e.clientX}px; top: ${e.clientY}px;
+                    width: 0; height: 0;
+                    border-radius: 50%;
+                    pointer-events: none; z-index: 99996;
+                    transform: translate(-50%, -50%);
+                    background: radial-gradient(circle,
+                        hsla(${hue}, 100%, ${isLight ? '30%' : '85%'}, 0.9) 0%,
+                        transparent 70%);
+                    animation: flashBurst 0.5s ease-out forwards;
+                `;
+                document.body.appendChild(flash);
+                setTimeout(() => flash.remove(), 550);
+            });
+
+            // ── 8. MOUSE-REPEL PARTICLES (floating orbs across whole page)
+            const orbCanvas = document.createElement('canvas');
+            orbCanvas.style.cssText = `
+                position: fixed; inset: 0; width: 100%; height: 100%;
+                pointer-events: none; z-index: 1;
+            `;
+            document.body.insertBefore(orbCanvas, document.body.children[1]);
+            const oc = orbCanvas.getContext('2d');
+            let OW, OH;
+            function resizeOrb() { OW = orbCanvas.width = window.innerWidth; OH = orbCanvas.height = window.innerHeight; }
+            window.addEventListener('resize', resizeOrb);
+            resizeOrb();
+
+            const ORBS = Array.from({ length: 60 }, () => ({
+                x: Math.random() * OW, y: Math.random() * OH,
+                ox: 0, oy: 0,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                r: 1 + Math.random() * 2.5,
+                hue: Math.random() * 360,
+                alpha: 0.3 + Math.random() * 0.5,
+            }));
+            ORBS.forEach(o => { o.ox = o.x; o.oy = o.y; });
+
+            function drawOrbs() {
+                oc.clearRect(0, 0, OW, OH);
+                ORBS.forEach(o => {
+                    // Repel from mouse
+                    const dx = o.x - mouseX, dy = o.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const REPEL_R = 100;
+                    if (dist < REPEL_R && dist > 0) {
+                        const force = (REPEL_R - dist) / REPEL_R;
+                        o.vx += (dx / dist) * force * 1.2;
+                        o.vy += (dy / dist) * force * 1.2;
+                    }
+                    // Spring back to origin
+                    o.vx += (o.ox - o.x) * 0.005;
+                    o.vy += (o.oy - o.y) * 0.005;
+                    o.vx *= 0.94; o.vy *= 0.94;
+                    o.x += o.vx; o.y += o.vy;
+
+                    const isLight = bgBrightness > 128;
+                    const l = isLight ? 25 + o.hue % 20 : 65 + o.hue % 20;
+                    oc.beginPath();
+                    oc.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+                    oc.fillStyle = `hsla(${o.hue}, 85%, ${l}%, ${o.alpha})`;
+                    oc.fill();
+
+                    // Draw connection lines between nearby orbs
+                    ORBS.forEach(o2 => {
+                        const d = Math.hypot(o.x - o2.x, o.y - o2.y);
+                        if (d < 80 && d > 0) {
+                            const a = (1 - d / 80) * 0.12;
+                            oc.strokeStyle = `hsla(${o.hue}, 80%, ${l}%, ${a})`;
+                            oc.lineWidth = 0.6;
+                            oc.beginPath();
+                            oc.moveTo(o.x, o.y);
+                            oc.lineTo(o2.x, o2.y);
+                            oc.stroke();
+                        }
+                    });
+                });
+                requestAnimationFrame(drawOrbs);
+            }
+            drawOrbs();
+
+        })();
+        // ═══════════════════════════════════════════════════════════════
     </script>
 
-</body>
+    <style>
+        /* Hide default cursor */
+        *, *::before, *::after { cursor: none !important; }
 
+        @keyframes ringExpand {
+            0%   { width: 0; height: 0; opacity: 1; }
+            100% { width: 130px; height: 130px; opacity: 0; }
+        }
+        @keyframes flashBurst {
+            0%   { width: 0; height: 0; opacity: 1; }
+            100% { width: 100px; height: 100px; opacity: 0; }
+        }
+        @keyframes sparkFly {
+            0%   { transform: translate(-50%,-50%) translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(-50%,-50%) translate(var(--tx),var(--ty)) scale(0); opacity: 0; }
+        }
+    </style>
+</body>
 </html>
