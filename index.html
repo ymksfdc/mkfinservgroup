@@ -459,10 +459,269 @@
             transform: translateY(-1px) scale(1.01);
             box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
         }
+
+        /* ══ ANIMATION #4: Scroll Progress Bar ════════════════════════════ */
+        #scrollProgressBar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(to right, var(--gold), #ff9800, var(--gold));
+            z-index: 99999;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 8px rgba(245,197,66,0.7);
+        }
+
+        /* ══ ANIMATION #3: Typewriter cursor ══════════════════════════════ */
+        #typewriterCursor {
+            display: inline-block;
+            width: 3px;
+            background: var(--gold);
+            animation: cursorBlink 0.75s step-end infinite;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+
+        /* ══ ANIMATION #5: Promise Bar icon pulse ═════════════════════════ */
+        .promise-icon-wrap {
+            position: relative;
+        }
+        .promise-icon-wrap.pulse-trigger::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            opacity: 0;
+            animation: promisePulse 0.7s ease-out forwards;
+        }
+        @keyframes promisePulse {
+            0%   { transform: scale(0.7); opacity: 0.8; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* ══ ANIMATION #6: Circular Progress Stats ════════════════════════ */
+        .stat-ring-wrap {
+            position: relative;
+            width: 90px; height: 90px;
+            margin: 0 auto 8px;
+        }
+        .stat-ring-wrap svg {
+            transform: rotate(-90deg);
+        }
+        .stat-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 6; }
+        .stat-ring-fill {
+            fill: none;
+            stroke: var(--gold);
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-dasharray: 226;
+            stroke-dashoffset: 226;
+            transition: stroke-dashoffset 1.6s cubic-bezier(0.22,1,0.36,1);
+            filter: drop-shadow(0 0 4px rgba(245,197,66,0.6));
+        }
+        .stat-ring-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ══ ANIMATION #2: 3D Tilt cards ══════════════════════════════════ */
+        .tilt-card {
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: box-shadow 0.3s ease;
+        }
+        .tilt-card .tilt-shine {
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(245,197,66,0.18) 0%, transparent 65%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 5;
+        }
+        .tilt-card:hover .tilt-shine { opacity: 1; }
+
+        /* ══ ANIMATION #8: Service Card Flip ══════════════════════════════ */
+        .flip-card-container {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%; height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .flip-card-container:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+        .flip-card-front {
+            background: white;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--navy) 0%, #003366 100%);
+            color: white;
+        }
+        /* Keep height stable for flip */
+        .flip-card-container { min-height: 320px; }
+
+        /* ══ ANIMATION #9: Form focus animations ══════════════════════════ */
+        .form-field-fancy {
+            position: relative;
+        }
+        .form-field-fancy label {
+            transition: color 0.25s, transform 0.25s;
+            display: block;
+        }
+        .form-field-fancy .fancy-line {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px;
+            width: 0%;
+            background: linear-gradient(to right, var(--gold), var(--gold-dark));
+            border-radius: 2px;
+            transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+            pointer-events: none;
+        }
+        .form-field-fancy:focus-within .fancy-line { width: 100%; }
+        .form-field-fancy:focus-within label { color: var(--gold-dark); }
+
+        /* ══ ANIMATION #7: Quick Query Bubble ════════════════════════════ */
+        #quickQueryBubble {
+            position: fixed;
+            bottom: 20px; left: 20px;
+            z-index: 9990;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        #qqToggleBtn {
+            width: 55px; height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy), #003d7a);
+            color: var(--gold);
+            border: 2px solid rgba(245,197,66,0.4);
+            font-size: 1.5rem;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 6px 20px rgba(0,31,63,0.4);
+            cursor: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #qqToggleBtn::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 2px solid rgba(245,197,66,0.3);
+            opacity: 0;
+            animation: qqPulse 2.5s ease-out infinite;
+        }
+        @keyframes qqPulse {
+            0%   { transform: scale(0.9); opacity: 0.7; }
+            70%  { transform: scale(1.4); opacity: 0; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        #qqToggleBtn:hover { transform: scale(1.08); box-shadow: 0 8px 24px rgba(0,31,63,0.5); }
+        #qqOptions {
+            display: flex; flex-direction: column; gap: 8px;
+            transform-origin: bottom left;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0; pointer-events: none;
+            transform: scale(0.85) translateY(10px);
+        }
+        #qqOptions.open {
+            opacity: 1; pointer-events: all;
+            transform: scale(1) translateY(0);
+        }
+        .qq-option {
+            display: flex; align-items: center; gap: 8px;
+            background: white;
+            border: 1px solid rgba(0,31,63,0.12);
+            border-left: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--navy);
+            cursor: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+            white-space: nowrap;
+        }
+        .qq-option:hover {
+            transform: translateX(4px);
+            background: #fffbea;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+        }
+        @media (max-width: 768px) {
+            #quickQueryBubble { bottom: 15px; left: 15px; }
+            #qqToggleBtn { width: 50px; height: 50px; font-size: 1.3rem; }
+        }
+
+        /* ══ ANIMATION #1: Tax Calculator ════════════════════════════════ */
+        #taxCalcSection {
+            background: linear-gradient(135deg, #f8fafc 0%, #fff9eb 100%);
+            border-top: 1px solid #f0e8c8;
+            border-bottom: 1px solid #f0e8c8;
+        }
+        .calc-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--pct,50%), #e2e8f0 var(--pct,50%), #e2e8f0 100%);
+            outline: none;
+            cursor: none;
+        }
+        .calc-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(245,197,66,0.5);
+            cursor: none;
+            transition: transform 0.2s;
+        }
+        .calc-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        .calc-result-bar {
+            height: 10px; border-radius: 5px;
+            transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
     </style>
 </head>
 
 <body class="bg-gray-50 text-slate-800">
+
+    <!-- Animation #4: Scroll Progress Bar -->
+    <div id="scrollProgressBar"></div>
 
     <!-- Navbar -->
     <nav class="bg-navy text-white sticky top-0 z-50 shadow-lg">
@@ -527,7 +786,11 @@
             <h1 class="text-4xl md:text-7xl font-extrabold mb-6">
                 Professional <span class="text-gold">Tax & Compliance</span> <br class="hidden md:block"> Solutions
             </h1>
-            <p class="text-xl md:text-2xl opacity-90 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            <!-- Animation #3: Typewriter -->
+            <p class="text-xl md:text-2xl opacity-90 mb-2 max-w-2xl mx-auto font-light leading-relaxed">
+                Expert help with <span id="typewriterText" class="text-gold font-semibold"></span><span id="typewriterCursor"></span>
+            </p>
+            <p class="text-base md:text-lg opacity-70 mb-10 max-w-2xl mx-auto font-light">
                 Professional Income Tax, GST & Advisory Services with Transparent Pricing and Expert Support.
             </p>
         </div>
@@ -535,9 +798,9 @@
 
     <!-- Promise Bar -->
     <div class="max-w-6xl mx-auto -mt-12 relative z-20 px-4">
-        <div class="bg-white rounded-2xl shadow-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8" id="promiseBar">
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
+                <div class="promise-icon-wrap w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
                     <i class="ph-bold ph-currency-circle-dollar"></i>
                 </div>
                 <div>
@@ -547,7 +810,7 @@
             </div>
             <div
                 class="flex items-center gap-4 border-y md:border-y-0 md:border-x border-gray-100 py-6 md:py-0 px-0 md:px-8">
-                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
+                <div class="promise-icon-wrap w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
                     <i class="ph-bold ph-timer"></i>
                 </div>
                 <div>
@@ -556,7 +819,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
+                <div class="promise-icon-wrap w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center text-gold text-2xl">
                     <i class="ph-bold ph-shield-check"></i>
                 </div>
                 <div>
@@ -575,55 +838,228 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover reveal">
-                <div class="text-navy mb-6"><i class="ph ph-files text-4xl"></i></div>
-                <h3 class="text-2xl font-bold mb-4 text-navy">ITR Filings</h3>
-                <ul class="space-y-3 text-gray-600">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for
-                        Business/Professionals</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for
-                        Salaried Individuals</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Tax
-                        Planning & Consultation</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Capital
-                        Gains & HNI Returns</li>
-                </ul>
+            <!-- Service Card 1: ITR Filings -->
+            <div class="flip-card-container reveal">
+                <div class="flip-card-inner shadow-sm border border-gray-100 rounded-2xl">
+                    <div class="flip-card-front bg-white p-8 rounded-2xl">
+                        <div class="text-navy mb-6"><i class="ph ph-files text-4xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4 text-navy">ITR Filings</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for Business/Professionals</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> ITR for Salaried Individuals</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Tax Planning & Consultation</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Capital Gains & HNI Returns</li>
+                        </ul>
+                    </div>
+                    <div class="flip-card-back rounded-2xl">
+                        <i class="ph ph-files text-5xl text-gold mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2 text-gold">ITR Filings</h3>
+                        <p class="text-sm opacity-70 mb-6">From salaried individuals to HNI returns — we handle it all with CA-verified accuracy.</p>
+                        <p class="text-3xl font-extrabold text-gold mb-6">Starting ₹899</p>
+                        <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20help%20with%20ITR%20filing." target="_blank" rel="noopener noreferrer"
+                            class="bg-gold text-navy font-bold px-6 py-3 rounded-xl text-sm hover:brightness-110 transition">Start on WhatsApp →</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover border-t-4 border-t-gold reveal"
-                style="transition-delay:0.15s">
-                <div class="text-navy mb-6"><i class="ph ph-scales text-4xl"></i></div>
-                <h3 class="text-2xl font-bold mb-4 text-navy">GST Services</h3>
-                <ul class="space-y-3 text-gray-600">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST
-                        Registration & Updates</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i>
-                        Monthly/Quarterly GSTR Returns</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Annual
-                        Return (GSTR-9)</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST Notice
-                        Advisory</li>
-                </ul>
+            <!-- Service Card 2: GST Services -->
+            <div class="flip-card-container reveal" style="transition-delay:0.15s">
+                <div class="flip-card-inner shadow-sm border border-gray-100 border-t-4 border-t-gold rounded-2xl">
+                    <div class="flip-card-front bg-white p-8 rounded-2xl">
+                        <div class="text-navy mb-6"><i class="ph ph-scales text-4xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4 text-navy">GST Services</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST Registration & Updates</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Monthly/Quarterly GSTR Returns</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> Annual Return (GSTR-9)</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-caret-right text-gold mt-1"></i> GST Notice Advisory</li>
+                        </ul>
+                    </div>
+                    <div class="flip-card-back rounded-2xl">
+                        <i class="ph ph-scales text-5xl text-gold mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2 text-gold">GST Services</h3>
+                        <p class="text-sm opacity-70 mb-6">Complete GST lifecycle management — registration to annual returns and notice handling.</p>
+                        <p class="text-3xl font-extrabold text-gold mb-6">Starting ₹199</p>
+                        <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20help%20with%20GST%20filing." target="_blank" rel="noopener noreferrer"
+                            class="bg-gold text-navy font-bold px-6 py-3 rounded-xl text-sm hover:brightness-110 transition">Start on WhatsApp →</a>
+                    </div>
+                </div>
             </div>
 
-            <div class="bg-navy p-8 rounded-2xl shadow-xl text-white relative overflow-hidden card-hover reveal"
-                style="transition-delay:0.3s">
-                <div
-                    class="absolute top-4 right-4 bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase">
-                    Most Popular</div>
-                <div class="text-gold mb-6"><i class="ph ph-crown text-4xl"></i></div>
-                <h3 class="text-2xl font-bold mb-4">Value Pack</h3>
-                <p class="text-sm opacity-80 mb-6 font-light">Annual Tax Care Plan</p>
-                <ul class="space-y-3 opacity-90">
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Unlimited
-                        Query Support</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Quarterly
-                        Tax Compliance Review</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Priority
-                        Filing Service</li>
-                    <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Full Year
-                        Compliance Tracking</li>
-                </ul>
+            <!-- Service Card 3: Value Pack -->
+            <div class="flip-card-container reveal" style="transition-delay:0.3s">
+                <div class="flip-card-inner shadow-xl rounded-2xl">
+                    <div class="flip-card-front p-8 rounded-2xl text-white relative overflow-hidden" style="background:#001f3f;">
+                        <div class="absolute top-4 right-4 bg-gold text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase">Most Popular</div>
+                        <div class="text-gold mb-6"><i class="ph ph-crown text-4xl"></i></div>
+                        <h3 class="text-2xl font-bold mb-4">Value Pack</h3>
+                        <p class="text-sm opacity-80 mb-6 font-light">Annual Tax Care Plan</p>
+                        <ul class="space-y-3 opacity-90">
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Unlimited Query Support</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Quarterly Tax Compliance Review</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Priority Filing Service</li>
+                            <li class="flex items-start gap-2"><i class="ph-bold ph-check-circle text-gold mt-1"></i> Full Year Compliance Tracking</li>
+                        </ul>
+                    </div>
+                    <div class="flip-card-back rounded-2xl" style="background: linear-gradient(135deg,#001f3f 0%,#003366 100%);">
+                        <i class="ph ph-crown text-5xl text-gold mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2 text-gold">Value Pack</h3>
+                        <p class="text-sm text-white opacity-80 mb-6">All-in-one annual compliance plan — most popular with small business owners.</p>
+                        <p class="text-3xl font-extrabold text-gold mb-6">Best Value</p>
+                        <a href="https://wa.me/917981182281?text=Hi%2C%20I%20am%20interested%20in%20the%20Value%20Pack." target="_blank" rel="noopener noreferrer"
+                            class="bg-gold text-navy font-bold px-6 py-3 rounded-xl text-sm hover:brightness-110 transition">Enquire on WhatsApp →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Animation #1: Tax Savings Calculator -->
+    <section id="taxCalcSection" class="py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10">
+                <span class="text-xs font-bold uppercase tracking-widest" style="color:var(--gold-dark)">Free Tool · FY 2025-26 (AY 2026-27)</span>
+                <h2 class="text-3xl font-bold text-navy mt-1 mb-2">Tax Savings Estimator</h2>
+                <p class="text-gray-500 text-sm">Effective 1st Apr 2025 – 31st Mar 2026 · ITR Filing Deadline July 2026 · For individuals below 60 yrs</p>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+
+                <!-- Regime Toggle -->
+                <div class="flex">
+                    <button id="tabOld" onclick="switchRegime('old')"
+                        class="flex-1 py-4 text-sm font-bold tracking-wide transition-all duration-300"
+                        style="background:#f5a623;color:white;">
+                        🟠 OLD REGIME
+                    </button>
+                    <div class="flex items-center justify-center px-4 bg-gray-100 text-gray-500 text-xs font-bold">V/S</div>
+                    <button id="tabNew" onclick="switchRegime('new')"
+                        class="flex-1 py-4 text-sm font-bold tracking-wide transition-all duration-300"
+                        style="background:#e2e8f0;color:#64748b;">
+                        🔵 NEW REGIME
+                    </button>
+                </div>
+
+                <div class="p-6 md:p-8">
+                    <!-- Income Slider -->
+                    <div class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm font-bold text-navy">Annual Gross Salary / Income</label>
+                            <span id="incomeDisplay" class="text-sm font-extrabold text-navy">₹8,00,000</span>
+                        </div>
+                        <input type="range" id="incomeSlider" class="calc-slider" min="250000" max="5000000" step="50000" value="800000" style="--pct:14%">
+                        <div class="flex justify-between text-[10px] text-gray-400 mt-1"><span>₹2.5L</span><span>₹50L</span></div>
+                    </div>
+
+                    <!-- Deductions (Old Regime only) -->
+                    <div id="deductRow" class="mb-6">
+                        <div class="flex justify-between mb-2">
+                            <label class="text-sm font-bold text-navy">Other Deductions <span class="font-normal text-gray-400">(80C, HRA, 80D, Home Loan, etc.)</span></label>
+                            <span id="deductDisplay" class="text-sm font-extrabold text-navy">₹1,50,000</span>
+                        </div>
+                        <input type="range" id="deductSlider" class="calc-slider" min="0" max="800000" step="10000" value="150000" style="--pct:19%">
+                        <div class="flex justify-between text-[10px] text-gray-400 mt-1"><span>₹0</span><span>₹8L</span></div>
+                        <p class="text-[10px] text-gray-400 mt-1.5">Standard deduction of ₹50,000 is auto-applied. Enter additional deductions: 80C (max ₹1.5L) + HRA + 80D (max ₹25K) + Home Loan interest (max ₹2L) + others.</p>
+                    </div>
+
+                    <!-- Regime info box -->
+                    <div id="regimeInfo" class="mb-5 p-4 rounded-2xl text-xs leading-relaxed" style="background:#fff8ec;border:1px solid #fde7a5;">
+                        <div id="oldInfo">
+                            <p class="font-bold text-amber-700 mb-2">📋 Old Regime — FY 2025-26 (Below 60 yrs)</p>
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-amber-900 mb-2">
+                                <span>Upto ₹2.5L → <b>NIL</b></span><span>₹2.5L – ₹5L → <b>5%</b></span>
+                                <span>₹5L – ₹10L → <b>20%</b></span><span>Above ₹10L → <b>30%</b></span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 text-amber-800 border-t border-amber-200 pt-2 mt-1">
+                                <span>✔ Standard Deduction: <b>₹50,000</b></span>
+                                <span>✔ Basic Exemption: <b>₹2.5L</b></span>
+                                <span>✔ Rebate u/s 87A: <b>₹12,500</b> (tax-free upto ₹5L)</span>
+                                <span>✔ 80C deductions: <b>upto ₹1.5L</b></span>
+                                <span>✔ HRA, 80D, Home Loan interest allowed</span>
+                                <span>✔ 80CCD(2) NPS employer: <b>upto 10%</b> basic</span>
+                                <span>✔ Family pension deduction: <b>₹15,000</b></span>
+                                <span>✔ + 4% Health & Education Cess on tax</span>
+                            </div>
+                        </div>
+                        <div id="newInfo" class="hidden">
+                            <p class="font-bold text-blue-700 mb-2">✨ New Regime — FY 2025-26 (Default Regime)</p>
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-blue-900 mb-2">
+                                <span>Upto ₹4L → <b>NIL</b></span><span>₹4L – ₹8L → <b>5%</b></span>
+                                <span>₹8L – ₹12L → <b>10%</b></span><span>₹12L – ₹16L → <b>15%</b></span>
+                                <span>₹16L – ₹20L → <b>20%</b></span><span>₹20L – ₹24L → <b>25%</b></span>
+                                <span>Above ₹24L → <b>30%</b></span>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-1 text-blue-800 border-t border-blue-200 pt-2 mt-1">
+                                <span>✔ Standard Deduction: <b>₹75,000</b></span>
+                                <span>✔ Basic Exemption: <b>₹4L</b></span>
+                                <span>✔ Rebate u/s 87A: <b>₹60,000</b> (tax-free upto ₹12L)</span>
+                                <span>✔ 80CCD(2) NPS employer: <b>upto 14%</b> basic</span>
+                                <span>✔ Family pension deduction: <b>₹25,000</b></span>
+                                <span>✔ Gratuity, Leave encashment exemptions</span>
+                                <span>✗ No 80C, HRA, 80D, Home Loan deductions</span>
+                                <span>✔ + 4% Health & Education Cess on tax</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                        <div class="rounded-2xl p-4 text-center border" style="background:#fff4e5;border-color:#fcd9a0;">
+                            <p class="text-[10px] font-bold uppercase mb-1" style="color:#b45309;">Taxable Income</p>
+                            <p id="taxableDisplay" class="text-xl font-extrabold" style="color:#92400e;">₹0</p>
+                        </div>
+                        <div class="rounded-2xl p-4 text-center border bg-red-50 border-red-100">
+                            <p class="text-[10px] font-bold uppercase mb-1 text-red-400">Tax + Cess</p>
+                            <p id="taxDisplay" class="text-xl font-extrabold text-red-600">₹0</p>
+                        </div>
+                        <div class="rounded-2xl p-4 text-center border bg-green-50 border-green-100">
+                            <p class="text-[10px] font-bold uppercase mb-1 text-green-600">You Save vs Other</p>
+                            <p id="saveDisplay" class="text-xl font-extrabold text-green-700">—</p>
+                        </div>
+                        <div class="rounded-2xl p-4 text-center border bg-blue-50 border-blue-100">
+                            <p class="text-[10px] font-bold uppercase mb-1 text-blue-400">Effective Rate</p>
+                            <p id="rateDisplay" class="text-xl font-extrabold text-blue-600">0%</p>
+                        </div>
+                    </div>
+
+                    <!-- Rebate notice -->
+                    <div id="rebateNotice" class="hidden mb-4 text-center text-xs font-semibold py-2.5 px-4 rounded-xl" style="background:#dcfce7;color:#166534;">
+                        🎉 Zero Tax! Rebate u/s 87A applies — your income is within the tax-free limit.
+                    </div>
+
+                    <!-- Side-by-side comparison bar -->
+                    <div class="mb-5 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+                        <p class="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-3">Old vs New — Tax Payable Comparison</p>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-xs w-24 text-right font-semibold shrink-0" style="color:#b45309;">Old Regime</span>
+                            <div class="flex-1 h-5 bg-gray-200 rounded-full overflow-hidden">
+                                <div id="oldBar" class="h-full rounded-full transition-all duration-700" style="background:linear-gradient(to right,#f5a623,#e8850a);width:0%"></div>
+                            </div>
+                            <span id="oldBarLabel" class="text-xs font-bold w-16 shrink-0" style="color:#b45309;">₹0</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-xs w-24 text-right font-semibold text-blue-600 shrink-0">New Regime</span>
+                            <div class="flex-1 h-5 bg-gray-200 rounded-full overflow-hidden">
+                                <div id="newBar" class="h-full rounded-full transition-all duration-700" style="background:linear-gradient(to right,#3b82f6,#1d4ed8);width:0%"></div>
+                            </div>
+                            <span id="newBarLabel" class="text-xs font-bold w-16 shrink-0 text-blue-600">₹0</span>
+                        </div>
+                        <p id="regimeRecommend" class="text-center text-xs font-bold py-2 px-3 rounded-xl" style="background:#f0fdf4;color:#15803d;"></p>
+                    </div>
+
+                    <!-- Breakeven hint — powered by ClearTax breakeven table -->
+                    <div id="breakevenHint" class="hidden mb-5 p-3.5 rounded-xl text-xs leading-relaxed border" style="background:#f0f9ff;border-color:#bae6fd;color:#0c4a6e;">
+                        <span id="breakevenText"></span>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <p class="text-[10px] text-gray-400 mb-4 leading-relaxed">* Estimates are for salaried individuals below 60 yrs. Surcharge not included. Does not account for special rate incomes (capital gains, etc.). Consult a CA for precise filing.</p>
+
+                    <a href="https://wa.me/917981182281?text=Hi%2C%20I%20used%20your%20Tax%20Savings%20Estimator%20and%20I%27d%20like%20expert%20help%20to%20optimize%20my%20taxes." target="_blank" rel="noopener noreferrer"
+                        class="wa-btn block w-full text-center py-3 rounded-xl font-semibold bg-navy text-white hover:bg-gold hover:text-navy transition-all">
+                        Get Expert Help to Maximize Savings <i class="ph-fill ph-whatsapp-logo wa-icon"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -644,7 +1080,8 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Catalog Item 1 -->
                 <div
-                    class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal">
+                    class="tilt-card catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal" style="position:relative">
+                    <div class="tilt-shine"></div>
                     <div class="h-56 overflow-hidden relative group">
                         <div class="skeleton absolute inset-0 z-0"></div>
                         <img src="images/itr-filing.webp" alt="ITR"
@@ -676,8 +1113,9 @@
                 </div>
 
                 <!-- Catalog Item 2 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
-                    style="transition-delay: 0.1s">
+                <div class="tilt-card catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
+                    style="transition-delay: 0.1s; position:relative">
+                    <div class="tilt-shine"></div>
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
                         <img src="images/gst-compliance.webp" alt="GST"
@@ -706,8 +1144,9 @@
 
 
                 <!-- Catalog Item 3 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
-                    style="transition-delay: 0.2s">
+                <div class="tilt-card catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
+                    style="transition-delay: 0.2s; position:relative">
+                    <div class="tilt-shine"></div>
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
                         <img src="images/tax-planning.webp" alt="Tax Planning Consultation"
@@ -735,8 +1174,9 @@
                 </div>
 
                 <!-- Catalog Item 4 -->
-                <div class="catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
-                    style="transition-delay: 0.3s">
+                <div class="tilt-card catalog-card bg-white rounded-2xl overflow-hidden card-hover flex flex-col shadow-md reveal"
+                    style="transition-delay: 0.3s; position:relative">
+                    <div class="tilt-shine"></div>
                     <div class="h-56 overflow-hidden relative">
                         <div class="skeleton absolute inset-0"></div>
                         <img src="images/multiple-income-hni.webp" alt="Multiple Income / HNI ITR Service"
@@ -783,22 +1223,54 @@
                 regulations for businesses and individuals. We combine deep domain expertise with a commitment to
                 technology and transparency.
             </p>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="statsGrid">
-                <div class="p-4 border border-white/10 rounded-xl reveal">
-                    <p class="text-3xl font-bold text-gold" data-count="10" data-suffix="+">10+</p>
-                    <p class="text-xs uppercase opacity-60">Clients</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" id="statsGrid">
+                <div class="p-4 border border-white/10 rounded-xl reveal text-center">
+                    <div class="stat-ring-wrap">
+                        <svg width="90" height="90" viewBox="0 0 90 90">
+                            <circle class="stat-ring-bg" cx="45" cy="45" r="36"/>
+                            <circle class="stat-ring-fill" cx="45" cy="45" r="36" data-pct="15" id="ring0"/>
+                        </svg>
+                        <div class="stat-ring-label">
+                            <p class="text-2xl font-bold text-gold" data-count="10" data-suffix="+">10+</p>
+                        </div>
+                    </div>
+                    <p class="text-xs uppercase opacity-60 mt-1">Clients</p>
                 </div>
-                <div class="p-4 border border-white/10 rounded-xl reveal" style="transition-delay:0.1s">
-                    <p class="text-3xl font-bold text-gold" data-count="99" data-suffix="%">99%</p>
-                    <p class="text-xs uppercase opacity-60">Accuracy</p>
+                <div class="p-4 border border-white/10 rounded-xl reveal text-center" style="transition-delay:0.1s">
+                    <div class="stat-ring-wrap">
+                        <svg width="90" height="90" viewBox="0 0 90 90">
+                            <circle class="stat-ring-bg" cx="45" cy="45" r="36"/>
+                            <circle class="stat-ring-fill" cx="45" cy="45" r="36" data-pct="99" id="ring1"/>
+                        </svg>
+                        <div class="stat-ring-label">
+                            <p class="text-2xl font-bold text-gold" data-count="99" data-suffix="%">99%</p>
+                        </div>
+                    </div>
+                    <p class="text-xs uppercase opacity-60 mt-1">Accuracy</p>
                 </div>
-                <div class="p-4 border border-white/10 rounded-xl reveal" style="transition-delay:0.2s">
-                    <p class="text-3xl font-bold text-gold">24/7</p>
-                    <p class="text-xs uppercase opacity-60">Support</p>
+                <div class="p-4 border border-white/10 rounded-xl reveal text-center" style="transition-delay:0.2s">
+                    <div class="stat-ring-wrap">
+                        <svg width="90" height="90" viewBox="0 0 90 90">
+                            <circle class="stat-ring-bg" cx="45" cy="45" r="36"/>
+                            <circle class="stat-ring-fill" cx="45" cy="45" r="36" data-pct="100" id="ring2"/>
+                        </svg>
+                        <div class="stat-ring-label">
+                            <p class="text-2xl font-bold text-gold">24/7</p>
+                        </div>
+                    </div>
+                    <p class="text-xs uppercase opacity-60 mt-1">Support</p>
                 </div>
-                <div class="p-4 border border-white/10 rounded-xl reveal" style="transition-delay:0.3s">
-                    <p class="text-3xl font-bold text-gold" data-count="100" data-suffix="%">100%</p>
-                    <p class="text-xs uppercase opacity-60">Compliance</p>
+                <div class="p-4 border border-white/10 rounded-xl reveal text-center" style="transition-delay:0.3s">
+                    <div class="stat-ring-wrap">
+                        <svg width="90" height="90" viewBox="0 0 90 90">
+                            <circle class="stat-ring-bg" cx="45" cy="45" r="36"/>
+                            <circle class="stat-ring-fill" cx="45" cy="45" r="36" data-pct="100" id="ring3"/>
+                        </svg>
+                        <div class="stat-ring-label">
+                            <p class="text-2xl font-bold text-gold" data-count="100" data-suffix="%">100%</p>
+                        </div>
+                    </div>
+                    <p class="text-xs uppercase opacity-60 mt-1">Compliance</p>
                 </div>
             </div>
         </div>
@@ -948,6 +1420,27 @@
         </div>
     </footer>
 
+    <!-- Animation #7: Quick Query Bubble -->
+    <div id="quickQueryBubble">
+        <div id="qqOptions">
+            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20help%20with%20ITR%20filing." target="_blank" rel="noopener noreferrer" class="qq-option">
+                <i class="ph-bold ph-files"></i> ITR Filing
+            </a>
+            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20help%20with%20GST%20services." target="_blank" rel="noopener noreferrer" class="qq-option">
+                <i class="ph-bold ph-scales"></i> GST Services
+            </a>
+            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20need%20a%20tax%20consultation." target="_blank" rel="noopener noreferrer" class="qq-option">
+                <i class="ph-bold ph-chats-circle"></i> Consultation
+            </a>
+            <a href="https://wa.me/917981182281?text=Hi%2C%20I%20received%20a%20tax%20notice%20and%20need%20help." target="_blank" rel="noopener noreferrer" class="qq-option">
+                <i class="ph-bold ph-warning"></i> Notice Help
+            </a>
+        </div>
+        <button id="qqToggleBtn" aria-label="Quick query options" style="position:relative">
+            <i class="ph-bold ph-chat-circle-dots" id="qqIcon"></i>
+        </button>
+    </div>
+
     <!-- WhatsApp Floating Button -->
     <a href="https://whatsapp.com/channel/0029Vb7JDYyGZNCjB3bosO2T" target="_blank"
         class="whatsapp-float flex items-center justify-center" title="Follow our WhatsApp Channel">
@@ -975,36 +1468,40 @@
                     <input type="hidden" name="_subject" value="New Callback Request: Mk FinServ">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="field-container">
+                        <div class="field-container form-field-fancy">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">First
                                 Name</label>
                             <input type="text" name="First Name" id="firstName" required placeholder="Name"
                                 class="form-input">
+                            <div class="fancy-line"></div>
                             <div id="firstNameError" class="error-message">At least 3 alphabets required.</div>
                         </div>
-                        <div class="field-container">
+                        <div class="field-container form-field-fancy">
                             <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Last
                                 Name</label>
                             <input type="text" name="Last Name" id="lastName" required placeholder="Surname"
                                 class="form-input">
+                            <div class="fancy-line"></div>
                             <div id="lastNameError" class="error-message">At least 1 alphabets required.</div>
                         </div>
                     </div>
 
-                    <div class="field-container">
+                    <div class="field-container form-field-fancy">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Phone
                             Number</label>
                         <input type="tel" name="Phone" id="phone" required maxlength="10" placeholder="10-digit number"
                             class="form-input">
+                        <div class="fancy-line"></div>
                         <div id="phoneError" class="error-message">Enter valid 10-digit number starting with 6, 7, 8, or
                             9.</div>
                     </div>
 
-                    <div class="field-container">
+                    <div class="field-container form-field-fancy">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1 tracking-wider">Email
                             Address</label>
                         <input type="email" name="Email" id="email" required placeholder="john@example.com"
                             class="form-input">
+                        <div class="fancy-line"></div>
                         <div id="emailError" class="error-message">Please enter a valid email address.</div>
                     </div>
 
@@ -1434,10 +1931,365 @@
         updateActiveNav();
         // ──�
         // ═══════════════════════════════════════════════════════════════
-        // ██  AUTOMATEZAI-STYLE FULL ANIMATION SUITE
+        // ██  9 USER INTERACTION ANIMATIONS
         // ═══════════════════════════════════════════════════════════════
 
-        (function () {
+        // ── #4: Scroll Progress Bar ──────────────────────────────────────
+        (function() {
+            const bar = document.getElementById('scrollProgressBar');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const total = document.documentElement.scrollHeight - window.innerHeight;
+                bar.style.width = (scrolled / total * 100) + '%';
+            }, { passive: true });
+        })();
+
+        // ── #3: Typewriter Hero Text ─────────────────────────────────────
+        (function() {
+            const phrases = ['ITR Filing', 'GST Returns', 'Tax Planning', 'CA-Verified Accuracy', 'Notice Advisory', 'Compliance Support'];
+            const el = document.getElementById('typewriterText');
+            if (!el) return;
+            let pi = 0, ci = 0, deleting = false;
+            function tick() {
+                const phrase = phrases[pi];
+                if (!deleting) {
+                    el.textContent = phrase.substring(0, ci + 1);
+                    ci++;
+                    if (ci === phrase.length) { deleting = true; setTimeout(tick, 1800); return; }
+                    setTimeout(tick, 80);
+                } else {
+                    el.textContent = phrase.substring(0, ci - 1);
+                    ci--;
+                    if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; setTimeout(tick, 400); return; }
+                    setTimeout(tick, 45);
+                }
+            }
+            setTimeout(tick, 800);
+        })();
+
+        // ── #5: Promise Bar Icon Pulse ───────────────────────────────────
+        (function() {
+            const bar = document.getElementById('promiseBar');
+            if (!bar) return;
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const icons = bar.querySelectorAll('.promise-icon-wrap');
+                        icons.forEach((icon, i) => {
+                            setTimeout(() => {
+                                icon.classList.add('pulse-trigger');
+                                setTimeout(() => icon.classList.remove('pulse-trigger'), 800);
+                            }, i * 200);
+                        });
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            obs.observe(bar);
+        })();
+
+        // ── #6: Circular Progress Rings ──────────────────────────────────
+        (function() {
+            const CIRCUMFERENCE = 2 * Math.PI * 36; // r=36
+            const rings = document.querySelectorAll('.stat-ring-fill');
+            const statsGrid = document.getElementById('statsGrid');
+            if (!statsGrid) return;
+            const obs = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        rings.forEach((ring, i) => {
+                            const pct = parseFloat(ring.dataset.pct) || 100;
+                            const offset = CIRCUMFERENCE - (pct / 100) * CIRCUMFERENCE;
+                            setTimeout(() => {
+                                ring.style.strokeDasharray = CIRCUMFERENCE;
+                                ring.style.strokeDashoffset = offset;
+                            }, i * 150);
+                        });
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.4 });
+            obs.observe(statsGrid);
+        })();
+
+        // ── #2: 3D Tilt Cards ────────────────────────────────────────────
+        (function() {
+            document.querySelectorAll('.tilt-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const r = card.getBoundingClientRect();
+                    const x = e.clientX - r.left - r.width / 2;
+                    const y = e.clientY - r.top - r.height / 2;
+                    const tiltX = -(y / r.height) * 14;
+                    const tiltY = (x / r.width) * 14;
+                    card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(1.03,1.03,1.03)`;
+                    card.style.boxShadow = `${-tiltY * 1.5}px ${tiltX * 1.5}px 30px rgba(0,31,63,0.18)`;
+                    const shine = card.querySelector('.tilt-shine');
+                    if (shine) {
+                        const px = ((e.clientX - r.left) / r.width) * 100;
+                        const py = ((e.clientY - r.top) / r.height) * 100;
+                        shine.style.background = `radial-gradient(circle at ${px}% ${py}%, rgba(245,197,66,0.22) 0%, transparent 65%)`;
+                    }
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = '';
+                    card.style.boxShadow = '';
+                    const shine = card.querySelector('.tilt-shine');
+                    if (shine) shine.style.background = '';
+                });
+            });
+        })();
+
+        // ── #7: Quick Query Bubble ───────────────────────────────────────
+        (function() {
+            const btn = document.getElementById('qqToggleBtn');
+            const opts = document.getElementById('qqOptions');
+            const icon = document.getElementById('qqIcon');
+            if (!btn || !opts) return;
+            let open = false;
+            btn.addEventListener('click', () => {
+                open = !open;
+                opts.classList.toggle('open', open);
+                icon.className = open ? 'ph-bold ph-x' : 'ph-bold ph-chat-circle-dots';
+                btn.style.background = open
+                    ? 'linear-gradient(135deg,var(--gold),var(--gold-dark))'
+                    : 'linear-gradient(135deg,var(--navy),#003d7a)';
+                btn.style.color = open ? 'var(--navy)' : 'var(--gold)';
+            });
+            document.addEventListener('click', e => {
+                if (open && !document.getElementById('quickQueryBubble').contains(e.target)) {
+                    open = false;
+                    opts.classList.remove('open');
+                    icon.className = 'ph-bold ph-chat-circle-dots';
+                    btn.style.background = 'linear-gradient(135deg,var(--navy),#003d7a)';
+                    btn.style.color = 'var(--gold)';
+                }
+            });
+        })();
+
+        // ── #1: Tax Savings Calculator (Old vs New Regime — Union Budget 2025) ─
+        (function() {
+            const incomeSlider = document.getElementById('incomeSlider');
+            const deductSlider = document.getElementById('deductSlider');
+            if (!incomeSlider) return;
+
+            let activeRegime = 'old';
+
+            // Format numbers cleanly
+            function fmt(n) {
+                n = Math.round(n);
+                if (n >= 10000000) return '₹' + (n/10000000).toFixed(2) + ' Cr';
+                if (n >= 100000)   return '₹' + (n/100000).toFixed(n % 100000 === 0 ? 0 : 2) + 'L';
+                if (n >= 1000)     return '₹' + n.toLocaleString('en-IN');
+                return '₹' + n;
+            }
+
+            // ── OLD REGIME (FY 2025-26) ──────────────────────────────────
+            // Basic Exemption: ₹2.5L | Rebate 87A: income ≤ ₹5L → zero tax
+            // Standard Deduction (salaried): ₹50,000
+            // Slabs: 0-2.5L=0%, 2.5-5L=5%, 5-10L=20%, >10L=30%
+            function calcOldRegime(grossIncome, extraDeductions) {
+                const stdDeduction = Math.min(50000, grossIncome); // ₹50k standard deduction
+                const totalDeductions = stdDeduction + extraDeductions;
+                const taxableIncome = Math.max(0, grossIncome - totalDeductions);
+
+                let tax = 0;
+                if (taxableIncome <= 250000) {
+                    tax = 0;
+                } else if (taxableIncome <= 500000) {
+                    tax = (taxableIncome - 250000) * 0.05;
+                } else if (taxableIncome <= 1000000) {
+                    tax = 12500 + (taxableIncome - 500000) * 0.20;
+                } else {
+                    tax = 112500 + (taxableIncome - 1000000) * 0.30;
+                }
+
+                // Rebate u/s 87A: if taxable income ≤ ₹5L, tax = 0
+                const rebateApplied = taxableIncome <= 500000 && tax > 0;
+                if (rebateApplied) tax = 0;
+
+                // Health & Education Cess: 4%
+                tax = Math.round(tax * 1.04);
+                return { tax, taxableIncome, rebateApplied, totalDeductions };
+            }
+
+            // ── NEW REGIME (Union Budget 2025) ───────────────────────────
+            // Basic Exemption: ₹4L | Rebate 87A: income ≤ ₹12L → zero tax
+            // Standard Deduction (salaried): ₹75,000
+            // Slabs: 0-4L=0%, 4-8L=5%, 8-12L=10%, 12-16L=15%,
+            //        16-20L=20%, 20-24L=25%, >24L=30%
+            function calcNewRegime(grossIncome) {
+                const stdDeduction = Math.min(75000, grossIncome); // ₹75k standard deduction
+                const taxableIncome = Math.max(0, grossIncome - stdDeduction);
+
+                let tax = 0;
+                if (taxableIncome <= 400000) {
+                    tax = 0;
+                } else if (taxableIncome <= 800000) {
+                    tax = (taxableIncome - 400000) * 0.05;
+                } else if (taxableIncome <= 1200000) {
+                    tax = 20000 + (taxableIncome - 800000) * 0.10;
+                } else if (taxableIncome <= 1600000) {
+                    tax = 60000 + (taxableIncome - 1200000) * 0.15;
+                } else if (taxableIncome <= 2000000) {
+                    tax = 120000 + (taxableIncome - 1600000) * 0.20;
+                } else if (taxableIncome <= 2400000) {
+                    tax = 200000 + (taxableIncome - 2000000) * 0.25;
+                } else {
+                    tax = 300000 + (taxableIncome - 2400000) * 0.30;
+                }
+
+                // Rebate u/s 87A: if taxable income ≤ ₹12L, tax = 0
+                const rebateApplied = taxableIncome <= 1200000 && tax > 0;
+                if (rebateApplied) tax = 0;
+
+                // Health & Education Cess: 4%
+                tax = Math.round(tax * 1.04);
+                return { tax, taxableIncome, rebateApplied, totalDeductions: stdDeduction };
+            }
+
+            function updateCalc() {
+                const income   = +incomeSlider.value;
+                const extraDed = +deductSlider.value;
+
+                const old = calcOldRegime(income, extraDed);
+                const nw  = calcNewRegime(income);
+
+                // Which is active
+                const active   = activeRegime === 'old' ? old : nw;
+                const inactive = activeRegime === 'old' ? nw  : old;
+
+                // Savings vs the other regime
+                const saved = Math.max(0, inactive.tax - active.tax);
+                const rate  = income > 0 ? ((active.tax / income) * 100).toFixed(1) : '0.0';
+
+                // Update displays
+                document.getElementById('incomeDisplay').textContent   = fmt(income);
+                document.getElementById('deductDisplay').textContent   = fmt(extraDed);
+                document.getElementById('taxableDisplay').textContent  = fmt(active.taxableIncome);
+                document.getElementById('taxDisplay').textContent      = fmt(active.tax);
+                document.getElementById('saveDisplay').textContent     = saved > 0 ? fmt(saved) : '—';
+                document.getElementById('rateDisplay').textContent     = rate + '%';
+
+                // Rebate notice
+                const rebateEl = document.getElementById('rebateNotice');
+                if (active.rebateApplied) {
+                    rebateEl.classList.remove('hidden');
+                } else {
+                    rebateEl.classList.add('hidden');
+                }
+
+                // Comparison bars
+                const maxTax = Math.max(old.tax, nw.tax, 1);
+                document.getElementById('oldBar').style.width      = (old.tax / maxTax * 100) + '%';
+                document.getElementById('newBar').style.width      = (nw.tax  / maxTax * 100) + '%';
+                document.getElementById('oldBarLabel').textContent = fmt(old.tax);
+                document.getElementById('newBarLabel').textContent = fmt(nw.tax);
+
+                // Recommendation
+                const rec = document.getElementById('regimeRecommend');
+                if (old.tax === 0 && nw.tax === 0) {
+                    rec.textContent = '🎉 Zero tax under both regimes!';
+                    rec.style.background = '#f0fdf4'; rec.style.color = '#15803d';
+                } else if (old.tax < nw.tax) {
+                    rec.textContent = `💡 Old Regime saves you ${fmt(nw.tax - old.tax)} more — better with high deductions`;
+                    rec.style.background = '#fff8ec'; rec.style.color = '#92400e';
+                } else if (nw.tax < old.tax) {
+                    rec.textContent = `✨ New Regime saves you ${fmt(old.tax - nw.tax)} more — simpler & beneficial`;
+                    rec.style.background = '#eff6ff'; rec.style.color = '#1d4ed8';
+                } else {
+                    rec.textContent = '⚖️ Both regimes result in the same tax for your income';
+                    rec.style.background = '#f8fafc'; rec.style.color = '#475569';
+                }
+
+                // Slider fill — deduct max is 800000
+                const iPct = ((income - 250000) / (5000000 - 250000) * 100).toFixed(1);
+                const dPct = (extraDed / 800000 * 100).toFixed(1);
+                incomeSlider.style.setProperty('--pct', iPct + '%');
+                deductSlider.style.setProperty('--pct', dPct + '%');
+
+                // Breakeven hint — per ClearTax table (income net of std deduction)
+                // Shows how much deduction needed for Old to beat New
+                const BREAKEVEN = [
+                    { income: 1200000, needed: 0 },
+                    { income: 1300000, needed: 687500 },
+                    { income: 1400000, needed: 518750 },
+                    { income: 1500000, needed: 543750 },
+                    { income: 1600000, needed: 568750 },
+                    { income: 1700000, needed: 608330 },
+                    { income: 1800000, needed: 641670 },
+                    { income: 1900000, needed: 675000 },
+                    { income: 2000000, needed: 708330 },
+                    { income: 2200000, needed: 754170 },
+                    { income: 2400000, needed: 787500 },
+                    { income: 2500000, needed: 800000 },
+                ];
+                const hintEl  = document.getElementById('breakevenHint');
+                const hintTxt = document.getElementById('breakevenText');
+                if (hintEl && hintTxt && income > 1200000) {
+                    // Find nearest breakeven row
+                    let row = BREAKEVEN[BREAKEVEN.length - 1];
+                    for (const r of BREAKEVEN) {
+                        if (income <= r.income) { row = r; break; }
+                    }
+                    if (row.needed > 0) {
+                        const totalOldDed = extraDed + 50000; // incl std deduction
+                        if (totalOldDed >= row.needed) {
+                            hintTxt.innerHTML = `✅ Your total deductions (${fmt(totalOldDed)}) exceed the breakeven point of ${fmt(row.needed)} — <b>Old Regime may be better for you.</b>`;
+                        } else {
+                            const gap = row.needed - totalOldDed;
+                            hintTxt.innerHTML = `📊 At ₹${(income/100000).toFixed(0)}L income, you need <b>${fmt(row.needed)}</b> total deductions for Old Regime to win. You're ${fmt(gap)} short — <b>New Regime is likely better.</b>`;
+                        }
+                        hintEl.classList.remove('hidden');
+                    } else {
+                        hintEl.classList.add('hidden');
+                    }
+                } else if (hintEl) {
+                    hintEl.classList.add('hidden');
+                }
+            }
+
+            // Tab switching
+            window.switchRegime = function(regime) {
+                activeRegime = regime;
+                const tabOld   = document.getElementById('tabOld');
+                const tabNew   = document.getElementById('tabNew');
+                const deductRow = document.getElementById('deductRow');
+                const oldInfo  = document.getElementById('oldInfo');
+                const newInfo  = document.getElementById('newInfo');
+                const regimeInfo = document.getElementById('regimeInfo');
+
+                if (regime === 'old') {
+                    tabOld.style.background = '#f5a623'; tabOld.style.color = 'white';
+                    tabNew.style.background = '#e2e8f0'; tabNew.style.color = '#64748b';
+                    deductRow.style.display = 'block';
+                    oldInfo.classList.remove('hidden');
+                    newInfo.classList.add('hidden');
+                    regimeInfo.style.background = '#fff8ec';
+                    regimeInfo.style.borderColor = '#fcd9a0';
+                } else {
+                    tabNew.style.background = '#3b82f6'; tabNew.style.color = 'white';
+                    tabOld.style.background = '#e2e8f0'; tabOld.style.color = '#64748b';
+                    deductRow.style.display = 'none'; // New regime has no manual deductions
+                    oldInfo.classList.add('hidden');
+                    newInfo.classList.remove('hidden');
+                    regimeInfo.style.background = '#eff6ff';
+                    regimeInfo.style.borderColor = '#bfdbfe';
+                }
+                updateCalc();
+            };
+
+            incomeSlider.addEventListener('input', updateCalc);
+            deductSlider.addEventListener('input', updateCalc);
+            updateCalc();
+        })();
+
+        // ── #9: Form Field Animations (handled purely by CSS focus-within) ──
+        // The CSS already handles this via .form-field-fancy:focus-within
+
+        // ═══════════════════════════════════════════════════════════════
+        // ██  ANIMATION SUITE — REMOVED (hero particle network kept)
+        // ═══════════════════════════════════════════════════════════════
+        if (false) (function () {
 
             // ── 1. GLOBAL CANVAS (meteors + aurora blobs) ───────────────
             const globalCanvas = document.createElement('canvas');
@@ -1485,6 +2337,8 @@
             function spawnMeteor() {
                 const angle = (Math.random() * 20 + 15) * Math.PI / 180;
                 const startX = Math.random() * GW * 1.5 - GW * 0.25;
+                // Brand palette: gold (45°) or cool silver-blue (210°)
+                const hue = Math.random() > 0.6 ? 45 : 210;
                 meteors.push({
                     x: startX, y: -10,
                     vx: Math.cos(angle) * (6 + Math.random() * 5),
@@ -1493,7 +2347,7 @@
                     alpha: 0,
                     life: 0,
                     maxLife: 55 + Math.random() * 40,
-                    hue: Math.random() > 0.5 ? 45 : 200 + Math.random() * 60,
+                    hue,
                 });
             }
             let meteorTimer = 0;
@@ -1541,32 +2395,22 @@
             }
             requestAnimationFrame(globalLoop);
 
-            // ── 5. CUSTOM GLOW CURSOR ────────────────────────────────────
-            const cursorOuter = document.createElement('div');
-            const cursorInner = document.createElement('div');
-            cursorOuter.style.cssText = `
-                position: fixed; pointer-events: none; z-index: 999999;
-                width: 36px; height: 36px; border-radius: 50%;
-                border: 1.5px solid rgba(245,197,66,0.6);
-                transform: translate(-50%,-50%);
-                transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
-                backdrop-filter: blur(1px);
-            `;
-            cursorInner.style.cssText = `
-                position: fixed; pointer-events: none; z-index: 999999;
-                width: 7px; height: 7px; border-radius: 50%;
-                background: rgba(245,197,66,0.95);
-                transform: translate(-50%,-50%);
-                box-shadow: 0 0 10px 3px rgba(245,197,66,0.6);
-                transition: background 0.2s, box-shadow 0.2s;
-            `;
-            document.body.appendChild(cursorOuter);
-            document.body.appendChild(cursorInner);
+            // ── Detect touch/desktop ─────────────────────────────────────
+            const isTouchDevice = () => window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
             let mouseX = 0, mouseY = 0;
             let outerX = 0, outerY = 0;
-            let hue = 45;
+            // Brand palette hues to cycle through: gold → warm gold → silver-blue → gold
+            const BRAND_HUES = [45, 42, 48, 215, 220, 45, 50, 210];
+            let hueIdx = 0;
+            let hue = BRAND_HUES[0];
             let bgBrightness = 10;
+
+            function nextHue() {
+                hueIdx = (hueIdx + 1) % BRAND_HUES.length;
+                hue = BRAND_HUES[hueIdx];
+                return hue;
+            }
 
             function getBgBrightness(x, y) {
                 const els = document.elementsFromPoint(x, y);
@@ -1583,108 +2427,17 @@
                 return 10;
             }
 
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                hue = (hue + 1.8) % 360;
-                bgBrightness = getBgBrightness(e.clientX, e.clientY);
-                cursorInner.style.left = mouseX + 'px';
-                cursorInner.style.top  = mouseY + 'px';
-
-                const isLight = bgBrightness > 128;
-                const trailColor = isLight
-                    ? `hsla(${hue},90%,25%,0.9)`
-                    : `hsla(${hue},100%,75%,0.9)`;
-                const glowColor = isLight
-                    ? `hsla(${hue},90%,30%,0.5)`
-                    : `hsla(${hue},100%,70%,0.5)`;
-
-                cursorInner.style.background = isLight
-                    ? `hsl(${hue},90%,30%)`
-                    : `hsl(${hue},100%,72%)`;
-                cursorInner.style.boxShadow = `0 0 12px 4px ${glowColor}`;
-                cursorOuter.style.borderColor = isLight
-                    ? `hsla(${hue},80%,30%,0.5)`
-                    : `hsla(${hue},90%,75%,0.5)`;
-            });
-
-            // Cursor lag follow
-            function followCursor() {
-                outerX += (mouseX - outerX) * 0.12;
-                outerY += (mouseY - outerY) * 0.12;
-                cursorOuter.style.left = outerX + 'px';
-                cursorOuter.style.top  = outerY + 'px';
-                requestAnimationFrame(followCursor);
-            }
-            followCursor();
-
-            // Cursor hover expand on links/buttons
-            document.querySelectorAll('a, button, [role="button"], .gold-button').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursorOuter.style.width  = '58px';
-                    cursorOuter.style.height = '58px';
-                    cursorOuter.style.background = bgBrightness > 128
-                        ? `hsla(${hue},80%,25%,0.08)`
-                        : `hsla(${hue},90%,70%,0.10)`;
-                });
-                el.addEventListener('mouseleave', () => {
-                    cursorOuter.style.width  = '36px';
-                    cursorOuter.style.height = '36px';
-                    cursorOuter.style.background = 'transparent';
-                });
-            });
-
-            // ── 6. COMET TRAIL ON MOUSEMOVE ──────────────────────────────
-            const trail = [];
-            const TRAIL_COUNT = 14;
-            for (let i = 0; i < TRAIL_COUNT; i++) {
-                const dot = document.createElement('div');
-                dot.style.cssText = `
-                    position: fixed; pointer-events: none; border-radius: 50%;
-                    z-index: 99998; opacity: 0; will-change: transform;
-                `;
-                document.body.appendChild(dot);
-                trail.push({ el: dot, x: mouseX, y: mouseY });
-            }
-
-            function animateTrail() {
-                let x = mouseX, y = mouseY;
-                const isLight = bgBrightness > 128;
-                trail.forEach((dot, i) => {
-                    const size = (TRAIL_COUNT - i) * 2.6;
-                    const lightness = isLight ? 28 + i * 1.5 : 65 + i * 1.5;
-                    const alpha = isLight ? 0.72 - i * 0.048 : 0.78 - i * 0.048;
-                    dot.el.style.cssText = `
-                        position: fixed; pointer-events: none; border-radius: 50%;
-                        z-index: 99998; will-change: transform;
-                        width: ${size}px; height: ${size}px;
-                        left: ${x - size / 2}px; top: ${y - size / 2}px;
-                        background: hsla(${(hue + i * 18) % 360}, 95%, ${lightness}%, ${alpha});
-                        opacity: ${mouseX === 0 ? 0 : 1};
-                        filter: blur(${i < 3 ? 0 : 1}px);
-                    `;
-                    dot.x += (x - dot.x) * 0.42;
-                    dot.y += (y - dot.y) * 0.42;
-                    x = dot.x;
-                    y = dot.y;
-                });
-                requestAnimationFrame(animateTrail);
-            }
-            animateTrail();
-
-            // ── 7. CLICK RIPPLE + STARBURST ──────────────────────────────
-            document.addEventListener('click', (e) => {
-                const brightness = getBgBrightness(e.clientX, e.clientY);
+            // ── Ripple + Starburst (shared, works for both click & touch) ──
+            function spawnRipple(cx, cy) {
+                const brightness = getBgBrightness(cx, cy);
                 const isLight = brightness > 128;
-                const burstL = isLight ? '22%' : '80%';
                 const sparkL = isLight ? '30%' : '78%';
 
-                // Ripple rings
                 for (let r = 0; r < 3; r++) {
                     const ring = document.createElement('div');
                     ring.style.cssText = `
                         position: fixed;
-                        left: ${e.clientX}px; top: ${e.clientY}px;
+                        left: ${cx}px; top: ${cy}px;
                         width: 0; height: 0;
                         border-radius: 50%;
                         pointer-events: none; z-index: 99997;
@@ -1696,14 +2449,13 @@
                     setTimeout(() => ring.remove(), 900 + r * 150);
                 }
 
-                // Starburst particles
                 for (let i = 0; i < 12; i++) {
                     const spark = document.createElement('div');
                     const angle = (i / 12) * Math.PI * 2;
                     const dist = 45 + Math.random() * 40;
                     spark.style.cssText = `
                         position: fixed;
-                        left: ${e.clientX}px; top: ${e.clientY}px;
+                        left: ${cx}px; top: ${cy}px;
                         width: ${4 + Math.random() * 4}px;
                         height: ${4 + Math.random() * 4}px;
                         border-radius: 50%;
@@ -1719,11 +2471,10 @@
                     setTimeout(() => spark.remove(), 750);
                 }
 
-                // Central flash
                 const flash = document.createElement('div');
                 flash.style.cssText = `
                     position: fixed;
-                    left: ${e.clientX}px; top: ${e.clientY}px;
+                    left: ${cx}px; top: ${cy}px;
                     width: 0; height: 0;
                     border-radius: 50%;
                     pointer-events: none; z-index: 99996;
@@ -1735,9 +2486,221 @@
                 `;
                 document.body.appendChild(flash);
                 setTimeout(() => flash.remove(), 550);
-            });
+                hue = BRAND_HUES[(hueIdx + 3) % BRAND_HUES.length]; // shift brand hue on ripple
+            }
 
-            // ── 8. MOUSE-REPEL PARTICLES (floating orbs across whole page)
+            // ── 5. CUSTOM GLOW CURSOR (desktop only) ─────────────────────
+            if (!isTouchDevice()) {
+                const cursorOuter = document.createElement('div');
+                const cursorInner = document.createElement('div');
+                cursorOuter.style.cssText = `
+                    position: fixed; pointer-events: none; z-index: 999999;
+                    width: 36px; height: 36px; border-radius: 50%;
+                    border: 1.5px solid rgba(245,197,66,0.6);
+                    transform: translate(-50%,-50%);
+                    transition: width 0.25s, height 0.25s, border-color 0.25s, background 0.25s;
+                    backdrop-filter: blur(1px);
+                `;
+                cursorInner.style.cssText = `
+                    position: fixed; pointer-events: none; z-index: 999999;
+                    width: 7px; height: 7px; border-radius: 50%;
+                    background: rgba(245,197,66,0.95);
+                    transform: translate(-50%,-50%);
+                    box-shadow: 0 0 10px 3px rgba(245,197,66,0.6);
+                    transition: background 0.2s, box-shadow 0.2s;
+                `;
+                document.body.appendChild(cursorOuter);
+                document.body.appendChild(cursorInner);
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    nextHue();
+                    bgBrightness = getBgBrightness(e.clientX, e.clientY);
+                    cursorInner.style.left = mouseX + 'px';
+                    cursorInner.style.top  = mouseY + 'px';
+
+                    const isLight = bgBrightness > 128;
+                    const glowColor = isLight
+                        ? `hsla(${hue},90%,30%,0.5)`
+                        : `hsla(${hue},100%,70%,0.5)`;
+                    cursorInner.style.background = isLight
+                        ? `hsl(${hue},90%,30%)`
+                        : `hsl(${hue},100%,72%)`;
+                    cursorInner.style.boxShadow = `0 0 12px 4px ${glowColor}`;
+                    cursorOuter.style.borderColor = isLight
+                        ? `hsla(${hue},80%,30%,0.5)`
+                        : `hsla(${hue},90%,75%,0.5)`;
+                });
+
+                function followCursor() {
+                    outerX += (mouseX - outerX) * 0.12;
+                    outerY += (mouseY - outerY) * 0.12;
+                    cursorOuter.style.left = outerX + 'px';
+                    cursorOuter.style.top  = outerY + 'px';
+                    requestAnimationFrame(followCursor);
+                }
+                followCursor();
+
+                document.querySelectorAll('a, button, [role="button"], .gold-button').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursorOuter.style.width  = '58px';
+                        cursorOuter.style.height = '58px';
+                        cursorOuter.style.background = bgBrightness > 128
+                            ? `hsla(${hue},80%,25%,0.08)`
+                            : `hsla(${hue},90%,70%,0.10)`;
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursorOuter.style.width  = '36px';
+                        cursorOuter.style.height = '36px';
+                        cursorOuter.style.background = 'transparent';
+                    });
+                });
+
+                // ── 6. COMET TRAIL (desktop only) ────────────────────────
+                const trail = [];
+                const TRAIL_COUNT = 14;
+                for (let i = 0; i < TRAIL_COUNT; i++) {
+                    const dot = document.createElement('div');
+                    dot.style.cssText = `
+                        position: fixed; pointer-events: none; border-radius: 50%;
+                        z-index: 99998; opacity: 0; will-change: transform;
+                    `;
+                    document.body.appendChild(dot);
+                    trail.push({ el: dot, x: 0, y: 0 });
+                }
+
+                function animateTrail() {
+                    let x = mouseX, y = mouseY;
+                    const isLight = bgBrightness > 128;
+                    trail.forEach((dot, i) => {
+                        const size = (TRAIL_COUNT - i) * 2.6;
+                        const lightness = isLight ? 28 + i * 1.5 : 65 + i * 1.5;
+                        const alpha = isLight ? 0.72 - i * 0.048 : 0.78 - i * 0.048;
+                        dot.el.style.cssText = `
+                            position: fixed; pointer-events: none; border-radius: 50%;
+                            z-index: 99998; will-change: transform;
+                            width: ${size}px; height: ${size}px;
+                            left: ${x - size / 2}px; top: ${y - size / 2}px;
+                            background: hsla(${(hue + i * 18) % 360}, 95%, ${lightness}%, ${alpha});
+                            opacity: ${mouseX === 0 ? 0 : 1};
+                            filter: blur(${i < 3 ? 0 : 1}px);
+                        `;
+                        dot.x += (x - dot.x) * 0.42;
+                        dot.y += (y - dot.y) * 0.42;
+                        x = dot.x;
+                        y = dot.y;
+                    });
+                    requestAnimationFrame(animateTrail);
+                }
+                animateTrail();
+
+                // Desktop: click ripple
+                document.addEventListener('click', (e) => spawnRipple(e.clientX, e.clientY));
+
+            } else {
+                // ── MOBILE: Canvas-based touch trail (no DOM spam) ────────
+                const touchCanvas = document.createElement('canvas');
+                touchCanvas.style.cssText = `
+                    position: fixed; inset: 0; width: 100%; height: 100%;
+                    pointer-events: none; z-index: 99998;
+                `;
+                document.body.appendChild(touchCanvas);
+                const tc = touchCanvas.getContext('2d');
+                let TW, TH;
+                function resizeTouch() {
+                    TW = touchCanvas.width  = window.innerWidth;
+                    TH = touchCanvas.height = window.innerHeight;
+                }
+                window.addEventListener('resize', resizeTouch);
+                resizeTouch();
+
+                // Trail points stored in a ring buffer
+                const MAX_PTS = 40;
+                const pts = [];
+                let isScrolling = false;
+                let scrollTimer = null;
+                let touchStartX = 0, touchStartY = 0;
+                let isTap = false;
+
+                // Fade-out the trail canvas each frame
+                function drawTouchTrail() {
+                    tc.fillStyle = 'rgba(0,0,0,0.18)';
+                    tc.fillRect(0, 0, TW, TH);
+
+                    for (let i = 1; i < pts.length; i++) {
+                        const p  = pts[i];
+                        const pp = pts[i - 1];
+                        const isLight = bgBrightness > 128;
+                        const l = isLight ? '30%' : '72%';
+                        const size = Math.max(1, (i / pts.length) * 10);
+                        const alpha = (i / pts.length) * 0.85;
+                        tc.beginPath();
+                        tc.moveTo(pp.x, pp.y);
+                        tc.lineTo(p.x, p.y);
+                        tc.strokeStyle = `hsla(${(hue + i * 8) % 360}, 95%, ${l}, ${alpha})`;
+                        tc.lineWidth = size;
+                        tc.lineCap = 'round';
+                        tc.stroke();
+                    }
+                    // Trim old points
+                    if (pts.length > MAX_PTS) pts.splice(0, pts.length - MAX_PTS);
+
+                    requestAnimationFrame(drawTouchTrail);
+                }
+                drawTouchTrail();
+
+                document.addEventListener('touchstart', (e) => {
+                    const t = e.touches[0];
+                    touchStartX = t.clientX;
+                    touchStartY = t.clientY;
+                    isTap = true;
+                    pts.length = 0; // clear trail on new touch
+                    mouseX = t.clientX;
+                    mouseY = t.clientY;
+                    nextHue();
+                    bgBrightness = getBgBrightness(t.clientX, t.clientY);
+                }, { passive: true });
+
+                document.addEventListener('touchmove', (e) => {
+                    const t = e.touches[0];
+                    const dx = t.clientX - touchStartX;
+                    const dy = t.clientY - touchStartY;
+
+                    // If moved more than 8px, it's a scroll/drag not a tap
+                    if (Math.abs(dx) > 8 || Math.abs(dy) > 8) isTap = false;
+
+                    // Only draw trail for horizontal swipes / deliberate drags
+                    // Skip if it's a vertical scroll (dy dominates)
+                    if (Math.abs(dy) > Math.abs(dx) * 1.8) {
+                        // Vertical scroll — update coords silently for orb repel
+                        mouseX = t.clientX;
+                        mouseY = t.clientY;
+                        return;
+                    }
+
+                    mouseX = t.clientX;
+                    mouseY = t.clientY;
+                    nextHue();
+                    bgBrightness = getBgBrightness(mouseX, mouseY);
+                    pts.push({ x: mouseX, y: mouseY });
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    // Only spawn ripple on a real tap (not scroll)
+                    if (isTap && e.changedTouches.length > 0) {
+                        const t = e.changedTouches[0];
+                        bgBrightness = getBgBrightness(t.clientX, t.clientY);
+                        spawnRipple(t.clientX, t.clientY);
+                    }
+                    isTap = false;
+                    // Fade trail out
+                    setTimeout(() => { pts.length = 0; }, 400);
+                }, { passive: true });
+            }
+
+            // ── 8. REPEL PARTICLES — reduced on mobile for performance ────
+            const orbCount = isTouchDevice() ? 25 : 60;
             const orbCanvas = document.createElement('canvas');
             orbCanvas.style.cssText = `
                 position: fixed; inset: 0; width: 100%; height: 100%;
@@ -1750,80 +2713,73 @@
             window.addEventListener('resize', resizeOrb);
             resizeOrb();
 
-            const ORBS = Array.from({ length: 60 }, () => ({
-                x: Math.random() * OW, y: Math.random() * OH,
-                ox: 0, oy: 0,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4,
-                r: 1 + Math.random() * 2.5,
-                hue: Math.random() * 360,
-                alpha: 0.3 + Math.random() * 0.5,
-            }));
+            const ORBS = Array.from({ length: orbCount }, () => {
+                // Brand palette hues: gold (38-52°), navy-blue (210-230°), warm white (50°)
+                const palettes = [42, 45, 48, 215, 220, 225, 50];
+                const hue = palettes[Math.floor(Math.random() * palettes.length)];
+                return {
+                    x: Math.random() * OW, y: Math.random() * OH,
+                    ox: 0, oy: 0,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    r: 1 + Math.random() * 2.5,
+                    hue,
+                    alpha: 0.25 + Math.random() * 0.35,
+                };
+            });
             ORBS.forEach(o => { o.ox = o.x; o.oy = o.y; });
+
+            // On mobile skip connection lines (too heavy)
+            const drawConnections = !isTouchDevice();
 
             function drawOrbs() {
                 oc.clearRect(0, 0, OW, OH);
                 ORBS.forEach(o => {
-                    // Repel from mouse
                     const dx = o.x - mouseX, dy = o.y - mouseY;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    const REPEL_R = 100;
+                    const REPEL_R = isTouchDevice() ? 70 : 100;
                     if (dist < REPEL_R && dist > 0) {
                         const force = (REPEL_R - dist) / REPEL_R;
                         o.vx += (dx / dist) * force * 1.2;
                         o.vy += (dy / dist) * force * 1.2;
                     }
-                    // Spring back to origin
                     o.vx += (o.ox - o.x) * 0.005;
                     o.vy += (o.oy - o.y) * 0.005;
                     o.vx *= 0.94; o.vy *= 0.94;
                     o.x += o.vx; o.y += o.vy;
 
                     const isLight = bgBrightness > 128;
-                    const l = isLight ? 25 + o.hue % 20 : 65 + o.hue % 20;
+                    // Gold hues (38-55°) look good at 55% lightness; blue hues (210-225°) at 60%
+                    const isGold = o.hue < 100;
+                    const l = isLight
+                        ? (isGold ? 40 : 35)
+                        : (isGold ? 62 : 68);
                     oc.beginPath();
                     oc.arc(o.x, o.y, o.r, 0, Math.PI * 2);
-                    oc.fillStyle = `hsla(${o.hue}, 85%, ${l}%, ${o.alpha})`;
+                    oc.fillStyle = `hsla(${o.hue}, 80%, ${l}%, ${o.alpha})`;
                     oc.fill();
 
-                    // Draw connection lines between nearby orbs
-                    ORBS.forEach(o2 => {
-                        const d = Math.hypot(o.x - o2.x, o.y - o2.y);
-                        if (d < 80 && d > 0) {
-                            const a = (1 - d / 80) * 0.12;
-                            oc.strokeStyle = `hsla(${o.hue}, 80%, ${l}%, ${a})`;
-                            oc.lineWidth = 0.6;
-                            oc.beginPath();
-                            oc.moveTo(o.x, o.y);
-                            oc.lineTo(o2.x, o2.y);
-                            oc.stroke();
-                        }
-                    });
+                    if (drawConnections) {
+                        ORBS.forEach(o2 => {
+                            const d = Math.hypot(o.x - o2.x, o.y - o2.y);
+                            if (d < 80 && d > 0) {
+                                const a = (1 - d / 80) * 0.10;
+                                oc.strokeStyle = `hsla(${o.hue}, 75%, ${l}%, ${a})`;
+                                oc.lineWidth = 0.6;
+                                oc.beginPath();
+                                oc.moveTo(o.x, o.y);
+                                oc.lineTo(o2.x, o2.y);
+                                oc.stroke();
+                            }
+                        });
+                    }
                 });
                 requestAnimationFrame(drawOrbs);
             }
             drawOrbs();
 
-        })();
+        })(); // end removed suite
         // ═══════════════════════════════════════════════════════════════
     </script>
-
-    <style>
-        /* Hide default cursor */
-        *, *::before, *::after { cursor: none !important; }
-
-        @keyframes ringExpand {
-            0%   { width: 0; height: 0; opacity: 1; }
-            100% { width: 130px; height: 130px; opacity: 0; }
-        }
-        @keyframes flashBurst {
-            0%   { width: 0; height: 0; opacity: 1; }
-            100% { width: 100px; height: 100px; opacity: 0; }
-        }
-        @keyframes sparkFly {
-            0%   { transform: translate(-50%,-50%) translate(0,0) scale(1); opacity: 1; }
-            100% { transform: translate(-50%,-50%) translate(var(--tx),var(--ty)) scale(0); opacity: 0; }
-        }
-    </style>
 </body>
 </html>
