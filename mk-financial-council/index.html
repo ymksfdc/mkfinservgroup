@@ -130,6 +130,92 @@
     .verify-section { background:linear-gradient(135deg,var(--navy) 0%,var(--light-navy) 100%); position:relative; overflow:hidden; }
     .verify-section::after { content:''; position:absolute; bottom:-60px; right:-60px; width:400px; height:400px; background:rgba(201,168,76,0.06); border-radius:50%; filter:blur(40px); pointer-events:none; }
 
+    /* ════════════════════════════ BADGE GENERATOR ════════════════════════════ */
+    .tier-bar { display:flex; gap:10px; margin-bottom:28px; justify-content:center; flex-wrap:wrap; }
+    .t-btn { padding:9px 28px; border-radius:100px; border:1.5px solid rgba(255,255,255,.12); background:transparent; color:#64748b; font-family:'Cormorant Garamond',serif; font-size:12px; font-weight:700; letter-spacing:.1em; cursor:pointer; transition:all .25s; }
+    .t-btn:hover { color:#cbd5e1; border-color:rgba(255,255,255,.25); }
+    .t-btn.s.on { color:#c8d8f0; border-color:#8aaed0; background:rgba(138,174,208,.12); box-shadow:0 0 14px rgba(138,174,208,.18); }
+    .t-btn.g.on { color:#f5c842; border-color:#c89a10; background:rgba(245,200,66,.10); box-shadow:0 0 14px rgba(245,200,66,.22); }
+    .t-btn.d.on { color:#c084fc; border-color:#8b3ef5; background:rgba(192,132,252,.10); box-shadow:0 0 14px rgba(192,132,252,.22); }
+    .bg-form { width:100%; max-width:420px; display:flex; flex-direction:column; gap:14px; margin-bottom:32px; margin-left:auto; margin-right:auto; }
+    .lbl { display:block; font-size:10px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#475569; margin-bottom:6px; }
+    .bg-form input, .bg-form select { width:100%; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.10); border-radius:10px; padding:11px 14px; color:#e2e8f0; font-family:'DM Sans',sans-serif; font-size:14px; outline:none; transition:border-color .2s,box-shadow .2s; appearance:none; -webkit-appearance:none; }
+    .bg-form input:focus, .bg-form select:focus { border-color:rgba(245,200,66,.4); box-shadow:0 0 0 3px rgba(245,200,66,.08); }
+    .bg-form input::placeholder { color:#2d3a4a; }
+    .gen-btn { margin-top:4px; padding:13px; border-radius:12px; border:none; cursor:pointer; font-family:'Cormorant Garamond',serif; font-size:13px; font-weight:700; letter-spacing:.12em; background:linear-gradient(135deg,#b87e0a,#f5c842,#b87e0a); background-size:200% 100%; color:#0a0c18; box-shadow:0 4px 22px rgba(245,200,66,.28); transition:all .3s; }
+    .gen-btn:hover { background-position:100% 0; box-shadow:0 6px 28px rgba(245,200,66,.42); transform:translateY(-1px); }
+    .badge-wrap { display:flex; flex-direction:column; align-items:center; gap:18px; width:100%; max-width:420px; margin-left:auto; margin-right:auto; }
+    .badge { width:100%; border-radius:22px; padding:30px 28px 26px; text-align:center; position:relative; overflow:hidden; transition:background .5s,border-color .5s,box-shadow .5s; }
+    .badge.s { background:linear-gradient(155deg,#141e30 0%,#0a1120 100%); border:2px solid #5a7a9a; box-shadow:0 0 0 1px rgba(138,174,208,.08),0 24px 64px rgba(0,0,0,.7),0 0 60px rgba(100,150,210,.12); }
+    .badge.g { background:linear-gradient(155deg,#161005 0%,#0a0c18 100%); border:2px solid #9a7010; box-shadow:0 0 0 1px rgba(245,200,66,.08),0 24px 64px rgba(0,0,0,.7),0 0 60px rgba(245,180,30,.14); }
+    .badge.d { background:linear-gradient(155deg,#180820 0%,#0c0416 100%); border:2px solid #6b28c8; box-shadow:0 0 0 1px rgba(192,132,252,.08),0 24px 64px rgba(0,0,0,.7),0 0 60px rgba(160,80,240,.14); }
+    .badge::before { content:''; position:absolute; inset:0; border-radius:inherit; background:radial-gradient(ellipse 70% 50% at 50% 0%,currentColor,transparent 70%); opacity:.04; pointer-events:none; }
+    .badge.s::before { color:#8aaed0; }
+    .badge.g::before { color:#f5c842; }
+    .badge.d::before { color:#c084fc; }
+    .badge::after { content:''; position:absolute; inset:8px; border-radius:15px; pointer-events:none; z-index:0; }
+    .badge.s::after { border:1px solid rgba(138,174,208,.12); }
+    .badge.g::after { border:1px solid rgba(245,200,66,.12); }
+    .badge.d::after { border:1px solid rgba(192,132,252,.12); }
+    .tic { position:absolute; width:18px; height:18px; z-index:1; }
+    .tic::before, .tic::after { content:''; position:absolute; border-radius:1px; }
+    .tic::before { width:100%; height:2px; top:0; left:0; }
+    .tic::after { width:2px; height:100%; top:0; left:0; }
+    .tic.tl { top:12px; left:12px; }
+    .tic.tr { top:12px; right:12px; transform:scaleX(-1); }
+    .tic.bl { bottom:12px; left:12px; transform:scaleY(-1); }
+    .tic.br { bottom:12px; right:12px; transform:scale(-1); }
+    .badge.s .tic::before, .badge.s .tic::after { background:#8aaed0; }
+    .badge.g .tic::before, .badge.g .tic::after { background:#c89a10; }
+    .badge.d .tic::before, .badge.d .tic::after { background:#8b3ef5; }
+    .bc { position:relative; z-index:2; }
+    .logo-ring { width:74px; height:74px; border-radius:50%; margin:0 auto 14px; display:flex; align-items:center; justify-content:center; font-size:32px; }
+    .bcouncil { font-family:'DM Sans',sans-serif; font-size:9px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; margin-bottom:6px; }
+    .badge.s .bcouncil { color:rgba(200,210,230,.6); }
+    .badge.g .bcouncil { color:rgba(180,140,20,.7); }
+    .badge.d .bcouncil { color:rgba(160,100,230,.65); }
+    .badge.s .btagline { color:rgba(200,210,230,.65); }
+    .badge.g .btagline { color:rgba(180,140,20,.75); }
+    .badge.d .btagline { color:rgba(160,100,230,.7); }
+    .btagline { font-family:'DM Sans',sans-serif; font-size:10px; font-weight:300; color:rgba(203,195,185,.65); margin-bottom:13px; letter-spacing:.03em; }
+    .bdiv { height:1px; width:78%; margin:0 auto 14px; position:relative; transition:all .5s; }
+    .badge.s .bdiv { background:linear-gradient(to right,transparent,#8aaed0 40%,#8aaed0 60%,transparent); }
+    .badge.g .bdiv { background:linear-gradient(to right,transparent,#c89a10 40%,#c89a10 60%,transparent); }
+    .badge.d .bdiv { background:linear-gradient(to right,transparent,#8b3ef5 40%,#8b3ef5 60%,transparent); }
+    .bprt { font-family:'DM Sans',sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(200,210,230,.55); margin-bottom:1px; }
+    .btitle { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:900; letter-spacing:.1em; line-height:1.15; margin-bottom:18px; text-transform:uppercase; transition:color .5s,text-shadow .5s; }
+    .badge.s .btitle { color:#d8eaff; text-shadow:0 2px 16px rgba(100,150,210,.28),0 0 50px rgba(100,150,210,.1); }
+    .badge.g .btitle { color:#fcd94a; text-shadow:0 2px 18px rgba(245,190,20,.35),0 0 50px rgba(245,160,0,.12); }
+    .badge.d .btitle { color:#d890ff; text-shadow:0 2px 18px rgba(200,80,255,.38),0 0 50px rgba(160,40,220,.15); }
+    .nplate { border-radius:12px; padding:13px 18px 11px; margin-bottom:15px; transition:background .5s,border-color .5s; }
+    .badge.s .nplate { background:rgba(138,174,208,.07); border:1px solid rgba(138,174,208,.2); }
+    .badge.g .nplate { background:rgba(245,200,66,.06); border:1px solid rgba(245,200,66,.22); }
+    .badge.d .nplate { background:rgba(192,132,252,.07); border:1px solid rgba(192,132,252,.22); }
+    .nlabel { font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:rgba(148,163,184,.55); margin-bottom:5px; }
+    .nname { font-family:'EB Garamond',serif; font-size:22px; font-weight:600; line-height:1.2; word-break:break-word; transition:color .5s; }
+    .badge.s .nname { color:#ddeeff; }
+    .badge.g .nname { color:#fff0b0; }
+    .badge.d .nname { color:#f0d8ff; }
+    .ncouncil { font-family:'Cormorant Garamond',serif; font-size:10px; font-weight:600; letter-spacing:.12em; margin-top:4px; opacity:.75; transition:color .5s; }
+    .badge.s .ncouncil { color:#8aaed0; }
+    .badge.g .ncouncil { color:#c89a10; }
+    .badge.d .ncouncil { color:#a060e8; }
+    .nfy { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:300; color:rgba(148,163,184,.7); margin-top:5px; letter-spacing:.04em; }
+    .laurels { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:1; opacity:.45; }
+    .bweb { font-family:'DM Sans',sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; margin-bottom:9px; transition:color .5s; }
+    .badge.s .bweb { color:rgba(138,174,208,.6); }
+    .badge.g .bweb { color:rgba(180,140,20,.7); }
+    .badge.d .bweb { color:rgba(160,100,230,.65); }
+    .bfooter { font-family:'EB Garamond',serif; font-style:italic; font-size:10px; line-height:1.7; color:rgba(100,116,139,.75); }
+    .actions { display:none; gap:9px; width:100%; }
+    .actions.show { display:flex; }
+    .abtn { flex:1; padding:10px 8px; border-radius:10px; border:none; font-family:'DM Sans',sans-serif; font-size:11.5px; font-weight:700; letter-spacing:.04em; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:5px; transition:all .25s; }
+    .abtn:hover { transform:translateY(-1px); filter:brightness(1.1); }
+    .abtn.dl { background:linear-gradient(135deg,#b87e0a,#f5c842); color:#080c18; }
+    .abtn.li { background:#0a66c2; color:#fff; }
+    .abtn.wa { background:#25d366; color:#fff; }
+    .bg-container { width:100%; max-width:420px; margin-left:auto; margin-right:auto; }
+
     @media(max-width:768px) {
       .hero h1 { font-size:2.6rem !important; }
       .hero-ring { width:300px; height:300px; top:-80px; right:-80px; border-width:40px; }
@@ -277,109 +363,61 @@
       <p class="text-slate-300 max-w-xl mx-auto">After filing your ITR with Mk FinServ Group, personalise your badge below and share it proudly on LinkedIn, WhatsApp & Instagram.</p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10 items-start">
-
-      <!-- LEFT: Form -->
-      <div class="reveal">
-        <div class="badge-gen-wrap">
-          <h3 class="text-white font-bold mb-6" style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;">
-            <i class="ph-fill ph-magic-wand" style="color:var(--gold);"></i> Personalise Your Badge
-          </h3>
-
-          <!-- Name -->
-          <div class="mb-5">
-            <label class="badge-label">Your Full Name *</label>
-            <input id="badgeName" class="badge-input" type="text" placeholder="e.g. Ramesh Kumar Sharma" maxlength="40" autocomplete="name">
-          </div>
-
-          <!-- Council Name / Organisation -->
-          <div class="mb-5">
-            <label class="badge-label">Council Name / Organisation (optional)</label>
-            <input id="badgeOrg" class="badge-input" type="text" placeholder="e.g. Sharma Enterprises, Self-Employed" maxlength="45">
-          </div>
-
-          <!-- Assessment Year -->
-          <div class="mb-5">
-            <label class="badge-label">Financial Year Filed</label>
-            <select id="badgeYear" class="badge-input">
-              <option value="FY 2023-24">FY 2023–24</option>
-              <option value="FY 2024-25">FY 2024–25</option>
-              <option value="FY 2025-26" selected>FY 2025–26</option>
-            </select>
-          </div>
-
-          <!-- Tier Selector -->
-          <div class="mb-7">
-            <label class="badge-label">Select Your Council Tier</label>
-            <div class="flex gap-3">
-              <button class="tier-btn" id="btn-Silver" onclick="setTier('Silver',this)">🥈 Silver</button>
-              <button class="tier-btn active" id="btn-Gold" onclick="setTier('Gold',this)">🥇 Gold</button>
-              <button class="tier-btn" id="btn-Diamond" onclick="setTier('Diamond',this)">💎 Diamond</button>
-            </div>
-            <p style="color:#64748b;font-size:0.72rem;margin-top:8px;">Each tier displays its official Mk Financial Council badge design</p>
-          </div>
-
-          <button onclick="generateBadge()" class="btn-gold w-full py-4 rounded-xl text-base mb-3" id="generateBtn">
-            ✨ Generate My Badge
-          </button>
-          <p style="color:#475569;font-size:0.72rem;text-align:center;">🔒 100% private — badge is generated in your browser. No data is uploaded.</p>
-        </div>
-
-        <!-- How to Earn -->
-        <div class="mt-6 reveal" style="background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:16px;padding:24px;">
-          <h4 class="font-bold mb-5 text-sm uppercase tracking-widest" style="color:var(--gold);">How to Earn Your Badge</h4>
-          <div class="space-y-4">
-            <div class="flex gap-4 items-start">
-              <div class="step-dot">1</div>
-              <p class="text-slate-300 text-sm pt-2">File your ITR through <strong style="color:var(--gold-light);">Mk FinServ Group</strong> via WhatsApp or visit us</p>
-            </div>
-            <div class="flex gap-4 items-start">
-              <div class="step-dot">2</div>
-              <p class="text-slate-300 text-sm pt-2">Receive your <strong style="color:var(--gold-light);">Membership ID</strong> & verification confirmation from our team</p>
-            </div>
-            <div class="flex gap-4 items-start">
-              <div class="step-dot">3</div>
-              <p class="text-slate-300 text-sm pt-2">Return here, enter your details and generate your <strong style="color:var(--gold-light);">personalised badge</strong></p>
-            </div>
-            <div class="flex gap-4 items-start">
-              <div class="step-dot">4</div>
-              <p class="text-slate-300 text-sm pt-2">Download and share on <strong style="color:var(--gold-light);">LinkedIn, WhatsApp & Instagram</strong> with pride 🇮🇳</p>
-            </div>
-          </div>
-        </div>
+    <!-- BADGE GENERATOR -->
+    <div class="bg-container">
+      <div class="tier-bar">
+        <button class="t-btn s" id="tb-Silver" onclick="setTier('Silver')">🥈 Silver</button>
+        <button class="t-btn g on" id="tb-Gold" onclick="setTier('Gold')">🥇 Gold</button>
+        <button class="t-btn d" id="tb-Diamond" onclick="setTier('Diamond')">💎 Diamond</button>
       </div>
-
-      <!-- RIGHT: Badge Preview -->
-      <div class="reveal text-center" style="transition-delay:0.15s">
-        <p class="text-xs uppercase tracking-widest mb-4" style="color:#94a3b8;">Live Preview</p>
-
-        <!-- Tier preview thumbnails -->
-        <div class="flex justify-center gap-3 mb-5">
-          <div onclick="setTier('Silver',document.getElementById('btn-Silver'))" style="cursor:pointer;opacity:0.6;transition:opacity 0.2s;" id="thumb-Silver">
-            <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..." style="width:56px;height:56px;border-radius:8px;border:2px solid transparent;" alt="Silver">
-          </div>
-          <div onclick="setTier('Gold',document.getElementById('btn-Gold'))" style="cursor:pointer;transition:opacity 0.2s;" id="thumb-Gold">
-            <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..." style="width:56px;height:56px;border-radius:8px;border:2px solid var(--gold);" alt="Gold">
-          </div>
-          <div onclick="setTier('Diamond',document.getElementById('btn-Diamond'))" style="cursor:pointer;opacity:0.6;transition:opacity 0.2s;" id="thumb-Diamond">
-            <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA..." style="width:56px;height:56px;border-radius:8px;border:2px solid transparent;" alt="Diamond">
+      <div class="bg-form">
+        <div>
+          <label class="lbl">Your Full Name *</label>
+          <input id="f-name" type="text" placeholder="e.g. Muralikrishna" maxlength="50">
+        </div>
+        <div>
+          <label class="lbl">Council / Organisation</label>
+          <input id="f-org" type="text" placeholder="e.g. Gold Council · Sharma Enterprises" maxlength="60">
+        </div>
+        <div>
+          <label class="lbl">Financial Year</label>
+          <select id="f-fy">
+            <option>FY 2023–24</option>
+            <option>FY 2024–25</option>
+            <option selected>FY 2025–26</option>
+          </select>
+        </div>
+        <button class="gen-btn" onclick="generate()">✦ &nbsp;Generate My Badge</button>
+      </div>
+      <div class="badge-wrap">
+        <div class="badge g" id="badge">
+          <svg class="laurels" id="lsvg" viewBox="0 0 420 520" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="tic tl"></div><div class="tic tr"></div>
+          <div class="tic bl"></div><div class="tic br"></div>
+          <div class="bc">
+            <div class="logo-ring">🏛️</div>
+            <div class="bcouncil">Mk Financial Council</div>
+            <div class="btagline">Where Discipline Meets Wealth</div>
+            <div class="bdiv"></div>
+            <div class="bprt">Proud Responsible</div>
+            <div class="btitle">Taxpayer</div>
+            <div class="nplate">
+              <div class="nlabel">Issued To</div>
+              <div class="nname" id="d-name">Your Name</div>
+              <div class="ncouncil" id="d-org">Gold Council</div>
+              <div class="nfy" id="d-fy">Filed Income Tax Return · FY 2025–26</div>
+            </div>
+            <div class="bweb">www.mkfinservgroup.com</div>
+            <div class="bfooter">
+              Private recognition by Mk FinServ Group.<br>
+              Not affiliated with any government authority.
+            </div>
           </div>
         </div>
-
-        <canvas id="badgeCanvas" width="540" height="540"></canvas>
-        <p id="badgePlaceholder" class="text-slate-400 text-sm mt-3">👆 Enter your name above to preview your badge live</p>
-
-        <div id="badgeActions" style="display:none;margin-top:20px;" class="space-y-3">
-          <button onclick="downloadBadge()" class="btn-gold w-full py-3 rounded-xl flex items-center justify-center gap-2 text-sm font-bold">
-            <i class="ph-bold ph-download-simple"></i> Download Badge (High-Res PNG)
-          </button>
-          <a id="linkedinShare" href="#" target="_blank" class="linkedin-btn w-full justify-center py-3 rounded-xl" style="display:flex;border-radius:12px;">
-            <i class="ph-fill ph-linkedin-logo" style="font-size:1.1rem;"></i> Share on LinkedIn
-          </a>
-          <a id="waShare" href="#" target="_blank" class="w-full py-3 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2" style="background:#25d366;display:flex;border-radius:12px;text-decoration:none;">
-            <i class="ph-fill ph-whatsapp-logo" style="font-size:1.1rem;"></i> Share on WhatsApp
-          </a>
-          <p style="font-size:0.7rem;color:#64748b;text-align:center;margin-top:8px;">Tip: Add this badge to your LinkedIn profile photo frame and Featured section!</p>
+        <div class="actions" id="actions">
+          <button class="abtn dl" onclick="download()">⬇ Download</button>
+          <button class="abtn li" onclick="shareLinkedIn()">in&nbsp; LinkedIn</button>
+          <button class="abtn wa" onclick="shareWA()">💬 WhatsApp</button>
         </div>
       </div>
     </div>
@@ -645,7 +683,7 @@
             <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background:#f1f5f9;"><i class="ph-fill ph-envelope" style="color:var(--navy);"></i></div>
             <div>
               <p class="text-xs text-slate-400 uppercase tracking-wider font-bold">Email</p>
-              <a href="mailto:info@mkfinservgroup.com" class="font-semibold text-sm hover:text-amber-600 transition" style="color:var(--navy);">info@mkfinservgroup.com</a>
+              <a href="mailto:support@mkfinservgroup.com" class="font-semibold text-sm hover:text-amber-600 transition" style="color:var(--navy);">support@mkfinservgroup.com</a>
             </div>
           </div>
           <div class="flex items-center gap-3">
@@ -890,6 +928,103 @@
     document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotated'));
     if (!wasOpen) { ans.classList.add('open'); ico.classList.add('rotated'); }
   }
+
+  // ════════════════════════════════════════════════════════════════════
+  // BADGE GENERATOR
+  // ════════════════════════════════════════════════════════════════════
+
+  const TIERS = {
+    Silver:  { cls:'s', chip:'🥈 &nbsp;SILVER', lf:'#6a90b8', lf2:'#a8c8e0', lv:'#4a7098' },
+    Gold:    { cls:'g', chip:'🥇 &nbsp;GOLD',   lf:'#b07810', lf2:'#e0a820', lv:'#806010' },
+    Diamond: { cls:'d', chip:'💎 &nbsp;DIAMOND', lf:'#7020c0', lf2:'#b870f0', lv:'#5010a0' },
+  };
+
+  let tier = 'Gold';
+
+  function buildLaurels(t) {
+    const C = TIERS[t];
+    const cx=210, cy=295, rI=150, rO=198, n=13;
+    let out='';
+    ['L','R'].forEach(side => {
+      const a0 = side==='L' ? Math.PI*0.58 : Math.PI*0.42;
+      const a1 = side==='L' ? Math.PI*1.38 : -Math.PI*0.38;
+      for(let i=0;i<n;i++){
+        const t2=i/(n-1), a=a0+(a1-a0)*t2;
+        const sc=0.38+0.9*Math.sin(Math.PI*t2);
+        const bx=cx+rI*Math.cos(a), by=cy+rI*Math.sin(a);
+        const rt=rI+(rO-rI)*sc;
+        const tx=cx+rt*Math.cos(a), ty=cy+rt*Math.sin(a);
+        const pp=a+(side==='L'?Math.PI/2:-Math.PI/2), lw=Math.max(4,17*sc);
+        const c1x=bx+(tx-bx)*.28+lw*Math.cos(pp), c1y=by+(ty-by)*.28+lw*Math.sin(pp);
+        const c2x=bx+(tx-bx)*.72+lw*.45*Math.cos(pp), c2y=by+(ty-by)*.72+lw*.45*Math.sin(pp);
+        const d1x=bx+(tx-bx)*.28-lw*Math.cos(pp), d1y=by+(ty-by)*.28-lw*Math.sin(pp);
+        const d2x=bx+(tx-bx)*.72-lw*.45*Math.cos(pp), d2y=by+(ty-by)*.72-lw*.45*Math.sin(pp);
+        const d=`M${bx.toFixed(1)},${by.toFixed(1)} C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${tx.toFixed(1)},${ty.toFixed(1)} C${d2x.toFixed(1)},${d2y.toFixed(1)} ${d1x.toFixed(1)},${d1y.toFixed(1)} ${bx.toFixed(1)},${by.toFixed(1)}Z`;
+        const op=(0.45+0.55*sc).toFixed(2);
+        out+=`<path d="${d}" fill="${C.lf2}" fill-opacity="${op}" stroke="${C.lf}" stroke-width="0.5"/>`;
+        out+=`<line x1="${bx.toFixed(1)}" y1="${by.toFixed(1)}" x2="${tx.toFixed(1)}" y2="${ty.toFixed(1)}" stroke="${C.lv}" stroke-width="0.8" opacity="0.5"/>`;
+      }
+    });
+    return out;
+  }
+
+  function setTier(t) {
+    tier = t;
+    const badge = document.getElementById('badge');
+    badge.className = 'badge ' + TIERS[t].cls;
+    document.getElementById('lsvg').innerHTML = buildLaurels(t);
+    ['Silver','Gold','Diamond'].forEach(x => {
+      const b = document.getElementById('tb-'+x);
+      b.className = 't-btn ' + TIERS[x].cls + (x===t?' on':'');
+    });
+    refreshDisplay();
+  }
+
+  function refreshDisplay() {
+    const name = document.getElementById('f-name').value.trim()  || 'Your Name';
+    const org  = document.getElementById('f-org').value.trim()   || tier + ' Council';
+    const fy   = document.getElementById('f-fy').value;
+    document.getElementById('d-name').textContent = name;
+    document.getElementById('d-org').textContent  = org;
+    document.getElementById('d-fy').textContent   = 'Filed Income Tax Return · ' + fy;
+  }
+
+  function generate() {
+    const name = document.getElementById('f-name').value.trim();
+    if (!name) {
+      const el = document.getElementById('f-name');
+      el.style.borderColor='#ef4444';
+      el.placeholder='⚠ Enter your name first';
+      setTimeout(()=>{el.style.borderColor='';el.placeholder='e.g. Muralikrishna';},2200);
+      return;
+    }
+    refreshDisplay();
+    document.getElementById('actions').classList.add('show');
+    document.getElementById('badge').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  function download() {
+    const el = document.getElementById('badge');
+    const nm = (document.getElementById('f-name').value.trim()||'badge').replace(/\s+/g,'_');
+    if (typeof html2canvas === 'undefined') { alert('Renderer not loaded yet, try again in a second.'); return; }
+    html2canvas(el, {scale:2.5, useCORS:true, backgroundColor:null, logging:false})
+      .then(c => { const a=document.createElement('a'); a.download=`MKFC_${tier}_${nm}.png`; a.href=c.toDataURL('image/png',1); a.click(); });
+  }
+
+  function shareLinkedIn() {
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent('https://mkfinservgroup.com/'), '_blank');
+  }
+
+  function shareWA() {
+    const nm = document.getElementById('f-name').value.trim()||'I';
+    const fy = document.getElementById('f-fy').value;
+    const msg=`🏛 ${nm} is a Proud Responsible Taxpayer!\n\n✅ Filed ITR (${fy}) with Mk FinServ Group\n🏅 Mk Financial Council – ${tier} Member\n\n🌐 mkfinservgroup.com\n#ProudTaxPayer #MkFinancialCouncil`;
+    window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+  }
+
+  ['f-name','f-org','f-fy'].forEach(id=>document.getElementById(id).addEventListener('input',refreshDisplay));
+  document.getElementById('lsvg').innerHTML = buildLaurels('Gold');
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
