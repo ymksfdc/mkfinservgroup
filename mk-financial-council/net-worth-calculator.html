@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net Worth Calculator – Mk Financial Council</title>
+  <meta name="description" content="Calculate your net worth — track assets, liabilities and future wealth projections with Mk Financial Council.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+  <style>
+    /* ── Design tokens — identical to index.html ── */
+    :root {
+      --navy:        #001f3f;
+      --navy-deep:   #0a1628;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c97a;
+      --gold-bright: #f5c542;
+      --gold-dark:   #d4a017;
+      --gold-pale:   #fdf5e0;
+      --light-navy:  #003366;
+      --cream:       #faf8f3;
+      --border-gold: rgba(201,168,76,0.3);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: #334155;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
+
+    /* ── Mini-nav (matches index.html nav style) ── */
+    .topbar {
+      background: rgba(0,31,63,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-gold);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .topbar-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topbar-brand span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      color: var(--gold-bright);
+      font-weight: 700;
+      text-transform: uppercase;
+      display: block;
+      line-height: 1;
+    }
+    .topbar-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold-light);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 6px 14px;
+      border-radius: 100px;
+      transition: all 0.25s;
+    }
+    .topbar-back:hover {
+      background: rgba(201,168,76,0.12);
+      border-color: var(--gold);
+      color: var(--gold-bright);
+    }
+
+    /* ── Tricolor bar ── */
+    .tricolor {
+      height: 4px;
+      background: linear-gradient(to right, #FF9933 33.33%, white 33.33%, white 66.66%, #138808 66.66%);
+    }
+
+    /* ── Hero header ── */
+    .hero-header {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--light-navy) 100%);
+      padding: 56px 24px 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9a84c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-header::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -8%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201,168,76,0.09) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 4px 14px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+    .hero-header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: white;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: 0.03em;
+    }
+    .hero-header p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 22px;
+    }
+    .formula-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-left: 3px solid var(--gold);
+      padding: 12px 20px;
+      border-radius: 10px;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.9rem;
+    }
+
+    /* ── Main container ── */
+    .main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 20px 60px;
+    }
+
+    /* ── Glass cards (mirrors index.html .glass-card) ── */
+    .card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 24px rgba(0,31,63,0.06);
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+    .card:hover {
+      box-shadow: 0 12px 40px rgba(0,31,63,0.10);
+      border-color: rgba(201,168,76,0.38);
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    /* ── Two-col grid ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 960px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── Form inputs ── */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .form-group { display: flex; flex-direction: column; }
+    .form-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 7px;
+    }
+    .form-input {
+      padding: 11px 14px;
+      border: 1.5px solid #e2d5b0;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--navy);
+      background: white;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    }
+    .form-input::placeholder { color: #cbd5e1; }
+
+    /* ── Custom add-row ── */
+    .custom-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: stretch;
+    }
+    .custom-row input {
+      flex: 1;
+      padding: 10px 13px;
+      border: 1.5px solid #e2d5b0;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--navy);
+      background: white;
+    }
+    .custom-row input:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+    }
+    .btn-remove {
+      padding: 8px 13px;
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1.5px solid #fca5a5;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .btn-remove:hover { background: #dc2626; color: white; border-color: #dc2626; }
+
+    /* ── Add button ── */
+    .btn-add {
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold-dark);
+      border-radius: 8px;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 4px;
+    }
+    .btn-add:hover { background: var(--gold-pale); border-color: var(--gold-dark); }
+
+    /* ── Progress bars ── */
+    .progress-section { margin-top: 22px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: #e8e0cc;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.5s ease;
+    }
+
+    /* ── Summary grid ── */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin: 28px 0;
+    }
+    .summary-card {
+      border-radius: 16px;
+      padding: 24px 20px;
+      text-align: center;
+      border: 2px solid var(--border-gold);
+      background: linear-gradient(135deg, #ffffff 0%, var(--cream) 100%);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .summary-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,31,63,0.1);
+    }
+    .summary-card.highlight {
+      background: linear-gradient(135deg, var(--gold-pale) 0%, #fdf0c4 100%);
+      border-color: var(--gold);
+    }
+    .summary-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+    .summary-card.highlight .summary-label { color: var(--gold-dark); }
+    .summary-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .val-assets      { color: #059669; }
+    .val-liabilities { color: #dc2626; }
+    .val-networth    { color: var(--gold-dark); }
+
+    /* ── Projection inputs bar ── */
+    .projection-bar {
+      background: var(--cream);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── Chart ── */
+    .chart-wrap {
+      position: relative;
+      height: 340px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Info dark card ── */
+    .info-card {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--light-navy) 100%);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 28px;
+    }
+    .info-card h2 {
+      color: var(--gold-light);
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .info-item strong { color: var(--gold-light); display: block; margin-bottom: 4px; font-size: 0.88rem; letter-spacing: 0.04em; }
+    .info-item p { color: rgba(203,213,225,0.82); font-size: 0.88rem; line-height: 1.7; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .hero-header h1 { font-size: 2rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .custom-row { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <a href="index.html" class="topbar-brand">
+    <div>
+      Mk FinServ™
+      <span>Financial Council</span>
+    </div>
+  </a>
+  <a href="index.html" class="topbar-back">← Back to Council</a>
+</nav>
+<div class="tricolor"></div>
+
+<!-- HERO HEADER -->
+<div class="hero-header">
+  <div class="hero-inner">
+    <div class="section-label">Wealth Tool</div>
+    <h1>Net Worth Calculator</h1>
+    <p>Know where you stand financially — and where you're headed.</p>
+    <div class="formula-pill">
+      <strong style="color:var(--gold-bright);">Formula:</strong>
+      Net Worth = Total Assets − Total Liabilities
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ASSETS + LIABILITIES -->
+  <div class="card">
+    <div class="two-col">
+
+      <!-- ASSETS -->
+      <div>
+        <div class="card-title">💰 Your Assets</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Real Estate / Property</label>
+            <input type="number" class="form-input asset-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Shares &amp; Mutual Funds</label>
+            <input type="number" class="form-input asset-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gold &amp; Jewellery</label>
+            <input type="number" class="form-input asset-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cash &amp; Bank Accounts</label>
+            <input type="number" class="form-input asset-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vehicles</label>
+            <input type="number" class="form-input asset-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Other Assets</label>
+            <input type="number" class="form-input asset-input" placeholder="₹ 0" min="0">
+          </div>
+        </div>
+
+        <div id="custom-assets"></div>
+        <button class="btn-add" onclick="addRow('asset')">+ Add Custom Asset</button>
+
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Total Assets</span>
+            <span id="total-assets" style="color:#059669;">₹ 0</span>
+          </div>
+          <div class="progress-track">
+            <div id="assets-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#059669,#34d399);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIABILITIES -->
+      <div>
+        <div class="card-title">💳 Your Liabilities</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Home Loan</label>
+            <input type="number" class="form-input liability-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Personal Loan</label>
+            <input type="number" class="form-input liability-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Credit Card Dues</label>
+            <input type="number" class="form-input liability-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Income Tax Due</label>
+            <input type="number" class="form-input liability-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Vehicle Loan</label>
+            <input type="number" class="form-input liability-input" placeholder="₹ 0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Other Liabilities</label>
+            <input type="number" class="form-input liability-input" placeholder="₹ 0" min="0">
+          </div>
+        </div>
+
+        <div id="custom-liabilities"></div>
+        <button class="btn-add" onclick="addRow('liability')">+ Add Custom Liability</button>
+
+        <div class="progress-section">
+          <div class="progress-label">
+            <span>Total Liabilities</span>
+            <span id="total-liabilities" style="color:#dc2626;">₹ 0</span>
+          </div>
+          <div class="progress-track">
+            <div id="liabilities-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#dc2626,#f87171);"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-label">Total Assets</div>
+      <div class="summary-value val-assets" id="sum-assets">₹ 0</div>
+    </div>
+    <div class="summary-card">
+      <div class="summary-label">Total Liabilities</div>
+      <div class="summary-value val-liabilities" id="sum-liabilities">₹ 0</div>
+    </div>
+    <div class="summary-card highlight">
+      <div class="summary-label">Your Net Worth</div>
+      <div class="summary-value val-networth" id="sum-networth">₹ 0</div>
+    </div>
+  </div>
+
+  <!-- FUTURE PROJECTION -->
+  <div class="card">
+    <div class="card-title">📈 Future Projection</div>
+
+    <div class="projection-bar">
+      <div class="form-group">
+        <label class="form-label">Asset Growth Rate (%/yr)</label>
+        <input type="number" id="asset-growth" class="form-input" value="0" min="0" max="100" oninput="updateProjection()" placeholder="e.g. 10">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Liability Growth Rate (%/yr)</label>
+        <input type="number" id="liability-growth" class="form-input" value="0" min="0" max="100" oninput="updateProjection()" placeholder="e.g. 3">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Projection Years</label>
+        <input type="number" id="projection-years" class="form-input" value="5" min="1" max="30" oninput="updateProjection()" placeholder="e.g. 5">
+      </div>
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="projectionChart"></canvas>
+    </div>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-label">Projected Assets <span id="proj-yr">(Yr 5)</span></div>
+        <div class="summary-value val-assets" id="proj-assets">₹ 0</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-label">Projected Liabilities <span id="proj-yr2">(Yr 5)</span></div>
+        <div class="summary-value val-liabilities" id="proj-liabilities">₹ 0</div>
+      </div>
+      <div class="summary-card highlight">
+        <div class="summary-label">Projected Net Worth <span id="proj-yr3">(Yr 5)</span></div>
+        <div class="summary-value val-networth" id="proj-networth">₹ 0</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-card">
+    <h2>ℹ️ About Net Worth Calculation</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <strong>What is Net Worth?</strong>
+        <p>Net worth is the total value of all your assets minus your liabilities. It represents your true financial standing at any point in time.</p>
+      </div>
+      <div class="info-item">
+        <strong>Assets &amp; Liabilities</strong>
+        <p>Assets include real estate, investments, cash, vehicles and gold. Liabilities cover loans, credit card dues, tax payables and other obligations.</p>
+      </div>
+      <div class="info-item">
+        <strong>Why Track Net Worth?</strong>
+        <p>Regular tracking helps you monitor progress, set meaningful goals, plan for retirement, and make confident, informed financial decisions.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+  /* ══════════════════════════════════════
+     Net Worth Calculator — Logic
+  ══════════════════════════════════════ */
+
+  let chart = null;
+
+  /* ── Currency formatter ── */
+  const fmt = v =>
+    '₹ ' + new Intl.NumberFormat('en-IN').format(Math.round(v));
+
+  /* ── Collect all inputs and recalculate ── */
+  function calculate() {
+    let A = 0, L = 0;
+    document.querySelectorAll('.asset-input').forEach(i => A += parseFloat(i.value) || 0);
+    document.querySelectorAll('.liability-input').forEach(i => L += parseFloat(i.value) || 0);
+    const NW = A - L;
+
+    document.getElementById('total-assets').textContent     = fmt(A);
+    document.getElementById('total-liabilities').textContent= fmt(L);
+    document.getElementById('sum-assets').textContent       = fmt(A);
+    document.getElementById('sum-liabilities').textContent  = fmt(L);
+    document.getElementById('sum-networth').textContent     = fmt(NW);
+
+    const mx = Math.max(A, L, 1);
+    document.getElementById('assets-bar').style.width      = (A / mx * 100) + '%';
+    document.getElementById('liabilities-bar').style.width = (L / mx * 100) + '%';
+
+    updateProjection();
+  }
+
+  /* ── Projection ── */
+  function updateProjection() {
+    const A   = [...document.querySelectorAll('.asset-input')].reduce((s,i) => s + (parseFloat(i.value)||0), 0);
+    const L   = [...document.querySelectorAll('.liability-input')].reduce((s,i) => s + (parseFloat(i.value)||0), 0);
+    const ag  = parseFloat(document.getElementById('asset-growth').value)    || 0;
+    const lg  = parseFloat(document.getElementById('liability-growth').value) || 0;
+    const yrs = parseInt(document.getElementById('projection-years').value)  || 5;
+
+    const pA  = A * Math.pow(1 + ag / 100, yrs);
+    const pL  = L * Math.pow(1 + lg / 100, yrs);
+    const pNW = pA - pL;
+
+    const label = `(Yr ${yrs})`;
+    document.getElementById('proj-yr').textContent  = label;
+    document.getElementById('proj-yr2').textContent = label;
+    document.getElementById('proj-yr3').textContent = label;
+    document.getElementById('proj-assets').textContent      = fmt(pA);
+    document.getElementById('proj-liabilities').textContent = fmt(pL);
+    document.getElementById('proj-networth').textContent    = fmt(pNW);
+
+    renderChart(A, L, yrs, ag, lg);
+  }
+
+  /* ── Chart ── */
+  function renderChart(A, L, yrs, ag, lg) {
+    const labels = [], aData = [], lData = [];
+    for (let i = 0; i <= yrs; i++) {
+      labels.push('Yr ' + i);
+      aData.push(A * Math.pow(1 + ag / 100, i));
+      lData.push(L * Math.pow(1 + lg / 100, i));
+    }
+
+    const ctx = document.getElementById('projectionChart').getContext('2d');
+
+    if (chart) {
+      chart.data.labels = labels;
+      chart.data.datasets[0].data = aData;
+      chart.data.datasets[1].data = lData;
+      chart.update('none');
+      return;
+    }
+
+    chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Assets',
+            data: aData,
+            borderColor: '#059669',
+            backgroundColor: 'rgba(5,150,105,0.08)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#059669',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5
+          },
+          {
+            label: 'Liabilities',
+            data: lData,
+            borderColor: '#dc2626',
+            backgroundColor: 'rgba(220,38,38,0.07)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#dc2626',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            labels: {
+              font: { family: "'DM Sans',sans-serif", size: 12, weight: '600' },
+              padding: 16,
+              color: '#334155'
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: ctx => ' ' + fmt(ctx.parsed.y)
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              callback: v => v >= 1e7 ? '₹'+(v/1e7).toFixed(1)+'Cr'
+                           : v >= 1e5 ? '₹'+(v/1e5).toFixed(1)+'L'
+                           : '₹'+v,
+              font: { family: "'DM Sans',sans-serif", size: 11 },
+              color: '#64748b'
+            },
+            grid: { color: 'rgba(201,168,76,0.08)' }
+          },
+          x: {
+            ticks: { font: { family: "'DM Sans',sans-serif", size: 11 }, color: '#64748b' },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+  }
+
+  /* ── Add custom row ── */
+  function addRow(type) {
+    const id = type[0] + Date.now();
+    const container = document.getElementById('custom-' + (type === 'asset' ? 'assets' : 'liabilities'));
+    const cls = type === 'asset' ? 'asset-input' : 'liability-input';
+    const placeholder = type === 'asset' ? 'e.g. Provident Fund' : 'e.g. Education Loan';
+    const div = document.createElement('div');
+    div.className = 'custom-row';
+    div.id = 'row-' + id;
+    div.innerHTML = `
+      <input type="text"   placeholder="${placeholder}" style="max-width:180px;">
+      <input type="number" class="${cls}" placeholder="₹ 0" min="0" oninput="calculate()">
+      <button class="btn-remove" onclick="removeRow('${id}')">✕ Remove</button>
+    `;
+    container.appendChild(div);
+  }
+
+  /* ── Remove custom row ── */
+  function removeRow(id) {
+    const el = document.getElementById('row-' + id);
+    if (el) { el.remove(); calculate(); }
+  }
+
+  /* ── Wire static inputs ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.asset-input, .liability-input').forEach(inp => {
+      inp.addEventListener('input', calculate);
+    });
+    calculate();
+  });
+</script>
+
+</body>
+</html>
