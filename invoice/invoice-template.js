@@ -1,5 +1,6 @@
 let services = [{ desc: '', amount: '' }];
-const ACCESS_STORAGE_KEY = 'mk_invoice_access_granted';
+// Front-end gate only: store the password as a hash, not plain text.
+//const ACCESS_STORAGE_KEY = 'mk_invoice_access_granted';
 const ACCESS_PASSWORD_HASH = '3d52da7626f95953f8d7acbfdb4ac22e624162b57c2efa24f55a5aab21c84d86';
 let hasInitialized = false;
 
@@ -181,6 +182,7 @@ function buildPrintHTML(invoiceHTML) {
 }
 
 async function sha256Hex(value) {
+  // Hash the entered password in the browser before comparison.
   const bytes = new TextEncoder().encode(value);
   const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
   return Array.from(new Uint8Array(hashBuffer))
@@ -189,6 +191,7 @@ async function sha256Hex(value) {
 }
 
 function unlockApp() {
+  // Unlock the UI and initialize invoice defaults only once.
   document.body.classList.remove('app-locked');
   if (!hasInitialized) {
     hasInitialized = true;
@@ -201,9 +204,11 @@ async function submitAccessGate() {
   const error = document.getElementById('gate-error');
   const entered = input ? input.value : '';
 
+  // Compare the entered password hash with the stored hash.
   const enteredHash = await sha256Hex(entered);
   if (enteredHash === ACCESS_PASSWORD_HASH) {
-    localStorage.setItem(ACCESS_STORAGE_KEY, 'true');
+    // Previous "remember access" version kept a browser flag here:
+    // localStorage.setItem('mk_invoice_access_granted', 'true');
     if (error) error.textContent = '';
     if (input) input.value = '';
     unlockApp();
@@ -224,11 +229,12 @@ function setupAccessGate() {
     });
   }
 
-  if (localStorage.getItem(ACCESS_STORAGE_KEY) === 'true') {
-    unlockApp();
-    return;
-  }
-
+  // Current behavior: ask for the password on every page open/refresh.
+  // If you ever want to remember access again, you can restore:
+  // if (localStorage.getItem('mk_invoice_access_granted') === 'true') {
+  //   unlockApp();
+  //   return;
+  // }
   document.body.classList.add('app-locked');
 }
 
