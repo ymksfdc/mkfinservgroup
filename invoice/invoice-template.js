@@ -1,4 +1,7 @@
 let services = [{ desc: '', amount: '' }];
+const ACCESS_STORAGE_KEY = 'mk_invoice_access_granted';
+const ACCESS_PASSWORD_HASH = '3d52da7626f95953f8d7acbfdb4ac22e624162b57c2efa24f55a5aab21c84d86';
+let hasInitialized = false;
 
 function val(id) {
   const el = document.getElementById(id);
@@ -177,6 +180,58 @@ function buildPrintHTML(invoiceHTML) {
   ].join('\n');
 }
 
+async function sha256Hex(value) {
+  const bytes = new TextEncoder().encode(value);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+function unlockApp() {
+  document.body.classList.remove('app-locked');
+  if (!hasInitialized) {
+    hasInitialized = true;
+    init();
+  }
+}
+
+async function submitAccessGate() {
+  const input = document.getElementById('gate-password');
+  const error = document.getElementById('gate-error');
+  const entered = input ? input.value : '';
+
+  const enteredHash = await sha256Hex(entered);
+  if (enteredHash === ACCESS_PASSWORD_HASH) {
+    localStorage.setItem(ACCESS_STORAGE_KEY, 'true');
+    if (error) error.textContent = '';
+    if (input) input.value = '';
+    unlockApp();
+    return;
+  }
+
+  if (error) error.textContent = 'Incorrect password. Access is restricted.';
+}
+
+function setupAccessGate() {
+  const input = document.getElementById('gate-password');
+  if (input) {
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        submitAccessGate();
+      }
+    });
+  }
+
+  if (localStorage.getItem(ACCESS_STORAGE_KEY) === 'true') {
+    unlockApp();
+    return;
+  }
+
+  document.body.classList.add('app-locked');
+}
+
 async function generatePDF() {
   const toast = document.getElementById('toast');
   const missingFields = getMissingRequiredFields();
@@ -272,4 +327,4 @@ function init() {
   render();
 }
 
-init();
+setupAccessGate();
