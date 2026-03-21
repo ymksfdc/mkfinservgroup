@@ -1,4 +1,4 @@
-# Security Policy
+﻿# Security Policy
 
 **Last Updated**: March 2026
 
@@ -28,24 +28,61 @@ Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tailw
 
 All external CDN resources are pinned with cryptographic hashes to prevent tampering:
 
-- ✅ Tailwind CSS with SRI hash
-- ✅ Phosphor Icons with SRI hash
-- ✅ Chart.js with SRI hash
-- ✅ html2canvas with SRI hash
+- âœ… Tailwind CSS with SRI hash
+- âœ… Phosphor Icons with SRI hash
+- âœ… Chart.js with SRI hash
+- âœ… html2canvas with SRI hash
 
 ### Data Security
 
-- ✅ HTTPS/TLS enforced on all pages
-- ✅ No sensitive data stored in local storage without user consent
-- ✅ Form submissions use industry-standard Formspree service
-- ✅ Third-party scripts loaded with `crossorigin="anonymous"`
+- âœ… HTTPS/TLS enforced on all pages
+- âœ… No sensitive data stored in local storage without user consent
+- âœ… Form submissions use industry-standard Formspree service
+- âœ… Third-party scripts loaded with `crossorigin="anonymous"`
 
 ### Content Security
 
-- ✅ Safe DOM manipulation (textContent used instead of innerHTML)
-- ✅ No inline event handlers (`oninput`, `onclick` being migrated)
-- ✅ Google Analytics loaded with GTM for consent management
-- ✅ No hardcoded secrets in client-side code
+- âœ… Safe DOM manipulation (textContent used instead of innerHTML)
+- âœ… No inline event handlers (`oninput`, `onclick` being migrated)
+- âœ… Google Analytics loaded with GTM for consent management
+- âœ… No hardcoded secrets in client-side code
+
+## Invoice Password Section
+
+The `/invoice/` tool uses a front-end password gate intended only as a light access restriction layer for approved users. This is not a substitute for real server-side authentication.
+
+### Current Implementation
+
+- The invoice access gate validates the entered password in the browser
+- The actual plain password is not stored directly in code
+- The file [invoice-template.js](/c:/VS%20Code/Mk%20FinServ%20Group/mkfinservgroup/invoice/invoice-template.js) stores only a SHA-256 hash in `ACCESS_PASSWORD_HASH`
+
+### How To Change The Invoice Password
+
+1. Choose the new plain password you want to use
+2. Generate its SHA-256 hash in PowerShell:
+
+```powershell
+$text = 'your-new-password-here'
+$bytes = [System.Text.Encoding]::UTF8.GetBytes($text)
+$hash = [System.Security.Cryptography.SHA256]::Create().ComputeHash($bytes)
+-join ($hash | ForEach-Object { $_.ToString('x2') })
+```
+
+3. Copy the generated hash
+4. Open [invoice-template.js](/c:/VS%20Code/Mk%20FinServ%20Group/mkfinservgroup/invoice/invoice-template.js)
+5. Replace the value of:
+
+```js
+const ACCESS_PASSWORD_HASH = '...';
+```
+
+6. Refresh the `/invoice/` page after deployment
+
+### Important Note
+
+- Because this is a front-end gate, a technical user may still inspect or bypass it
+- If stronger protection is needed later, move `/invoice/` behind real authentication such as Cloudflare Access or a private backend
 
 ## Third-Party Services
 
@@ -85,3 +122,4 @@ This site uses the following trusted services:
 | Date     | Changes                                     |
 | -------- | ------------------------------------------- |
 | Mar 2026 | Initial security audit & SRI implementation |
+
