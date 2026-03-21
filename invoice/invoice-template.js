@@ -113,6 +113,25 @@ function resetForm() {
   render();
 }
 
+function getMissingRequiredFields() {
+  const missing = [];
+
+  if (!val('f-invno').trim()) missing.push('Invoice No.');
+  if (!val('f-invdate')) missing.push('Invoice Date');
+  if (!val('f-paydate')) missing.push('Payment Date');
+  if (!val('f-paymode')) missing.push('Payment Mode');
+  if (!val('f-cname').trim()) missing.push('Client Name');
+  if (!val('f-caddr').trim()) missing.push('Client Address / Contact');
+
+  const hasValidAmount = services.some((service) => {
+    const amount = parseFloat(service.amount);
+    return Number.isFinite(amount) && amount > 0;
+  });
+  if (!hasValidAmount) missing.push('Amount (INR)');
+
+  return missing;
+}
+
 async function waitForImages(root) {
   const images = Array.from(root.querySelectorAll('img'));
   await Promise.all(images.map((img) => {
@@ -160,6 +179,14 @@ function buildPrintHTML(invoiceHTML) {
 
 async function generatePDF() {
   const toast = document.getElementById('toast');
+  const missingFields = getMissingRequiredFields();
+  if (missingFields.length) {
+    toast.textContent = `Please fill: ${missingFields.join(', ')}`;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+    return;
+  }
+
   toast.textContent = 'Generating PDF...';
   toast.classList.add('show');
 
